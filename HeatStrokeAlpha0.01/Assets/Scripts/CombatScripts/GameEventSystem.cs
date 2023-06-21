@@ -11,8 +11,13 @@ public class GameEventSystem : MonoBehaviour
     {
         current = this;
     }
+    //player Turn related actions
+    public event Action onUnitsDeployed;
 
+    //Enemy Turn related actions
     public event Action onSpawnEnemies;
+
+    //Map Related actions
     public event Action onGridGenerated;
 
     public void generatedGrid()
@@ -29,6 +34,15 @@ public class GameEventSystem : MonoBehaviour
         if (onSpawnEnemies != null)
         {
             onSpawnEnemies();
+        }
+    }
+
+    public void deployUnits()
+    {
+        Debug.Log("startPhase triggered");
+        if(onUnitsDeployed != null)
+        {
+            onUnitsDeployed();
         }
     }
 }

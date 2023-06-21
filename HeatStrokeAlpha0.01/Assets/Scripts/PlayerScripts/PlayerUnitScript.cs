@@ -16,10 +16,18 @@ public class PlayerUnitScript : MonoBehaviour
     public bool canMove, hasAttacked, isAttacking;
     public bool isSelected;
 
+
+    //Creating templates for the attack script so that i can use it later, might delete, idk
     public void PrimeWeapon()
     {
         isAttacking = true;
         Debug.Log("Weapon of" + gameObject.name + "is primed");
+    }
+
+    public void UnPrimeWeapon()
+    {
+        isAttacking = false;
+        Debug.Log("Weapon of" + gameObject.name + "is unprimed");
     }
 
     public void Attack(HideAndShowScript targetTile)

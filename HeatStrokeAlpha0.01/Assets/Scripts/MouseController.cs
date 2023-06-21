@@ -13,11 +13,13 @@ public class MouseController : MonoBehaviour
 {
     public GameObject playerUnitPrefab;
     private PlayerUnitScript pUnit;
+
     public float speed;
     public GameObject cursor;
 
     private AStarPathfinder pathFinder;
     private RangefinderMovement rangeFinder;
+
     private List<HideAndShowScript> path;
     private List<HideAndShowScript> inRangeTiles = new List<HideAndShowScript>();
 
@@ -70,6 +72,7 @@ public class MouseController : MonoBehaviour
         }
     }
 
+    //Moves an entity along the path setup by the A* pathfinding script, also utilizes the MapManager getInRangeTiles() function to retrieve the positions of tiles near the Unit.
     private void MoveAlongPath()
     {
         var step = speed * Time.deltaTime;
@@ -99,11 +102,29 @@ public class MouseController : MonoBehaviour
             item.HideTile();
         }
 
-        inRangeTiles = rangeFinder.GetTilesInRange(pUnit.activeTile, 3);
+        inRangeTiles = rangeFinder.GetTilesInRange(pUnit.activeTile, pUnit.movementRange);
 
         foreach (var item in inRangeTiles)
         {
             item.ShowTile();
+        }
+    }
+
+    private void ShowInRangetiles()
+    {
+        inRangeTiles = rangeFinder.GetTilesInRange(pUnit.activeTile, pUnit.movementRange);
+        foreach (var item in inRangeTiles)
+        {
+            item.HideTile();
+        }
+    }
+
+    private void HideInRangeTiles()
+    {
+        inRangeTiles = rangeFinder.GetTilesInRange(pUnit.activeTile, pUnit.movementRange);
+        foreach (var item in inRangeTiles)
+        {
+            item.HideTile();
         }
     }
 
@@ -128,8 +149,8 @@ public class MouseController : MonoBehaviour
     //This function adjusts the position of the character/unit on the gameplay tile
     private void PositionCharacterOnTile(HideAndShowScript tile)
     {
-        pUnit.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z+1);
-        pUnit.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder+1;
+        pUnit.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z + 1);
+        pUnit.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 1;
         pUnit.activeTile = tile;
     }
 

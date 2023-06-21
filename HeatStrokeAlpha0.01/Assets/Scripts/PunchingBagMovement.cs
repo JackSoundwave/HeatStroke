@@ -25,9 +25,6 @@ public class PunchingBagMovement : MonoBehaviour
         rangeFinder = new RangefinderMovement();
 
         enemyUnit = GetComponent<EnemyUnitScript>();
-        Debug.Log("Getting movement range: " + enemyUnit.movementRange);
-        Debug.Log("Getting activeTile: " + enemyUnit.activeTile);
-        Debug.Log("Getting Rangefinder :" + rangeFinder);
     }
 
     void Update()
@@ -115,17 +112,21 @@ public class PunchingBagMovement : MonoBehaviour
 
     private void GetInRangeTiles()
     {
-        foreach (var item in inRangeTiles)
+        //This line below shows the in range tiles for movement of the Enemy Unit, causes issues UI wise, with the player movement, so I disabled it for now
+
+        /*foreach (var item in inRangeTiles)
         {
             item.HideTile();
-        }
+        }*/
 
         inRangeTiles = rangeFinder.GetTilesInRange(enemyUnit.activeTile, 3);
 
-        foreach (var item in inRangeTiles)
+        //This line below shows the in range tiles for movement of the Enemy Unit, causes issues UI wise, with the player movement, so I disabled it for now
+
+        /*foreach (var item in inRangeTiles)
         {
-            item.ShowTile();
-        }
+           item.ShowTile();
+        }*/
     }
 
     //This function adjusts the position of the character/unit on the gameplay tile
