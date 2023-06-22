@@ -86,7 +86,11 @@ GameObject:
   m_Component:
   - component: {fileID: 488648117326421834}
   - component: {fileID: 4623859697191311324}
+<<<<<<< Updated upstream
   - component: {fileID: 8693840542181858918}
+=======
+  - component: {fileID: 2043960253756938039}
+>>>>>>> Stashed changes
   m_Layer: 0
   m_Name: potato
   m_TagString: Untagged
@@ -108,7 +112,11 @@ Transform:
   m_Children:
   - {fileID: 1732077689862542645}
   m_Father: {fileID: 0}
+<<<<<<< Updated upstream
   m_RootOrder: 0
+=======
+  m_RootOrder: 3
+>>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4623859697191311324
 SpriteRenderer:
@@ -151,7 +159,11 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+<<<<<<< Updated upstream
   m_Sprite: {fileID: 21300000, guid: 5726e846df26ea34795e58711de4b25d, type: 3}
+=======
+  m_Sprite: {fileID: 21300000, guid: e731f29e1f62aa1478f9f35ca149f63c, type: 3}
+>>>>>>> Stashed changes
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -162,7 +174,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+<<<<<<< Updated upstream
 --- !u!114 &8693840542181858918
+=======
+--- !u!114 &2043960253756938039
+>>>>>>> Stashed changes
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -171,12 +187,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1131265633020022680}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< Updated upstream
   m_Script: {fileID: 11500000, guid: 9f26bc59513b1a5439498fb5d89b6cd9, type: 3}
+=======
+  m_Script: {fileID: 11500000, guid: df243fcfd26f4684298bba28029ba2b2, type: 3}
+>>>>>>> Stashed changes
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
+<<<<<<< Updated upstream
   healthBar: {fileID: 2121575843651217261}
+=======
+  healthBar: {fileID: 2971893251080441462}
+>>>>>>> Stashed changes
 --- !u!1 &2353793007665148078
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +213,11 @@ GameObject:
   - component: {fileID: 8886075555056791876}
   - component: {fileID: 8962292758692651431}
   m_Layer: 5
+<<<<<<< Updated upstream
   m_Name: Heart
+=======
+  m_Name: Image
+>>>>>>> Stashed changes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -243,7 +271,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< Updated upstream
   m_Sprite: {fileID: 21300000, guid: 35ca656f85fac9340a61899c7ed5d45c, type: 3}
+=======
+  m_Sprite: {fileID: 21300000, guid: 01fe9bfa5cb74d048b94f612b824edd1, type: 3}
+>>>>>>> Stashed changes
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -319,7 +351,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< Updated upstream
   m_Sprite: {fileID: 21300000, guid: 731419b7062c6494e9a8206d106e5138, type: 3}
+=======
+  m_Sprite: {fileID: 21300000, guid: 1cc3282248767284995513ebebef2937, type: 3}
+>>>>>>> Stashed changes
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -432,7 +468,11 @@ GameObject:
   - component: {fileID: 8840156781786094889}
   - component: {fileID: 8858328348814236037}
   - component: {fileID: 326975748215831999}
+<<<<<<< Updated upstream
   - component: {fileID: 2121575843651217261}
+=======
+  - component: {fileID: 2971893251080441462}
+>>>>>>> Stashed changes
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -524,7 +564,11 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+<<<<<<< Updated upstream
 --- !u!114 &2121575843651217261
+=======
+--- !u!114 &2971893251080441462
+>>>>>>> Stashed changes
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -533,21 +577,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 6432003117349488145}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< Updated upstream
   m_Script: {fileID: 11500000, guid: 95960fc806f1ce440bea09d4958b4ccf, type: 3}
+=======
+  m_Script: {fileID: 11500000, guid: 772bd17ca72245447b7f9afa3a2a2ee7, type: 3}
+>>>>>>> Stashed changes
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 1259129152995668499}
   gradient:
     serializedVersion: 2
     key0: {r: 0.93725497, g: 0.058823533, b: 0.11764707, a: 1}
+<<<<<<< Updated upstream
     key1: {r: 0.9686275, g: 1, b: 0, a: 1}
     key2: {r: 0, g: 1, b: 0.024693727, a: 0}
+=======
+    key1: {r: 0.9689878, g: 1, b: 0, a: 1}
+    key2: {r: 0.0151975155, g: 1, b: 0, a: 0}
+>>>>>>> Stashed changes
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
+<<<<<<< Updated upstream
     ctime0: 21843
+=======
+    ctime0: 21823
+>>>>>>> Stashed changes
     ctime1: 43646
     ctime2: 65535
     ctime3: 0

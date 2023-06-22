@@ -29,6 +29,10 @@ public class DefenceStructure : MonoBehaviour
     {
         currentHealth -= damage;
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         healthBar.SetHealth(currentHealth);
         if (currentHealth <= 0)
         {
@@ -40,6 +44,9 @@ public class DefenceStructure : MonoBehaviour
         //DESTRYED WHEN HEALTH = 0
         Destroy(gameObject);
     }
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
 }
