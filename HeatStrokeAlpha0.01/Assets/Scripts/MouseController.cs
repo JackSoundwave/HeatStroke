@@ -22,6 +22,7 @@ public class MouseController : MonoBehaviour
 
     private List<HideAndShowScript> path;
     private List<HideAndShowScript> inRangeTiles = new List<HideAndShowScript>();
+    private Camera mainCamera;
 
     // Start is called before the first frame update
     void Start()
@@ -30,48 +31,63 @@ public class MouseController : MonoBehaviour
         path = new List<HideAndShowScript>();
         rangeFinder = new RangefinderMovement();
         inRangeTiles = new List<HideAndShowScript>();
+        mainCamera = Camera.main;
     }
 
     // LateUpdate is called at the END of a previous update function call.
-    void LateUpdate()
+     void LateUpdate()
+     {
+         var focusedTileHit = GetFocusedOnTile();
+         Debug.Log("FocusedTileHit value: " + focusedTileHit);
+
+         if (focusedTileHit.HasValue)
+         {
+             HideAndShowScript overlayTile = focusedTileHit.Value.collider.gameObject.GetComponent<HideAndShowScript>();
+             transform.position = overlayTile.transform.position;
+             gameObject.GetComponent<SpriteRenderer>().sortingOrder = overlayTile.GetComponent<SpriteRenderer>().sortingOrder+1;
+
+             if (Input.GetMouseButtonDown(0))
+             {
+                 //This call essentially means it's getting the component WITHIN the hide&show script
+                 //To be quite honest, it's more accurate to call that script OverlayTileScript instead
+                 //I kinda messed up there, really sorry guys.
+
+                 //Commenting out the line before because it's creating bugs with the MoveMentRangeFinder and AStarPathfinder scripts
+                 //overlayTile.GetComponent<HideAndShowScript>().ShowTile();
+                 if(pUnit == null)
+                 {
+                     pUnit = Instantiate(playerUnitPrefab).GetComponent<PlayerUnitScript>();
+                     PositionCharacterOnTile(overlayTile);
+                     GetInRangeTiles();
+                 } else
+                 {
+                     //Debug.Log("Checking path value before: " + path);
+                     path = pathFinder.FindPath(pUnit.activeTile, overlayTile, inRangeTiles);
+                     //Debug.Log("Checking path value after: " + path);
+                 }
+
+             }
+         }
+
+         if (path.Count > 0)
+         {
+             MoveAlongPath();
+         }
+     }
+
+   /* void LateUpdate()
     {
         var focusedTileHit = GetFocusedOnTile();
-        Debug.Log("FocusedTileHit value: " + focusedTileHit);
-        
+
         if (focusedTileHit.HasValue)
         {
             HideAndShowScript overlayTile = focusedTileHit.Value.collider.gameObject.GetComponent<HideAndShowScript>();
             transform.position = overlayTile.transform.position;
             gameObject.GetComponent<SpriteRenderer>().sortingOrder = overlayTile.GetComponent<SpriteRenderer>().sortingOrder+1;
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                //This call essentially means it's getting the component WITHIN the hide&show script
-                //To be quite honest, it's more accurate to call that script OverlayTileScript instead
-                //I kinda messed up there, really sorry guys.
-
-                //Commenting out the line before because it's creating bugs with the MoveMentRangeFinder and AStarPathfinder scripts
-                //overlayTile.GetComponent<HideAndShowScript>().ShowTile();
-                if(pUnit == null)
-                {
-                    pUnit = Instantiate(playerUnitPrefab).GetComponent<PlayerUnitScript>();
-                    PositionCharacterOnTile(overlayTile);
-                    GetInRangeTiles();
-                } else
-                {
-                    //Debug.Log("Checking path value before: " + path);
-                    path = pathFinder.FindPath(pUnit.activeTile, overlayTile, inRangeTiles);
-                    //Debug.Log("Checking path value after: " + path);
-                }
-                
-            }
+            if (Input.GetMouse)
         }
-
-        if (path.Count > 0)
-        {
-            MoveAlongPath();
-        }
-    }
+    }*/
 
     //Moves an entity along the path setup by the A* pathfinding script, also utilizes the MapManager getInRangeTiles() function to retrieve the positions of tiles near the Unit.
     private void MoveAlongPath()
@@ -137,6 +153,7 @@ public class MouseController : MonoBehaviour
         //To tell you what's happening here, essentially we're getting the position of the mouse relative to 3D coordinates
         //Although, since we want the position of the mouse in 2D terms, we switch it from Vector3, which is 3D, to Vector2, which is 2d.
         //we also use raycast to actually "select" the tile to focus on it as well.
+        //This runs every frame and acts as a "mouseover" function for the cursor. B)
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 mousePos2d = new Vector2(mousePos.x, mousePos.y);
 

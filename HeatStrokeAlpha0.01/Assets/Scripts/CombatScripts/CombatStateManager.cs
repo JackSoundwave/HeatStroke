@@ -20,7 +20,7 @@ public class CombatStateManager : MonoBehaviour
 
     private void Start()
     {
-        UpdateCombatState(CombatState.DeployPhase);
+        UpdateCombatState(CombatState.PlayerTurn);
     }
 
     public void UpdateCombatState(CombatState newState)
@@ -30,6 +30,7 @@ public class CombatStateManager : MonoBehaviour
         switch (newState)
         {
             case CombatState.DeployPhase:
+                HandleDeployPhase();
                 break;
             case CombatState.PlayerTurn:
                 HandlePlayerTurn();
@@ -47,23 +48,36 @@ public class CombatStateManager : MonoBehaviour
 
         OnCombatStateChanged?.Invoke(newState);
     }
-
+    
+    private void HandleDeployPhase()
+    {
+        //pretend stuff happens here
+        CSInstance.UpdateCombatState(CombatState.PlayerTurn);
+    }
     private void HandlePlayerTurn()
     {
-
+        Debug.Log("Player turn started");
+        Debug.Log("State value:");
+        
     }
 
     private void HandleEnemyTurn()
     {
-
+        Debug.Log("Enemy Turn Started");
     }
 }
-
+/*
+ * Context:
+ * Deploy phase = Deployment part, similar to Into The Breach
+ * PlayerTurn, EnemyTurn, Victory, Lose = self explanatory.
+ * Decide = Runs checks to see if the game should keep going (i.e if HeatGauge == max, immediately trigger lose state)
+ */
 public enum CombatState
 {
     DeployPhase,
     PlayerTurn,
     EnemyTurn,
+    Decide,
     Victory,
     Lose
 }

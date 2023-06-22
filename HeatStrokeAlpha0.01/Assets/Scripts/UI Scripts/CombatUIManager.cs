@@ -5,21 +5,49 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EndTurnButtonScript : MonoBehaviour
+public class CombatUIManager : MonoBehaviour
 {
     [SerializeField] private Button _endTurnButton;
-    [SerializeField] private TextMeshProUGUI _combatstateText;
+    [SerializeField] private TextMeshProUGUI combatStateText;
     [SerializeField] private Button _primeAttackButton;
 
-    // Start is called before the first frame update
+    private CombatState currentCombatState;
+
     void Awake()
     {
         CombatStateManager.OnCombatStateChanged += CombatStateManagerOnOnCombatStateChanged;
+        CombatStateManager.OnCombatStateChanged += UpdateCombatStateText;
+
+        UpdateCombatStateText(CombatStateManager.CSInstance.State);
     }
 
-    private void OnDestroy()
+    void OnDestroy()
     {
-        
+        CombatStateManager.OnCombatStateChanged -= CombatStateManagerOnOnCombatStateChanged;
+    }
+
+    private void UpdateCombatStateText(CombatState newState)
+    {
+        combatStateText.text = GetCombatStateText(newState);
+    }
+
+    private string GetCombatStateText(CombatState state)
+    {
+        switch (state)
+        {
+            case CombatState.DeployPhase:
+                return "Deploy Phase";
+            case CombatState.PlayerTurn:
+                return "Player's Turn";
+            case CombatState.EnemyTurn:
+                return "Enemy's Turn";
+            case CombatState.Victory:
+                return "Victory!";
+            case CombatState.Lose:
+                return "Defeated";
+            default:
+                return "Unknown State";
+        }
     }
 
     private void CombatStateManagerOnOnCombatStateChanged(CombatState state)
@@ -27,6 +55,11 @@ public class EndTurnButtonScript : MonoBehaviour
         //These two lines basically say "if the current state is the player turn, then the button is interactable, otherwise, the player can't click those buttons if it's not their turn.
         _primeAttackButton.interactable = state == CombatState.PlayerTurn;
         _endTurnButton.interactable = state == CombatState.PlayerTurn;
+    }
+
+    public void EndTurn()
+    {
+        CombatStateManager.CSInstance.UpdateCombatState(CombatState.EnemyTurn);
     }
     
     public void PrimeAttackButtonPressed()

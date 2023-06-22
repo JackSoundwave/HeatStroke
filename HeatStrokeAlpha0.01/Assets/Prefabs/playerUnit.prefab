@@ -104,5 +104,6 @@ MonoBehaviour:
   attackRange: 1
   canMove: 1
   hasAttacked: 0
-  isAttacking: 0
+  attackPrimed: 0
   isSelected: 0
+  isAttacking: 0
