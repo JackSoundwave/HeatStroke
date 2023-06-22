@@ -35,7 +35,7 @@ public class PunchingBagMovement : MonoBehaviour
         if (!hasMoved)
         {
             FindPathToPlayer();
-            Debug.Log("Path value: " + path);
+            //Debug.Log("Path value: " + path);
         }
 
         if (hasMoved && path.Count > 0)
@@ -54,12 +54,12 @@ public class PunchingBagMovement : MonoBehaviour
     private void FindPathToPlayer()
     {
         PlayerUnitScript player = FindObjectOfType<PlayerUnitScript>();
-        Debug.Log("Player value: " + player);
+        //Debug.Log("Player value: " + player);
 
         if (player != null)
         {
             path.Clear(); //This removes the previous path
-            Debug.Log("Generating Enemy path value");
+            //Debug.Log("Generating Enemy path value");
 
             pathfinder.FindPath(enemyUnit.activeTile, player.activeTile, inRangeTiles);
             //This grabs the neighbourtiles of the player unit, using the instance2 variable declared in the MapManager script

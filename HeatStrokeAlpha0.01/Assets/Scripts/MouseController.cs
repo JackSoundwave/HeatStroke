@@ -36,6 +36,7 @@ public class MouseController : MonoBehaviour
     void LateUpdate()
     {
         var focusedTileHit = GetFocusedOnTile();
+        Debug.Log("FocusedTileHit value: " + focusedTileHit);
         
         if (focusedTileHit.HasValue)
         {
@@ -58,9 +59,9 @@ public class MouseController : MonoBehaviour
                     GetInRangeTiles();
                 } else
                 {
-                    Debug.Log("Checking path value before: " + path);
+                    //Debug.Log("Checking path value before: " + path);
                     path = pathFinder.FindPath(pUnit.activeTile, overlayTile, inRangeTiles);
-                    Debug.Log("Checking path value after: " + path);
+                    //Debug.Log("Checking path value after: " + path);
                 }
                 
             }
@@ -110,6 +111,7 @@ public class MouseController : MonoBehaviour
         }
     }
 
+    //Not used yet, but will be used soon for the state machine of the player.
     private void ShowInRangetiles()
     {
         inRangeTiles = rangeFinder.GetTilesInRange(pUnit.activeTile, pUnit.movementRange);
@@ -119,6 +121,7 @@ public class MouseController : MonoBehaviour
         }
     }
 
+    //Refer to previous comment.
     private void HideInRangeTiles()
     {
         inRangeTiles = rangeFinder.GetTilesInRange(pUnit.activeTile, pUnit.movementRange);
@@ -154,4 +157,14 @@ public class MouseController : MonoBehaviour
         pUnit.activeTile = tile;
     }
 
+    //Function to select playerUnit
+    private void selectPlayerUnit()
+    {
+
+    }
+
+    private void OnMouseDown()
+    {
+        
+    }
 }

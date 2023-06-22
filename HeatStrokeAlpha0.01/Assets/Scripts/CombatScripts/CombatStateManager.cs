@@ -32,8 +32,10 @@ public class CombatStateManager : MonoBehaviour
             case CombatState.DeployPhase:
                 break;
             case CombatState.PlayerTurn:
+                HandlePlayerTurn();
                 break;
             case CombatState.EnemyTurn:
+                HandleEnemyTurn();
                 break;
             case CombatState.Victory:
                 break;
@@ -44,6 +46,16 @@ public class CombatStateManager : MonoBehaviour
         }
 
         OnCombatStateChanged?.Invoke(newState);
+    }
+
+    private void HandlePlayerTurn()
+    {
+
+    }
+
+    private void HandleEnemyTurn()
+    {
+
     }
 }
 
