@@ -4,6 +4,7 @@ using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+
 public class MapManager : MonoBehaviour
 {
     private static MapManager _instance;
@@ -64,6 +65,10 @@ public class MapManager : MonoBehaviour
                         var overlayTile = Instantiate(overlayTilePrefab, overlayContainer.transform);
                         var cellWorldPosition = tileMap.GetCellCenterWorld(tileLocation);
 
+                        // Check if the tile is blocked by a defense structure
+                        bool isBlockedByStructure = CheckIfBlockedByStructure(cellWorldPosition);
+                        overlayTile.isBlocked = isBlockedByStructure;
+
                         overlayTile.transform.position = new Vector3(cellWorldPosition.x, cellWorldPosition.y, cellWorldPosition.z + 0.0001f);
                         overlayTile.GetComponent<SpriteRenderer>().sortingOrder = tileMap.GetComponent<TilemapRenderer>().sortingOrder;
 
@@ -74,7 +79,7 @@ public class MapManager : MonoBehaviour
 
                         overlayTile.gridLocation = tileLocation;
                         map.Add(tileKey, overlayTile);
-                    }
+                        }
                 }
             }
         }
@@ -173,6 +178,24 @@ public class MapManager : MonoBehaviour
         }
 
         return overlayTiles;
+    }
+
+    private bool CheckIfBlockedByStructure(Vector2 cellWorldPosition)
+    {
+        Collider2D[] colliders = Physics2D.OverlapPointAll(cellWorldPosition);
+
+        foreach (Collider2D collider in colliders)
+        {
+            DefenceStructure defenseStructure = collider.GetComponent<DefenceStructure>();
+            if (defenseStructure != null)
+            {
+                // The tile is blocked by a defense structure
+                return true;
+            }
+        }
+
+        // The tile is not blocked by a defense structure
+        return false;
     }
 
 }
