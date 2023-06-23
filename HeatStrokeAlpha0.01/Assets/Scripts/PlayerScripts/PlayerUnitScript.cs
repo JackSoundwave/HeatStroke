@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,10 +15,32 @@ public class PlayerUnitScript : MonoBehaviour
     //booleans to dictate whether or not the player has moved or has attacked already. canMove is set to true and hasAttacked is set to false.
     //If true, then the event manager tells the MouseController script that the unit can move after being selected.\
     //isAttacking is to determine the current pUnit state. If the unit is attacking, the selected tile afterwards gets an attack on it
-    public bool canMove, hasAttacked, attackPrimed, isSelected, isAttacking;
+    public bool canMove, hasAttacked, attackPrimed, isSelected, isAttacking, isMoving;
+    public Material normal;
+    public Material selected;
 
 
     //Creating templates for the attack script so that i can use it later, might delete, idk
+    private void OnMouseDown()
+    {
+        if (isSelected == true)
+        {
+            isSelected = false;
+        }
+
+        if (isSelected == false)
+        {
+            isSelected = true;
+        }
+    }
+
+    private void Update()
+    {
+        while (isSelected == true)
+        {
+            
+        }
+    }
     public void PrimeWeapon()
     {
         attackPrimed = true;
@@ -46,15 +69,4 @@ public class PlayerUnitScript : MonoBehaviour
             
         }
     }
-
-    /*
-       public void OnMouseDown()
-    {
-        if(this.isSelected == true)
-        {
-            var allPlayerUnits = FindObjectOfType<PlayerUnitScript>();
-            
-        }
-    }
-    */
 }

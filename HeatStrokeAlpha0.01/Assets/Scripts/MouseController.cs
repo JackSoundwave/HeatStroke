@@ -40,11 +40,12 @@ public class MouseController : MonoBehaviour
          var focusedTileHit = GetFocusedOnTile();
          Debug.Log("FocusedTileHit value: " + focusedTileHit);
 
-         if (focusedTileHit.HasValue)
+        if (focusedTileHit.HasValue && focusedTileHit.Value.collider.gameObject.GetComponent<HideAndShowScript>() == true)
          {
-             HideAndShowScript overlayTile = focusedTileHit.Value.collider.gameObject.GetComponent<HideAndShowScript>();
-             transform.position = overlayTile.transform.position;
-             gameObject.GetComponent<SpriteRenderer>().sortingOrder = overlayTile.GetComponent<SpriteRenderer>().sortingOrder+1;
+
+            HideAndShowScript overlayTile = focusedTileHit.Value.collider.gameObject.GetComponent<HideAndShowScript>();
+            transform.position = overlayTile.transform.position;
+            gameObject.GetComponent<SpriteRenderer>().sortingOrder = overlayTile.GetComponent<SpriteRenderer>().sortingOrder+1;
 
              if (Input.GetMouseButtonDown(0))
              {
@@ -67,9 +68,21 @@ public class MouseController : MonoBehaviour
                  }
 
              }
-         }
+         } 
+        else if (focusedTileHit.HasValue && focusedTileHit.Value.collider.gameObject.GetComponent<PlayerUnitScript>() == true)
+        {
+            Debug.Log("Player unit detected!");
+        }
+        else if (focusedTileHit.HasValue && focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>() == true)
+        {
+            Debug.Log("Enemy unit detected!");
+        } 
+        else
+        {
+            Debug.Log("Nothing detected");
+        }
 
-         if (path.Count > 0)
+        if (path.Count > 0)
          {
              MoveAlongPath();
          }

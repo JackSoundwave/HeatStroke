@@ -56,9 +56,7 @@ public class CombatStateManager : MonoBehaviour
     }
     private void HandlePlayerTurn()
     {
-        Debug.Log("Player turn started");
-        Debug.Log("State value:");
-        
+        Debug.Log("Player turn started");        
     }
 
     private void HandleEnemyTurn()
