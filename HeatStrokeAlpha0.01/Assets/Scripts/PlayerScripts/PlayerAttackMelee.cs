@@ -3,8 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class PlayerAttackMelee : MonoBehaviour
+public class PlayerAttackMelee : PlayerUnitBaseState
 {
+    public override void EnterState(PlayerStateManager player)
+    {
+
+    }
+
+    public override void UpdateState(PlayerStateManager player)
+    {
+
+    }
 
     /*
      Pseudocode notes
@@ -35,7 +44,7 @@ public class PlayerAttackMelee : MonoBehaviour
 
         inRangeTiles = new List<HideAndShowScript>();
         attackRangeFinder = new AttackRangeFinder();
-        pUnit = GetComponent<PlayerUnitScript>();
+        //pUnit = GetComponent<PlayerUnitScript>();
 
     }
 

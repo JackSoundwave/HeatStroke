@@ -37,49 +37,51 @@ public class MouseController : MonoBehaviour
     // LateUpdate is called at the END of a previous update function call.
      void LateUpdate()
      {
-         var focusedTileHit = GetFocusedOnTile();
-         Debug.Log("FocusedTileHit value: " + focusedTileHit);
+        var focusedTileHit = GetFocusedOnTile();
+        Debug.Log("FocusedTileHit value: " + focusedTileHit);
 
-        if (focusedTileHit.HasValue && focusedTileHit.Value.collider.gameObject.GetComponent<HideAndShowScript>() == true)
-         {
-
-            HideAndShowScript overlayTile = focusedTileHit.Value.collider.gameObject.GetComponent<HideAndShowScript>();
-            transform.position = overlayTile.transform.position;
-            gameObject.GetComponent<SpriteRenderer>().sortingOrder = overlayTile.GetComponent<SpriteRenderer>().sortingOrder+1;
-
-             if (Input.GetMouseButtonDown(0))
-             {
-                 //This call essentially means it's getting the component WITHIN the hide&show script
-                 //To be quite honest, it's more accurate to call that script OverlayTileScript instead
-                 //I kinda messed up there, really sorry guys.
-
-                 //Commenting out the line before because it's creating bugs with the MoveMentRangeFinder and AStarPathfinder scripts
-                 //overlayTile.GetComponent<HideAndShowScript>().ShowTile();
-                 if(pUnit == null)
-                 {
-                     pUnit = Instantiate(playerUnitPrefab).GetComponent<PlayerUnitScript>();
-                     PositionCharacterOnTile(overlayTile);
-                     GetInRangeTiles();
-                 } else
-                 {
-                     //Debug.Log("Checking path value before: " + path);
-                     path = pathFinder.FindPath(pUnit.activeTile, overlayTile, inRangeTiles);
-                     //Debug.Log("Checking path value after: " + path);
-                 }
-
-             }
-         } 
-        else if (focusedTileHit.HasValue && focusedTileHit.Value.collider.gameObject.GetComponent<PlayerUnitScript>() == true)
+        if (focusedTileHit.HasValue)
         {
-            Debug.Log("Player unit detected!");
-        }
-        else if (focusedTileHit.HasValue && focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>() == true)
-        {
-            Debug.Log("Enemy unit detected!");
-        } 
-        else
-        {
-            Debug.Log("Nothing detected");
+            switch (focusedTileHit.Value.collider.gameObject.GetComponent<MonoBehaviour>())
+            {
+                case HideAndShowScript hideAndShowScript:
+                    transform.position = hideAndShowScript.transform.position;
+                    gameObject.GetComponent<SpriteRenderer>().sortingOrder = hideAndShowScript.GetComponent<SpriteRenderer>().sortingOrder + 1;
+
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        if (pUnit == null)
+                        {
+                            pUnit = Instantiate(playerUnitPrefab).GetComponent<PlayerUnitScript>();
+                            PositionCharacterOnTile(hideAndShowScript);
+                            GetInRangeTiles();
+                        }
+                        else
+                        {
+                            path = pathFinder.FindPath(pUnit.activeTile, hideAndShowScript, inRangeTiles);
+                        }
+                    }
+                    break;
+
+                    //if raycast detects a playerScript attached to a gameObject
+                case PlayerUnitScript _:
+                    Debug.Log("Player unit detected!");
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        pUnit.isSelected = true;
+                    }
+                    break;
+
+                    //if raycast detects an EnemyUnitScript attached to a gameObject
+                case EnemyUnitScript _:
+                    Debug.Log("Enemy unit detected!");
+                    break;
+
+                    //default case so that it still runs despite detecting something invalid (like something out of bounds)
+                default:
+                    Debug.Log("Nothing detected");
+                    break;
+            }
         }
 
         if (path.Count > 0)
@@ -163,10 +165,12 @@ public class MouseController : MonoBehaviour
     public RaycastHit2D? GetFocusedOnTile()
     {
 
-        //To tell you what's happening here, essentially we're getting the position of the mouse relative to 3D coordinates
+        //To tell you what's happening here, essentially we're getting the position of the mouse relative to 3D coordinates, by casting a ray.
         //Although, since we want the position of the mouse in 2D terms, we switch it from Vector3, which is 3D, to Vector2, which is 2d.
         //we also use raycast to actually "select" the tile to focus on it as well.
         //This runs every frame and acts as a "mouseover" function for the cursor. B)
+
+        //Raycasting is extremely similar to how "hitscan" works in video games. It's legitimately the same principle, but instead of using the aiming reticle, we're using the mouse :)
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 mousePos2d = new Vector2(mousePos.x, mousePos.y);
 
@@ -185,16 +189,5 @@ public class MouseController : MonoBehaviour
         pUnit.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z + 1);
         pUnit.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 1;
         pUnit.activeTile = tile;
-    }
-
-    //Function to select playerUnit
-    private void selectPlayerUnit()
-    {
-
-    }
-
-    private void OnMouseDown()
-    {
-        
     }
 }

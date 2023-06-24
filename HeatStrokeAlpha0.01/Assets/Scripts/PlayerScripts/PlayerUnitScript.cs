@@ -10,7 +10,7 @@ public class PlayerUnitScript : MonoBehaviour
     public HideAndShowScript activeTile;
 
     //pretty sure I don't have to explain this
-    public int health, movementRange, attackDmg, attackRange;
+    public int health, movementRange, attackDmg, attackRange, maxHealth;
 
     //booleans to dictate whether or not the player has moved or has attacked already. canMove is set to true and hasAttacked is set to false.
     //If true, then the event manager tells the MouseController script that the unit can move after being selected.\
@@ -19,32 +19,12 @@ public class PlayerUnitScript : MonoBehaviour
     public Material normal;
     public Material selected;
 
-
-    //Creating templates for the attack script so that i can use it later, might delete, idk
-    private void OnMouseDown()
-    {
-        if (isSelected == true)
-        {
-            isSelected = false;
-        }
-
-        if (isSelected == false)
-        {
-            isSelected = true;
-        }
-    }
-
     private void Update()
     {
-        while (isSelected == true)
+        if (health == 0)
         {
-            
+            killSelf();
         }
-    }
-    public void PrimeWeapon()
-    {
-        attackPrimed = true;
-        Debug.Log("Weapon of" + gameObject.name + "is primed");
     }
 
     public void UnPrimeWeapon()
@@ -68,5 +48,10 @@ public class PlayerUnitScript : MonoBehaviour
         {
             
         }
+    }
+    
+    private void killSelf()
+    {
+        Destroy(this);
     }
 }

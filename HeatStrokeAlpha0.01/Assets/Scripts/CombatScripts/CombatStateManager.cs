@@ -20,6 +20,7 @@ public class CombatStateManager : MonoBehaviour
 
     private void Start()
     {
+        //first turn is playerTurn, truthfully it should be the deploy phase, but for now we'll go with PlayerTurn instead.
         UpdateCombatState(CombatState.PlayerTurn);
     }
 
@@ -52,7 +53,6 @@ public class CombatStateManager : MonoBehaviour
     private void HandleDeployPhase()
     {
         //pretend stuff happens here
-        CSInstance.UpdateCombatState(CombatState.PlayerTurn);
     }
     private void HandlePlayerTurn()
     {
