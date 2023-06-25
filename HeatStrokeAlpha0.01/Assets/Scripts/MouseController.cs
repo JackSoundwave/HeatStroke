@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,15 +12,28 @@ using UnityEngine;
 
 public class MouseController : MonoBehaviour
 {
+    //Made MouseController public static because we'll be using it for literally everything in relation to controlling the game.
+    public static MouseController ActiveInstance { get; private set; }
+
+    private void Awake()
+    {
+        ActiveInstance = this;
+    }
+
+    private void OnDestroy()
+    {
+        if (ActiveInstance == this)
+        {
+            ActiveInstance = null;
+        }
+    }
     public GameObject playerUnitPrefab;
     private PlayerUnitScript pUnit;
-
+    public EnemyUnitScript targetedEnemyUnit;
     public float speed;
     public GameObject cursor;
-
     private AStarPathfinder pathFinder;
     private RangefinderMovement rangeFinder;
-
     private List<HideAndShowScript> path;
     private List<HideAndShowScript> inRangeTiles = new List<HideAndShowScript>();
     private Camera mainCamera;
@@ -38,7 +52,6 @@ public class MouseController : MonoBehaviour
      void LateUpdate()
      {
         var focusedTileHit = GetFocusedOnTile();
-        Debug.Log("FocusedTileHit value: " + focusedTileHit);
 
         if (focusedTileHit.HasValue)
         {
@@ -54,27 +67,30 @@ public class MouseController : MonoBehaviour
                         {
                             pUnit = Instantiate(playerUnitPrefab).GetComponent<PlayerUnitScript>();
                             PositionCharacterOnTile(hideAndShowScript);
-                            GetInRangeTiles();
                         }
                         else
                         {
-                            path = pathFinder.FindPath(pUnit.activeTile, hideAndShowScript, inRangeTiles);
+                            //path = pathFinder.FindPath(pUnit.activeTile, hideAndShowScript, inRangeTiles);
                         }
                     }
                     break;
 
                     //if raycast detects a playerScript attached to a gameObject
                 case PlayerUnitScript _:
-                    Debug.Log("Player unit detected!");
+                    //Debug.Log("Player unit detected!");
                     if (Input.GetMouseButtonDown(0))
                     {
                         pUnit.isSelected = true;
+                    } else if (Input.GetMouseButtonDown(1))
+                    {
+                        pUnit.isSelected = false;
                     }
                     break;
 
                     //if raycast detects an EnemyUnitScript attached to a gameObject
                 case EnemyUnitScript _:
                     Debug.Log("Enemy unit detected!");
+                    targetedEnemyUnit = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>();
                     break;
 
                     //default case so that it still runs despite detecting something invalid (like something out of bounds)
@@ -83,11 +99,11 @@ public class MouseController : MonoBehaviour
                     break;
             }
         }
-
-        if (path.Count > 0)
+        
+        /*if (path.Count > 0)
          {
              MoveAlongPath();
-         }
+         }*/
      }
 
    /* void LateUpdate()
@@ -105,7 +121,7 @@ public class MouseController : MonoBehaviour
     }*/
 
     //Moves an entity along the path setup by the A* pathfinding script, also utilizes the MapManager getInRangeTiles() function to retrieve the positions of tiles near the Unit.
-    private void MoveAlongPath()
+    public void MoveAlongPath()
     {
         var step = speed * Time.deltaTime;
 
@@ -119,15 +135,16 @@ public class MouseController : MonoBehaviour
             PositionCharacterOnTile(path[0]);
             path.RemoveAt(0);
         }
-
-        if (path.Count == 0)
+        if
+        (path.Count == 0)
         {
             GetInRangeTiles();
+            pUnit.isMoving = true;
         }
     }
 
     //Meant to work with the player movement scripts to get tiles in range
-    private void GetInRangeTiles()
+    public void GetInRangeTiles()
     {
         foreach (var item in inRangeTiles) 
         {
@@ -143,17 +160,17 @@ public class MouseController : MonoBehaviour
     }
 
     //Not used yet, but will be used soon for the state machine of the player.
-    private void ShowInRangetiles()
+    public void ShowInRangetiles()
     {
         inRangeTiles = rangeFinder.GetTilesInRange(pUnit.activeTile, pUnit.movementRange);
         foreach (var item in inRangeTiles)
         {
-            item.HideTile();
+            item.ShowTile();
         }
     }
 
     //Refer to previous comment.
-    private void HideInRangeTiles()
+    public void HideInRangeTiles()
     {
         inRangeTiles = rangeFinder.GetTilesInRange(pUnit.activeTile, pUnit.movementRange);
         foreach (var item in inRangeTiles)
@@ -183,11 +200,30 @@ public class MouseController : MonoBehaviour
         return null;
     }
 
+    public List<HideAndShowScript> generatePath()
+    {
+        var targetTile = GetFocusedOnTile();
+        if (targetTile.HasValue && targetTile.Value.collider.gameObject.GetComponent<HideAndShowScript>() == true)
+        {
+            HideAndShowScript endTile = targetTile.Value.collider.gameObject.GetComponent<HideAndShowScript>();
+            path = pathFinder.FindPath(pUnit.activeTile, endTile, inRangeTiles);
+            return path;
+        }
+        return new List<HideAndShowScript>();
+    }
+
+    public List<HideAndShowScript> getPath()
+    {
+        return path;
+    }
+
     //This function adjusts the position of the character/unit on the gameplay tile
     private void PositionCharacterOnTile(HideAndShowScript tile)
     {
         pUnit.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z + 1);
-        pUnit.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 1;
+        pUnit.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 2;
         pUnit.activeTile = tile;
     }
+
+
 }

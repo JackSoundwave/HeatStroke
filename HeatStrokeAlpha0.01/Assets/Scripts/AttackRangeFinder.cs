@@ -11,7 +11,7 @@ public class AttackRangeFinder
         var inRangeTiles = new List<HideAndShowScript>();
 
         // Add the starting tile to the list of attackable tiles
-        inRangeTiles.Add(startingTile);
+        //inRangeTiles.Add(startingTile);
 
         // Check tiles in the four cardinal directions: up, down, left, right
         for (int i = 1; i <= range; i++)

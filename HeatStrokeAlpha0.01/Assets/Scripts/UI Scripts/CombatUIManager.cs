@@ -33,6 +33,7 @@ public class CombatUIManager : MonoBehaviour
 
     private string GetCombatStateText(CombatState state)
     {
+        Debug.Log("Changing text");
         switch (state)
         {
             case CombatState.DeployPhase:
@@ -46,15 +47,24 @@ public class CombatUIManager : MonoBehaviour
             case CombatState.Lose:
                 return "Defeated";
             default:
-                return "Unknown State";
+                return "????";
         }
     }
 
     private void CombatStateManagerOnOnCombatStateChanged(CombatState state)
     {
+        Debug.Log("Updating button interactivity");
+
         //These two lines basically say "if the current state is the player turn, then the button is interactable, otherwise, the player can't click those buttons if it's not their turn.
-        _primeAttackButton.interactable = state == CombatState.PlayerTurn;
-        _endTurnButton.interactable = state == CombatState.PlayerTurn;
+        if (state == CombatState.PlayerTurn)
+        {
+            _primeAttackButton.interactable = true;
+            _endTurnButton.interactable = true;
+        } else if(state != CombatState.PlayerTurn)
+        {
+            _primeAttackButton.interactable = false;
+            _endTurnButton.interactable = false;
+        }
     }
 
     public void EndTurn()

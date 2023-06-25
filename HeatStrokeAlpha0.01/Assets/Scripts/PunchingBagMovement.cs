@@ -81,7 +81,7 @@ public class PunchingBagMovement : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("No valid path to player neighbourtiles");
+                //Debug.LogWarning("No valid path to player neighbourtiles");
             }
         }
 

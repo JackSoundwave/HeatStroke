@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 public class PlayerStateManager : MonoBehaviour
@@ -9,11 +10,23 @@ public class PlayerStateManager : MonoBehaviour
     public PlayerUnitIdleState idleState = new PlayerUnitIdleState();
     public PlayerUnitSelectedState selectedState = new PlayerUnitSelectedState();
     public PlayerUnitAttackPrimedState attackPrimedState = new PlayerUnitAttackPrimedState();
-    public PlayerAttackMelee attackMelee = new PlayerAttackMelee();
-    
+    public PlayerAttack playerAttack = new PlayerAttack();
+    public PlayerIsMovingState isMovingState = new PlayerIsMovingState();
+    public MouseController cursor;
+    public AttackRangeFinder attackRangeFinder = new AttackRangeFinder();
 
+    private void Awake()
+    {
+        //This receives the currently activeInstance of the MouseController, which helps with all our other functions, and transfers the movement code, from the MouseController to our StateManager.
+        //It's basically a reference alright, it's not that complicated
+        //I also know it's kinda spaghetti
+        //But you don't read these comments, let's be honest.
 
-    // Start is called before the first frame update
+        cursor = MouseController.ActiveInstance;
+        playerAttack.pUnit = thisUnit;
+        playerAttack.attackRangeFinder = attackRangeFinder;
+    }
+
     void Start()
     {
         //Starting state for our player

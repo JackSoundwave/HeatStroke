@@ -69,7 +69,8 @@ public class MapManager : MonoBehaviour
                         var cellWorldPosition = tileMap.GetCellCenterWorld(tileLocation);
 
                         overlayTile.transform.position = new Vector3(cellWorldPosition.x, cellWorldPosition.y, cellWorldPosition.z + 0.0001f);
-                        overlayTile.GetComponent<SpriteRenderer>().sortingOrder = tileMap.GetComponent<TilemapRenderer>().sortingOrder;
+                        //we plus the sortingOrder by 1 at the end to make the "overlayTiles" visible.
+                        overlayTile.GetComponent<SpriteRenderer>().sortingOrder = tileMap.GetComponent<TilemapRenderer>().sortingOrder+1;
 
                         // Assign a unique ID to the tile
                         string tileID = "Tile_" + idCounter;
@@ -109,7 +110,6 @@ public class MapManager : MonoBehaviour
    
 
         List<HideAndShowScript> neighbours = new List<HideAndShowScript>();
-
 
         //Top tile
         Vector2Int locationToCheck = new Vector2Int(currentOverlayTile.gridLocation.x, currentOverlayTile.gridLocation.y + 1);

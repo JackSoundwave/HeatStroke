@@ -3,20 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class PlayerAttackMelee : PlayerUnitBaseState
+public class PlayerAttack
 {
-    public override void EnterState(PlayerStateManager player)
-    {
-
-    }
-
-    public override void UpdateState(PlayerStateManager player)
-    {
-
-    }
-
     /*
-     Pseudocode notes
+     !!Pseudocode notes!!
 
     GetAttackTilesInRange(); <-- using rangefinder
     use rangefinder reference
@@ -35,30 +25,50 @@ public class PlayerAttackMelee : PlayerUnitBaseState
 
     public EnemyUnitScript victim;
     public PlayerUnitScript pUnit;
-
-    private AttackRangeFinder attackRangeFinder;
-    private List<HideAndShowScript> inRangeTiles;
+    public AttackRangeFinder attackRangeFinder;
+    public List<HideAndShowScript> inRangeTiles;
 
     public void Start()
     {
-
         inRangeTiles = new List<HideAndShowScript>();
         attackRangeFinder = new AttackRangeFinder();
-        //pUnit = GetComponent<PlayerUnitScript>();
-
     }
 
 
 
     //Inherently the same to the "getInRangeTiles" for the movement, although this time, it's being used to get the attack range.
-    private void getAttackRange()
+    public void getAttackRange()
     {
         inRangeTiles = attackRangeFinder.GetTilesInAttackRange(pUnit.activeTile, pUnit.attackRange);
+
+        foreach (var item in inRangeTiles)
+        {
+            ShowInRangetiles();
+        }
     }
     
-    private void DamageEnemy(EnemyUnitScript victim)
+    public void DamageEnemy(EnemyUnitScript victim)
     {
-        victim.health = victim.health - 1;
+        victim.health = victim.health - pUnit.attackDmg;
+    }
+
+    public void ShowInRangetiles()
+    {
+        inRangeTiles = attackRangeFinder.GetTilesInAttackRange(pUnit.activeTile, pUnit.attackRange);
+        foreach (var item in inRangeTiles)
+        {
+            item.ShowTile();
+            item.DyeTileRed();
+        }
+    }
+
+    public void HideInRangeTiles()
+    {
+        inRangeTiles = attackRangeFinder.GetTilesInAttackRange(pUnit.activeTile, pUnit.attackRange);
+        foreach (var item in inRangeTiles)
+        {
+            item.HideTile();
+        }
     }
 
 }

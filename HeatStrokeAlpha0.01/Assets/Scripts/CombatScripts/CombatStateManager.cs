@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class CombatStateManager : MonoBehaviour
@@ -16,6 +17,7 @@ public class CombatStateManager : MonoBehaviour
     private void Awake()
     {
         CSInstance = this;
+        //GameEventSystem.current +=
     }
 
     private void Start()
@@ -50,18 +52,27 @@ public class CombatStateManager : MonoBehaviour
         OnCombatStateChanged?.Invoke(newState);
     }
     
-    private void HandleDeployPhase()
+    public void HandleDeployPhase()
     {
         //pretend stuff happens here
     }
-    private void HandlePlayerTurn()
+    public void HandlePlayerTurn()
     {
         Debug.Log("Player turn started");        
     }
 
-    private void HandleEnemyTurn()
+    //remove async tag later in development, it's here for testing purposes to test the "end turn" button.
+    public async void HandleEnemyTurn()
     {
         Debug.Log("Enemy Turn Started");
+        //in progress
+        await Task.Yield();
+        CSInstance.UpdateCombatState(CombatState.PlayerTurn);
+    }
+
+    public void refreshAllPlayerActions()
+    {
+
     }
 }
 /*
@@ -70,6 +81,7 @@ public class CombatStateManager : MonoBehaviour
  * PlayerTurn, EnemyTurn, Victory, Lose = self explanatory.
  * Decide = Runs checks to see if the game should keep going (i.e if HeatGauge == max, immediately trigger lose state)
  */
+
 public enum CombatState
 {
     DeployPhase,

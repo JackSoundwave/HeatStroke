@@ -98,6 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e17477e859a7a14bbb75d2417578650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  G: 0
+  H: 0
+  isBlocked: 0
+  Previous: {fileID: 0}
+  gridLocation: {x: 0, y: 0, z: 0}
 --- !u!60 &6344556357104548796
 PolygonCollider2D:
   m_ObjectHideFlags: 0
