@@ -4,6 +4,7 @@ using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+
 /*This script will handle everything related to map logic using the HideAndShowScript tiles. Just a heads up, the "HideAndShowScript" class or .cs file is essentially the main code for the gridtiles 
  in the scene currently.
 So if we want to change the map generation logic, we do so here. Adding new preset maps, adding a river, etc. all of it is done here.
@@ -68,6 +69,10 @@ public class MapManager : MonoBehaviour
                         var overlayTile = Instantiate(overlayTilePrefab, overlayContainer.transform);
                         var cellWorldPosition = tileMap.GetCellCenterWorld(tileLocation);
 
+                        // Check if the tile is blocked by a defense structure
+                        bool isBlockedByStructure = CheckIfBlockedByStructure(cellWorldPosition);
+                        overlayTile.isBlocked = isBlockedByStructure;
+
                         overlayTile.transform.position = new Vector3(cellWorldPosition.x, cellWorldPosition.y, cellWorldPosition.z + 0.0001f);
                         //we plus the sortingOrder by 1 at the end to make the "overlayTiles" visible.
                         overlayTile.GetComponent<SpriteRenderer>().sortingOrder = tileMap.GetComponent<TilemapRenderer>().sortingOrder+1;
@@ -79,7 +84,7 @@ public class MapManager : MonoBehaviour
 
                         overlayTile.gridLocation = tileLocation;
                         map.Add(tileKey, overlayTile);
-                    }
+                        }
                 }
             }
         }
@@ -172,6 +177,24 @@ public class MapManager : MonoBehaviour
         }
 
         return overlayTiles;
+    }
+
+    private bool CheckIfBlockedByStructure(Vector2 cellWorldPosition)
+    {
+        Collider2D[] colliders = Physics2D.OverlapPointAll(cellWorldPosition);
+
+        foreach (Collider2D collider in colliders)
+        {
+            DefenceStructure defenseStructure = collider.GetComponent<DefenceStructure>();
+            if (defenseStructure != null)
+            {
+                // The tile is blocked by a defense structure
+                return true;
+            }
+        }
+
+        // The tile is not blocked by a defense structure
+        return false;
     }
 
 }

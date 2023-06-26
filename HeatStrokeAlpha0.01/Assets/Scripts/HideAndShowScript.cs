@@ -20,7 +20,7 @@ public class HideAndShowScript : MonoBehaviour
     //This version is just the 2D instance of the gridLocation variable, used for functions than can only pass a vector2int variable into them.
     public Vector2Int grid2DLocation { get { return new Vector2Int(gridLocation.x, gridLocation.y); } }
 
-    // This function SHOWS the tile
+// This function SHOWS the tile
     public void ShowTile()
     {
         /* just a heads up the new Color() is sorted as RGBA,
