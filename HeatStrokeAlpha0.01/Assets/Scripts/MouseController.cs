@@ -61,6 +61,8 @@ public class MouseController : MonoBehaviour
                     transform.position = hideAndShowScript.transform.position;
                     gameObject.GetComponent<SpriteRenderer>().sortingOrder = hideAndShowScript.GetComponent<SpriteRenderer>().sortingOrder + 1;
 
+                    //setting the targeted EnemyUnit to null when NOT hovering over it in the scene.
+                    targetedEnemyUnit = null;
                     if (Input.GetMouseButtonDown(0))
                     {
                         if (pUnit == null)
@@ -78,6 +80,11 @@ public class MouseController : MonoBehaviour
                     //if raycast detects a playerScript attached to a gameObject
                 case PlayerUnitScript _:
                     //Debug.Log("Player unit detected!");
+
+                    //setting the targeted EnemyUnit to null when NOT hovering over it in the scene.
+                    targetedEnemyUnit = null;
+
+
                     if (Input.GetMouseButtonDown(0))
                     {
                         pUnit.isSelected = true;

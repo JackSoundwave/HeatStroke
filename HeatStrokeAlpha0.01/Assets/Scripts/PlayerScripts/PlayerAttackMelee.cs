@@ -46,7 +46,14 @@ public class PlayerAttack
             ShowInRangetiles();
         }
     }
-    
+
+    //Inherently the same to the "getInRangeTiles" for the movement, although this time, it's being used to get the attack range.
+    public List<HideAndShowScript> returnAttackRange()
+    {
+        inRangeTiles = attackRangeFinder.GetTilesInAttackRange(pUnit.activeTile, pUnit.attackRange);
+        return inRangeTiles;
+    }
+
     public void DamageEnemy(EnemyUnitScript victim)
     {
         victim.health = victim.health - pUnit.attackDmg;
@@ -69,6 +76,12 @@ public class PlayerAttack
         {
             item.HideTile();
         }
+    }
+
+    //returns true if the victim's tile is found in the list, returns false if otherwise.
+    public bool findVictim(List<HideAndShowScript> inRangeTiles, HideAndShowScript victimTile)
+    {
+        return inRangeTiles.Contains(victimTile);
     }
 
 }

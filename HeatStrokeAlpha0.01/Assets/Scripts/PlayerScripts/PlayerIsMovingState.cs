@@ -20,6 +20,7 @@ public class PlayerIsMovingState : PlayerUnitBaseState
         {
             player.thisUnit.isMoving = false;
             player.thisUnit.canMove = false;
+            player.thisUnit.isSelected = false;
             player.SwitchState(player.idleState);
         }
     }
