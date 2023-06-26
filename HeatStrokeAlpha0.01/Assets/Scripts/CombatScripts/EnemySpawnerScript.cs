@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class EnemySpawnerScript : MonoBehaviour
 {
+    /*
+     * basic idea for this script, needs to be updated in the future to include random enemies, and instead to spawn a prefab called "enemyAboutToSpawn".
+     * 
+     * enemyAboutToSpawn is a prefab that selects it's own activeTile, sets that tile to "enemyAboutToSpawn = true", which prevents the spawner from creating a new prefab
+     * on that specific tile.
+     * 
+    */
+
     public GameObject enemyUnitPrefab;
     private MapManager mapManager;
     private List<KeyValuePair<Vector2Int, HideAndShowScript>> overlayTiles;

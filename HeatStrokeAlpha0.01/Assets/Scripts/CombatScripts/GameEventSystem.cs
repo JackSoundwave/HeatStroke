@@ -20,7 +20,7 @@ public class GameEventSystem : MonoBehaviour
     }
 
     //player Turn related actions
-    public event Action onUnitsDeployed;
+    public event Action onUnitDeployed;
     public event Action onUnitSelected;
     public event Action onPlayerStartTurn;
 
@@ -55,10 +55,10 @@ public class GameEventSystem : MonoBehaviour
         onSpawnEnemies?.Invoke();
     }
 
-    public void deployUnits()
+    public void deployUnit()
     {
         Debug.Log("startPhase triggered");
-        onUnitsDeployed?.Invoke();
+        onUnitDeployed?.Invoke();
     }
 
     public void mouseControllerCreated(MouseController mouseController)

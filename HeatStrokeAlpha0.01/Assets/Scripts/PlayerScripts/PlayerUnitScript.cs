@@ -24,7 +24,8 @@ public class PlayerUnitScript : MonoBehaviour
 
     private void Awake()
     {
-        //GameEventSystem.current.onPlayerTurnStarted() +=
+        //when the onPlayerStartTurn action gets called, all actions are refreshed for this unit.
+        GameEventSystem.current.onPlayerStartTurn += refreshActions;
     }
 
     private void Update()
@@ -39,5 +40,14 @@ public class PlayerUnitScript : MonoBehaviour
     private void killSelf()
     {
         Destroy(this);
+    }
+
+    private void refreshActions()
+    {
+        canMove = true;
+        hasAttacked = false;
+        attackPrimed = false;
+        isSelected = false;
+        isAttacking = false;
     }
 }

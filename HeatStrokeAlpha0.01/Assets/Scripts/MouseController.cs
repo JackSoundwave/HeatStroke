@@ -12,8 +12,10 @@ using UnityEngine;
 
 public class MouseController : MonoBehaviour
 {
+
     //Made MouseController public static because we'll be using it for literally everything in relation to controlling the game.
     public static MouseController ActiveInstance { get; private set; }
+
 
     private void Awake()
     {
@@ -38,7 +40,7 @@ public class MouseController : MonoBehaviour
     private List<HideAndShowScript> inRangeTiles = new List<HideAndShowScript>();
     private Camera mainCamera;
 
-    // Start is called before the first frame update
+    //Start is called before the first frame update
     void Start()
     {
         pathFinder = new AStarPathfinder();
@@ -48,7 +50,7 @@ public class MouseController : MonoBehaviour
         mainCamera = Camera.main;
     }
 
-    // LateUpdate is called at the END of a previous update function call.
+    //LateUpdate is called at the END of a previous update function call.
      void LateUpdate()
      {
         var focusedTileHit = GetFocusedOnTile();
@@ -58,11 +60,13 @@ public class MouseController : MonoBehaviour
             switch (focusedTileHit.Value.collider.gameObject.GetComponent<MonoBehaviour>())
             {
                 case HideAndShowScript hideAndShowScript:
+
                     transform.position = hideAndShowScript.transform.position;
                     gameObject.GetComponent<SpriteRenderer>().sortingOrder = hideAndShowScript.GetComponent<SpriteRenderer>().sortingOrder + 1;
 
                     //setting the targeted EnemyUnit to null when NOT hovering over it in the scene.
                     targetedEnemyUnit = null;
+
                     if (Input.GetMouseButtonDown(0))
                     {
                         if (pUnit == null)
@@ -77,12 +81,13 @@ public class MouseController : MonoBehaviour
                     }
                     break;
 
-                    //if raycast detects a playerScript attached to a gameObject
+                    //if the raycast detects a playerScript attached to a gameObject
                 case PlayerUnitScript _:
                     //Debug.Log("Player unit detected!");
 
                     //setting the targeted EnemyUnit to null when NOT hovering over it in the scene.
                     targetedEnemyUnit = null;
+                    transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<PlayerUnitScript>().activeTile.transform.position;
 
 
                     if (Input.GetMouseButtonDown(0))
@@ -97,6 +102,11 @@ public class MouseController : MonoBehaviour
                     //if raycast detects an EnemyUnitScript attached to a gameObject
                 case EnemyUnitScript _:
                     Debug.Log("Enemy unit detected!");
+
+                    //positions the cursor on the Enemy's tile, it's a minor UI bug that gets fixed with this line
+                    transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>().activeTile.transform.position;
+
+                    //sets the current targeted Enemy to whatever the player is currently selecting.
                     targetedEnemyUnit = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>();
                     break;
 
@@ -107,10 +117,7 @@ public class MouseController : MonoBehaviour
             }
         }
         
-        /*if (path.Count > 0)
-         {
-             MoveAlongPath();
-         }*/
+        
      }
 
    /* void LateUpdate()

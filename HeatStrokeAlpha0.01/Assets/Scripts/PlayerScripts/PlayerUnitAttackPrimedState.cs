@@ -56,12 +56,6 @@ public class PlayerUnitAttackPrimedState : PlayerUnitBaseState
         {
             player.SwitchState(player.idleState);
         }*/
-    }
 
-    // Start is called before the first frame update
-    public void UnPrimeWeapon(PlayerStateManager player)
-    {
-        player.thisUnit.attackPrimed = false;
-        Debug.Log("Weapon of" + player.thisUnit.gameObject.name + "is unprimed");
     }
 }
