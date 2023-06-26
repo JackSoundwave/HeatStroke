@@ -16,7 +16,7 @@ public class AStarPathfinder
     //Finds the valid path the player can traverse
     public List<HideAndShowScript> FindPath(HideAndShowScript start, HideAndShowScript end, List<HideAndShowScript> searchableTiles)
     {
-        Debug.Log("Executing FindPath()");
+        //Debug.Log("Executing FindPath()");
         List<HideAndShowScript> openList = new List<HideAndShowScript>();
         List<HideAndShowScript> closedList = new List<HideAndShowScript>();
 
@@ -32,9 +32,9 @@ public class AStarPathfinder
             //finalise path
             if(currentOverlayTile == end)
             {
-                Debug.Log("Checking end: " + end);
-                Debug.Log("Checking start: " + start);
-                Debug.Log("Checking currentOverlayTile:" + currentOverlayTile);
+                //Debug.Log("Checking end: " + end);
+                //Debug.Log("Checking start: " + start);
+                //Debug.Log("Checking currentOverlayTile:" + currentOverlayTile);
                 return GetFinishedList(start, end);
             }
 
