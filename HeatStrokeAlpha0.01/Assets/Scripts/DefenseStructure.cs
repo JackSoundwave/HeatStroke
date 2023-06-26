@@ -7,46 +7,37 @@ public class DefenceStructure : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
 
+    public HeatGaugeSystem heatgaugeSystem;
     public HealthBar healthBar;
-    // Start is called before the first frame update
+
     void Start()
     {
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //if i pressed the spacebar the potatooo will deducted 20hp
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             TakeDamage(20);
+        }
+
+        if (currentHealth <= 0)
+        {
+            DestroyStructure();
         }
     }
 
     void TakeDamage(int damage)
     {
         currentHealth -= damage;
-
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
         healthBar.SetHealth(currentHealth);
-        if (currentHealth <= 0)
-        {
-            DestroyStructure();
-        }
     }
+
     private void DestroyStructure()
     {
-        //DESTRYED WHEN HEALTH = 0
+        heatgaugeSystem.IncreaseTemperature(100); // Increase the temperature by 100
         Destroy(gameObject);
     }
-<<<<<<< Updated upstream
-
-
-=======
->>>>>>> Stashed changes
 }
