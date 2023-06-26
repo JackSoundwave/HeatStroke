@@ -401,6 +401,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2796939462522672183, guid: 8bd44389aa684d04398f2e7a38773b72, type: 3}
+      propertyPath: heatgaugeSystem
+      value: 
+      objectReference: {fileID: 1449586761}
     - target: {fileID: 3290574489773074726, guid: 8bd44389aa684d04398f2e7a38773b72, type: 3}
       propertyPath: m_Name
       value: defenseStructure
