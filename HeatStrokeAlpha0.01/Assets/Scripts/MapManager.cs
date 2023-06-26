@@ -5,6 +5,10 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 
+/*This script will handle everything related to map logic using the HideAndShowScript tiles. Just a heads up, the "HideAndShowScript" class or .cs file is essentially the main code for the gridtiles 
+ in the scene currently.
+So if we want to change the map generation logic, we do so here. Adding new preset maps, adding a river, etc. all of it is done here.
+*/
 public class MapManager : MonoBehaviour
 {
     private static MapManager _instance;
@@ -70,7 +74,8 @@ public class MapManager : MonoBehaviour
                         overlayTile.isBlocked = isBlockedByStructure;
 
                         overlayTile.transform.position = new Vector3(cellWorldPosition.x, cellWorldPosition.y, cellWorldPosition.z + 0.0001f);
-                        overlayTile.GetComponent<SpriteRenderer>().sortingOrder = tileMap.GetComponent<TilemapRenderer>().sortingOrder;
+                        //we plus the sortingOrder by 1 at the end to make the "overlayTiles" visible.
+                        overlayTile.GetComponent<SpriteRenderer>().sortingOrder = tileMap.GetComponent<TilemapRenderer>().sortingOrder+1;
 
                         // Assign a unique ID to the tile
                         string tileID = "Tile_" + idCounter;
@@ -90,12 +95,7 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    private void Current_onGridGenerated()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    //Copied and pasted the getNeighbourTiles function from ASTarPathfinder to use in other scripts, seeing as it is logic related to the Map and not necessarily the pathfinding script.
+    //Copied and pasted the getNeighbourTiles function from AStarPathfinder to use in other scripts, seeing as it is logic related to the Map and not necessarily the pathfinding script.
     public List<HideAndShowScript> getNeighbourTiles(HideAndShowScript currentOverlayTile, List<HideAndShowScript> searchableTiles)
     {
 
@@ -115,7 +115,6 @@ public class MapManager : MonoBehaviour
    
 
         List<HideAndShowScript> neighbours = new List<HideAndShowScript>();
-
 
         //Top tile
         Vector2Int locationToCheck = new Vector2Int(currentOverlayTile.gridLocation.x, currentOverlayTile.gridLocation.y + 1);
