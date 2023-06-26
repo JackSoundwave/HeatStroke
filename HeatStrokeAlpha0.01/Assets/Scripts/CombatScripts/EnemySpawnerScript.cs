@@ -34,8 +34,8 @@ public class EnemySpawnerScript : MonoBehaviour
 
         foreach (var tile in overlayTiles)
         {
-            // the counter variable is here so that it only counts the first 16 tiles. Meaning, the first two rows from the right hand side.
-            // I hate living
+            //the counter variable is here so that it only counts the first 16 tiles. Meaning, the first two rows from the right hand side.
+            //I hate living
 
             counter++;
             if (!tile.Value.isBlocked && counter <= 16)

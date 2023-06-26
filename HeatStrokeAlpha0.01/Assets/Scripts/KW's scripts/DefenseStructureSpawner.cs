@@ -25,9 +25,12 @@ public class DefenseStructureSpawner : MonoBehaviour
         unblockedTiles = new List<Vector2Int>();
 
         // Specify the coordinates of the desired tile
-        int desiredX = 2;
+
+        int desiredX = 1;
         int desiredY = 3;
         Vector2Int desiredTileKey = new Vector2Int(desiredX, desiredY);
+
+
 
         if (overlayTiles.Exists(tile => tile.Key == desiredTileKey))
         {
@@ -49,6 +52,7 @@ public class DefenseStructureSpawner : MonoBehaviour
         {
             Debug.LogWarning("The desired tile is invalid. Defense structure cannot be spawned.");
         }
+
     }
 
 }
