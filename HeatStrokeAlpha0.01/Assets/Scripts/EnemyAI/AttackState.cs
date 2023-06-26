@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AttackState : State
 {
+    EnemyUnitScript enemyUnitScript;
     public Idle idle;
     PlayerUnitScript playerUnitScript;
 
@@ -14,7 +15,7 @@ public class AttackState : State
     }
     void Attacking()
     {
-
+        
     }
 }
     

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StateManager : MonoBehaviour
 {
+    EnemyUnitScript enemyUnitScript;
+    BooleanHolder booleanHolder;
     public State currentState;
 
     void Update()

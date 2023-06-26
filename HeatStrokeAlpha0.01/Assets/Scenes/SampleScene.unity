@@ -152,6 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361f28608c4a25143a12bebeab7708ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerUnits:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &52995076
 Transform:
   m_ObjectHideFlags: 0
@@ -1304,6 +1308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerUnitPrefab: {fileID: 1550875582688529655, guid: 8e76a90a0e9c9d5468daf47198d8b3f4, type: 3}
+  targetedEnemyUnit: {fileID: 0}
   speed: 4
   cursor: {fileID: 0}
 --- !u!212 &2126417556

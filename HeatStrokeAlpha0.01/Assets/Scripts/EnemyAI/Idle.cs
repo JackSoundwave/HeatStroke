@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Idle : State
 {
+    EnemyUnitScript enemyUnitScript;
+    BooleanHolder booleanHolder;
     public ChaseState chaseState;
-    public bool canSeeThePlayer;
+    //public bool canSeeThePlayer;
     public float AttackRadius;
     public Transform target;
    
@@ -19,13 +21,13 @@ public class Idle : State
     {
         if (Vector2.Distance(transform.position, target.position) < AttackRadius)
         {
-            canSeeThePlayer = true;
+            booleanHolder.canSeeThePlayer = true;
         }
     }
 
     public override State RunCurrentState()
     {
-        if (canSeeThePlayer)
+        if (booleanHolder.canSeeThePlayer)
         {
             return chaseState;
         }

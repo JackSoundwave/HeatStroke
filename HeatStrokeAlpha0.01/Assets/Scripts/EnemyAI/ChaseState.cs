@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ChaseState : State
 {
+    EnemyUnitScript enemyUnitScript;
+    BooleanHolder booleanHolder;
     public AttackState attackState;
     public bool isInAttackRange;
     public GameObject Enemy;
@@ -57,7 +59,7 @@ public class ChaseState : State
 
     public override State RunCurrentState()
     {
-        if (isInAttackRange)
+        if (booleanHolder.isInAttackRange)
         {
             return attackState;
         }
