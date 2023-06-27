@@ -10,8 +10,12 @@ public class GameEventSystem : MonoBehaviour
     public static GameEventSystem current;
 
 
-    //Public list of units that currently holds info to be passed for all units in the scene, when a unit is placed down, they're added into this public list by default via events.
+    //Public list of units that currently holds info to be passed for all friendly units in the scene, when a unit is placed down, they're added into this public list by default via events.
+    //It's so that when a unit dies, it gets removed from the list.
+    //Keeps track of em basically.
+
     public PlayerUnitScript[] playerUnits = new PlayerUnitScript[3];
+
 
 
     private void Awake()
@@ -19,12 +23,14 @@ public class GameEventSystem : MonoBehaviour
         current = this;
     }
 
-    //player Turn related actions
+    //player related actions
     public event Action onUnitDeployed;
     public event Action onUnitSelected;
     public event Action onPlayerStartTurn;
+    public event Action onPlayerEndTurn;
+    public event Action onResetDeployPressed;
 
-    //Enemy Turn related actions
+    //Enemy related actions
     public event Action onSpawnEnemies;
 
     //Map Related actions
@@ -57,7 +63,7 @@ public class GameEventSystem : MonoBehaviour
 
     public void deployUnit()
     {
-        Debug.Log("startPhase triggered");
+        Debug.Log("Unit Deployed");
         onUnitDeployed?.Invoke();
     }
 
@@ -77,5 +83,10 @@ public class GameEventSystem : MonoBehaviour
     {
         Debug.Log("Unit selected");
         onUnitSelected?.Invoke();
+    }
+    public void onPlayerTurnEnd()
+    {
+        Debug.Log("Player ended turn");
+        onPlayerEndTurn?.Invoke();
     }
 }

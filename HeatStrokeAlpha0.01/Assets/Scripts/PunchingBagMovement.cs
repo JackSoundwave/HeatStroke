@@ -133,7 +133,7 @@ public class PunchingBagMovement : MonoBehaviour
     private void PositionCharacterOnTile(HideAndShowScript tile)
     {
         enemyUnit.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z + 1);
-        enemyUnit.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 1;
+        enemyUnit.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 2;
         enemyUnit.activeTile = tile;
     }
 }

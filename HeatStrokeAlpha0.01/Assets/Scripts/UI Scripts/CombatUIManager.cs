@@ -23,10 +23,12 @@ public class CombatUIManager : MonoBehaviour
     {
         CombatStateManager.OnCombatStateChanged += CombatStateManagerOnOnCombatStateChanged;
         CombatStateManager.OnCombatStateChanged += UpdateCombatStateText;
-
-        UpdateCombatStateText(CombatStateManager.CSInstance.State);
     }
 
+    private void Start()
+    {
+        UpdateCombatStateText(CombatStateManager.CSInstance.State);
+    }
     void OnDestroy()
     {
         CombatStateManager.OnCombatStateChanged -= CombatStateManagerOnOnCombatStateChanged;
@@ -90,6 +92,7 @@ public class CombatUIManager : MonoBehaviour
     //method needs to be public so that we can hook it up to the buttons
     public void EndTurn()
     {
+        GameEventSystem.current.onPlayerTurnEnd();
         CombatStateManager.CSInstance.UpdateCombatState(CombatState.EnemyTurn);
     }
     

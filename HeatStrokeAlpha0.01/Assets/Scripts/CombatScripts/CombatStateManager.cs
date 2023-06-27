@@ -67,12 +67,8 @@ public class CombatStateManager : MonoBehaviour
         Debug.Log("Enemy Turn Started");
         //in progress
         await Task.Yield();
+        GameEventSystem.current.playerTurnStarted();
         CSInstance.UpdateCombatState(CombatState.PlayerTurn);
-    }
-
-    public void refreshAllPlayerActions()
-    {
-
     }
 }
 /*

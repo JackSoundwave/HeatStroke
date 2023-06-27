@@ -24,7 +24,13 @@ public class PlayerUnitScript : MonoBehaviour
     private void Awake()
     {
         //when the onPlayerStartTurn action gets called, all actions are refreshed for this unit.
+        Debug.Log("Subscribed to onPlayerStartTurn");
         GameEventSystem.current.onPlayerStartTurn += refreshActions;
+    }
+
+    void OnDestroy()
+    {
+        GameEventSystem.current.onPlayerStartTurn -= refreshActions;
     }
 
     private void Update()
@@ -43,6 +49,7 @@ public class PlayerUnitScript : MonoBehaviour
 
     private void refreshActions()
     {
+        Debug.Log("Actions refreshed");
         canMove = true;
         hasAttacked = false;
         attackPrimed = false;

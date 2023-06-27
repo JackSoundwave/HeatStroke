@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.PlasticSCM.Editor.WebApi;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -89,8 +90,8 @@ public class MouseController : MonoBehaviour
                     targetedEnemyUnit = null;
                     transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<PlayerUnitScript>().activeTile.transform.position;
 
-
-                    if (Input.GetMouseButtonDown(0))
+                    //can only be selected if the current state is player turn.
+                    if (Input.GetMouseButtonDown(0) && CombatStateManager.CSInstance.State == CombatState.PlayerTurn)
                     {
                         pUnit.isSelected = true;
                     } else if (Input.GetMouseButtonDown(1))

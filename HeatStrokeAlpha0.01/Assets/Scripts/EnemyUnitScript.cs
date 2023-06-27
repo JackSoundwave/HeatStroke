@@ -8,7 +8,7 @@ public class EnemyUnitScript : MonoBehaviour
     public HideAndShowScript activeTile;
 
     //pretty sure I don't have to explain this
-    public int health, movementRange, attackDmg, attackRange;
+    public int health, movementRange, attackDmg, attackRange, maxHealth;
 
     //booleans to dictate whether or not the player has moved or has attacked already. canMove is set to true and hasAttacked is set to false.
     //If true, then the event manager tells the MouseController script that the unit can move after being selected.
@@ -16,6 +16,13 @@ public class EnemyUnitScript : MonoBehaviour
     public bool canMove, hasAttacked, isAttacking;
     public bool isSelected;
 
+    private void Update()
+    {
+        if (health == 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
     public void PrimeWeapon()
     {
         isAttacking = true;
