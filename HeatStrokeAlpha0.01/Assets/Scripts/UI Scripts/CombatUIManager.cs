@@ -14,6 +14,7 @@ public class CombatUIManager : MonoBehaviour
     [SerializeField] private Button _deployResetButton;
     [SerializeField] private TextMeshProUGUI _unitsLeftText;
     [SerializeField] private TextMeshProUGUI _unitsLeftNumber;
+    [SerializeField] private TextMeshProUGUI _enemyUnitsRemainingNumber;
 
 
     private CombatState currentCombatState;
@@ -37,6 +38,7 @@ public class CombatUIManager : MonoBehaviour
     private void UpdateCombatStateText(CombatState newState)
     {
         combatStateText.text = GetCombatStateText(newState);
+        GameEventSystem.current.onEnemyDeath += updateEnemyRemaining;
     }
 
     private string GetCombatStateText(CombatState state)
@@ -103,6 +105,10 @@ public class CombatUIManager : MonoBehaviour
 
     }
 
+    private void updateEnemyRemaining()
+    {
+        _enemyUnitsRemainingNumber.text = ObjectiveManager.OMInstance.PoCKillCounter.ToString();
+    }
     //bottom text
     public void PrimeAttackButtonPressed()
     {

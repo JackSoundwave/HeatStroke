@@ -38,7 +38,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.09, y: 0.816}
+  m_AnchoredPosition: {x: 0.09, y: 0.962}
   m_SizeDelta: {x: 444.096, y: 107.293}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3942082148812554177
@@ -577,6 +577,7 @@ MonoBehaviour:
   hasAttacked: 0
   isAttacking: 0
   isSelected: 0
+  healthBar: {fileID: 2705971493567216933}
 --- !u!114 &4738890112154793485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -590,6 +591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  turnOver: 0
 --- !u!61 &-7501060350636653097
 BoxCollider2D:
   m_ObjectHideFlags: 0

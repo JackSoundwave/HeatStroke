@@ -15,11 +15,12 @@ public class EnemyUnitScript : MonoBehaviour
     //isAttacking is to determine the current pUnit state. If the unit is attacking, the selected tile afterwards gets an attack on it
     public bool canMove, hasAttacked, isAttacking;
     public bool isSelected;
-
+    public HealthBar healthBar;
     private void Start()
     {
         //upon starting, adds THIS unit to the EnemyUnit list in the GameEventSystem.
         GameEventSystem.current.enemyUnits.Add(this);
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     private void OnDestroy()
@@ -29,8 +30,10 @@ public class EnemyUnitScript : MonoBehaviour
 
     private void Update()
     {
-        if (health == 0)
+        healthBar.SetHealth(health);
+        if (health <= 0)
         {
+            GameEventSystem.current.enemyDeath();
             Destroy(this.gameObject);
         }
     }

@@ -16,6 +16,7 @@ public class PunchingBagMovement : MonoBehaviour
     private List<HideAndShowScript> inRangeTiles = new List<HideAndShowScript>();
 
     private bool hasMoved;
+    public bool turnOver = false;
 
     // Start is called before the first frame update
     void Start()
@@ -32,17 +33,23 @@ public class PunchingBagMovement : MonoBehaviour
         //This update function constantly checks if the enemyUnit has a playerUnit in range to move to
         inRangeTiles = rangeFinder.GetTilesInRange(enemyUnit.activeTile, enemyUnit.movementRange);
 
-        if (!hasMoved)
+        if (CombatStateManager.CSInstance.State == CombatState.EnemyTurn && turnOver == false)
         {
-            FindPathToPlayer();
-            //Debug.Log("Path value: " + path);
-        }
+            if (!hasMoved)
+            {
+                FindPathToPlayer();
+                //Debug.Log("Path value: " + path);
+            }
 
-        if (hasMoved && path.Count > 0)
-        {
-            MoveAlongPath();
-        }
+            if (hasMoved && path.Count > 0)
+            {
+                MoveAlongPath();
+            }
+            else if (hasMoved == true && path.Count <= 0)
+            {
 
+            }
+        }
     }
 
     //This is used for debugging purposes, should be removed in the final build of the game
@@ -93,7 +100,7 @@ public class PunchingBagMovement : MonoBehaviour
         {
             return;
         }
-
+        enemyUnit.activeTile.isBlocked = false;
         var step = speed * Time.deltaTime;
         var zIndex = path[0].transform.position.z;
         enemyUnit.transform.position = Vector2.MoveTowards(enemyUnit.transform.position, path[0].transform.position, step);
@@ -135,5 +142,6 @@ public class PunchingBagMovement : MonoBehaviour
         enemyUnit.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z + 1);
         enemyUnit.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 2;
         enemyUnit.activeTile = tile;
+        enemyUnit.activeTile.isBlocked = true;
     }
 }

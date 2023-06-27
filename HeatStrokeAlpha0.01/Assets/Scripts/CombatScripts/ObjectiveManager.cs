@@ -85,7 +85,7 @@ public class ObjectiveManager : MonoBehaviour
                 if (OMInstance.PoCKillCounter == 0)
                 {
                     CombatStateManager.CSInstance.UpdateCombatState(CombatState.Victory);
-                };
+                }
                 break;
 
             default:
