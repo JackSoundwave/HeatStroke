@@ -17,7 +17,7 @@ public class CombatStateManager : MonoBehaviour
     private void Awake()
     {
         CSInstance = this;
-        //GameEventSystem.current +=
+        CSInstance.State = CombatState.DeployPhase;
     }
 
     private void Start()
