@@ -19,6 +19,7 @@ public class PlayerUnitAttackPrimedState : PlayerUnitBaseState
         player.playerAttack.victim = player.cursor.targetedEnemyUnit;
 
 
+
         if (Input.GetKeyDown(KeyCode.R) || Input.GetMouseButtonDown(1))
         {
             player.thisUnit.attackPrimed = false;
@@ -37,6 +38,7 @@ public class PlayerUnitAttackPrimedState : PlayerUnitBaseState
                 if (player.playerAttack.findVictim(player.playerAttack.returnAttackRange(), player.playerAttack.victim?.activeTile) && player.cursor.targetedEnemyUnit != null)
                 {
                     player.thisUnit.hasAttacked = true;
+                    player.thisUnit.canMove = false;
                     player.playerAttack.DamageEnemy(player.playerAttack.victim);
                     player.playerAttack.HideInRangeTiles();
                     player.SwitchState(player.idleState);
