@@ -60,7 +60,39 @@ public class MouseController : MonoBehaviour
         {
             switch (focusedTileHit.Value.collider.gameObject.GetComponent<MonoBehaviour>())
             {
-                case HideAndShowScript hideAndShowScript:
+                //if the raycast detects a playerScript attached to a gameObject
+                case PlayerUnitScript _:
+                    //Debug.Log("Player unit detected!");
+
+                    //setting the targeted EnemyUnit to null when NOT hovering over it in the scene.
+                    targetedEnemyUnit = null;
+                    transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<PlayerUnitScript>().activeTile.transform.position;
+
+                    //can only be selected if the current state is player turn.
+                    if (Input.GetMouseButtonDown(0) && CombatStateManager.CSInstance.State == CombatState.PlayerTurn)
+                    {
+                        GameEventSystem.current.unitSelected();
+                        pUnit.isSelected = true;
+                    }
+                    else if (Input.GetMouseButtonDown(1))
+                    {
+                        pUnit.isSelected = false;
+                    }
+                    break;
+                //if raycast detects an EnemyUnitScript attached to a gameObject
+                case EnemyUnitScript _:
+                    Debug.Log("Enemy unit detected!");
+
+
+
+                    //sets the current targeted Enemy to whatever the player is currently selecting.
+                    targetedEnemyUnit = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>();
+                    //positions the cursor on the Enemy's tile, it's a minor UI bug that gets fixed with this line
+                    transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>().activeTile.transform.position;
+                    break;
+                    
+                    //if raycast detects an empty tile.
+                 case HideAndShowScript hideAndShowScript:
 
                     transform.position = hideAndShowScript.transform.position;
                     gameObject.GetComponent<SpriteRenderer>().sortingOrder = hideAndShowScript.GetComponent<SpriteRenderer>().sortingOrder + 1;
@@ -80,36 +112,6 @@ public class MouseController : MonoBehaviour
                             //path = pathFinder.FindPath(pUnit.activeTile, hideAndShowScript, inRangeTiles);
                         }
                     }
-                    break;
-
-                    //if the raycast detects a playerScript attached to a gameObject
-                case PlayerUnitScript _:
-                    //Debug.Log("Player unit detected!");
-
-                    //setting the targeted EnemyUnit to null when NOT hovering over it in the scene.
-                    targetedEnemyUnit = null;
-                    transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<PlayerUnitScript>().activeTile.transform.position;
-
-                    //can only be selected if the current state is player turn.
-                    if (Input.GetMouseButtonDown(0) && CombatStateManager.CSInstance.State == CombatState.PlayerTurn)
-                    {
-                        GameEventSystem.current.unitSelected();
-                        pUnit.isSelected = true;
-                    } else if (Input.GetMouseButtonDown(1))
-                    {
-                        pUnit.isSelected = false;
-                    }
-                    break;
-
-                    //if raycast detects an EnemyUnitScript attached to a gameObject
-                case EnemyUnitScript _:
-                    Debug.Log("Enemy unit detected!");
-
-                    //positions the cursor on the Enemy's tile, it's a minor UI bug that gets fixed with this line
-                    transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>().activeTile.transform.position;
-
-                    //sets the current targeted Enemy to whatever the player is currently selecting.
-                    targetedEnemyUnit = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>();
                     break;
 
                     //default case so that it still runs despite detecting something invalid (like something out of bounds, for example)

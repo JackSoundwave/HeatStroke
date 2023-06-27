@@ -104,6 +104,7 @@ MonoBehaviour:
   movementRange: 3
   attackDmg: 0
   attackRange: 0
+  maxHealth: 0
   canMove: 1
   hasAttacked: 0
   isAttacking: 0

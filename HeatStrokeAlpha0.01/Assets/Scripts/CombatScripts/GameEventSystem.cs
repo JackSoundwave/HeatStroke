@@ -118,5 +118,10 @@ public class GameEventSystem : MonoBehaviour
     //==Player Related==//
 
     //==Objective Related==//
+    public void defenseStructureDeath()
+    {
+        Debug.Log("Defense structure has been destroyed");
+        onDefenseStructureDeath?.Invoke();
+    }
     //==Objective Related==//
 }

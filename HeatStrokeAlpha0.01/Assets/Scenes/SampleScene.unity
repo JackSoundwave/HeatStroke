@@ -178,7 +178,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cebfc1a41994e74295eabf68fdae1a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: 0
+  obj: 1
+  hivesDestroyed: 0
+  enemiesKilled: 0
+  turnTimer: 0
 --- !u!4 &494247445 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 915339335506701565, guid: 673264557c480394cb94b24985e87119, type: 3}
