@@ -16,6 +16,17 @@ public class EnemyUnitScript : MonoBehaviour
     public bool canMove, hasAttacked, isAttacking;
     public bool isSelected;
 
+    private void Start()
+    {
+        //upon starting, adds THIS unit to the EnemyUnit list in the GameEventSystem.
+        GameEventSystem.current.enemyUnits.Add(this);
+    }
+
+    private void OnDestroy()
+    {
+        GameEventSystem.current.enemyUnits.Remove(this);
+    }
+
     private void Update()
     {
         if (health == 0)
@@ -38,7 +49,4 @@ public class EnemyUnitScript : MonoBehaviour
         isAttacking = false;
         hasAttacked = true;
     }
-
-
-
 }

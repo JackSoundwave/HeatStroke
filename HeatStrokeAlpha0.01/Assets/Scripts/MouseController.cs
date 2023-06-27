@@ -93,6 +93,7 @@ public class MouseController : MonoBehaviour
                     //can only be selected if the current state is player turn.
                     if (Input.GetMouseButtonDown(0) && CombatStateManager.CSInstance.State == CombatState.PlayerTurn)
                     {
+                        GameEventSystem.current.unitSelected();
                         pUnit.isSelected = true;
                     } else if (Input.GetMouseButtonDown(1))
                     {
@@ -111,7 +112,7 @@ public class MouseController : MonoBehaviour
                     targetedEnemyUnit = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>();
                     break;
 
-                    //default case so that it still runs despite detecting something invalid (like something out of bounds)
+                    //default case so that it still runs despite detecting something invalid (like something out of bounds, for example)
                 default:
                     Debug.Log("Nothing detected");
                     break;

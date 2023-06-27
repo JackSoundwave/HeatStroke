@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UIElements;
 
 public class GameEventSystem : MonoBehaviour
 {
@@ -10,11 +11,14 @@ public class GameEventSystem : MonoBehaviour
     public static GameEventSystem current;
 
 
-    //Public list of units that currently holds info to be passed for all friendly units in the scene, when a unit is placed down, they're added into this public list by default via events.
+    //Public array of units that currently holds info to be passed for all friendly units in the scene, when a unit is placed down, they're added into this public list by default via events.
     //It's so that when a unit dies, it gets removed from the list.
     //Keeps track of em basically.
 
     public PlayerUnitScript[] playerUnits = new PlayerUnitScript[3];
+
+    //public list of enemyUnits to get all the enemyUnits in the scene because reasons or something idfk okay.s
+    public List<EnemyUnitScript> enemyUnits;
 
 
 
@@ -23,22 +27,30 @@ public class GameEventSystem : MonoBehaviour
         current = this;
     }
 
-    //player related actions
+    //==Player Related Actions==//
     public event Action onUnitDeployed;
     public event Action onUnitSelected;
     public event Action onPlayerStartTurn;
     public event Action onPlayerEndTurn;
     public event Action onResetDeployPressed;
+    //==Player Related Actions==//
 
-    //Enemy related actions
+    //==Enemy Related Actions==//
     public event Action onSpawnEnemies;
+    public event Action onEnemyTurnStart;
+    //==Enemy Related Actions==//
 
-    //Map Related actions
+    //==Map Related actions==//
     public event Action onGridGenerated;
     public event Action<MouseController> onMouseControllerCreated;
+    //==Map Related actions==//
 
-    //public Action<int> deez;
+    //==Objective Related actions==//
+    public event Action onDefenseStructureDeath;
+    //==Objective Related actions==//
 
+
+    //Misc
     public void generatedGrid()
     {
         Debug.Log("Grid Generation triggered");
@@ -55,17 +67,6 @@ public class GameEventSystem : MonoBehaviour
         Jon says so, so it must be right. ig
          */
     }
-    public void spawnEnemies()
-    {
-        Debug.Log("SpawnEnemies triggered");
-        onSpawnEnemies?.Invoke();
-    }
-
-    public void deployUnit()
-    {
-        Debug.Log("Unit Deployed");
-        onUnitDeployed?.Invoke();
-    }
 
     public void mouseControllerCreated(MouseController mouseController)
     {
@@ -73,20 +74,49 @@ public class GameEventSystem : MonoBehaviour
         onMouseControllerCreated?.Invoke(mouseController);
     }
 
+    //==Enemy Related==//
+    public void spawnEnemies()
+    {
+        Debug.Log("SpawnEnemies triggered");
+        onSpawnEnemies?.Invoke();
+    }
+
+    public void enemyTurnStart()
+    {
+        Debug.Log("enemyTurnStart triggered");
+        onEnemyTurnStart?.Invoke();
+    }
+    //==Enemy Related==//
+
+    //==Player Related==//
+    public void deployUnit()
+    {
+        Debug.Log("Unit Deployed");
+        onUnitDeployed?.Invoke();
+    }
+
     public void playerTurnStarted()
     {
         Debug.Log("PlayerTurn started");
         onPlayerStartTurn?.Invoke();
     }
-
     public void unitSelected()
     {
         Debug.Log("Unit selected");
         onUnitSelected?.Invoke();
     }
-    public void onPlayerTurnEnd()
+    public void playerEndTurn()
     {
         Debug.Log("Player ended turn");
         onPlayerEndTurn?.Invoke();
     }
+    public void reesetDeployPressed()
+    {
+        Debug.Log("Player reset deploy");
+        onResetDeployPressed?.Invoke();
+    }
+    //==Player Related==//
+
+    //==Objective Related==//
+    //==Objective Related==//
 }
