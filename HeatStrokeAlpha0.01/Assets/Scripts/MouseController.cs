@@ -32,7 +32,7 @@ public class MouseController : MonoBehaviour
             ActiveInstance = null;
         }
     }
-    public GameObject playerUnitPrefab;
+    public GameObject playerUnitPrefab;  
     private PlayerUnitScript pUnit;
     public EnemyUnitScript targetedEnemyUnit;
     public float speed;
@@ -65,11 +65,12 @@ public class MouseController : MonoBehaviour
                 //if raycast detects an EnemyUnitScript attached to a gameObject
                 case EnemyUnitScript _:
 
-                    Debug.Log("Enemy unit detected!");
+                    //Debug.Log("Enemy unit detected!");
                     //sets the current targeted Enemy to whatever the player is currently selecting.
-                    targetedEnemyUnit = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>();
                     //positions the cursor on the Enemy's tile, it's a minor UI bug that gets fixed with this line
-                    transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>().activeTile.transform.position;
+                    //transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>().activeTile.transform.position;
+                    targetedEnemyUnit = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>();
+                    //transform.position = targetedEnemyUnit.activeTile;
                     break;
 
                 //if the raycast detects a playerScript attached to a gameObject
@@ -105,6 +106,7 @@ public class MouseController : MonoBehaviour
                     {
                         if (pUnit == null)
                         {
+                            //spawn a unit if prefab 1 is null
                             pUnit = Instantiate(playerUnitPrefab).GetComponent<PlayerUnitScript>();
                             PositionCharacterOnTile(hideAndShowScript);
                         }

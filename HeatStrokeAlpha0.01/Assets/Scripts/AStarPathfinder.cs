@@ -67,7 +67,6 @@ public class AStarPathfinder
 
     private List<HideAndShowScript> GetFinishedList(HideAndShowScript start, HideAndShowScript end)
     {
-        Debug.Log("Executing GetFinishedList()");
         List<HideAndShowScript> finishedList = new List<HideAndShowScript>();
         
         HideAndShowScript currentTile = end;

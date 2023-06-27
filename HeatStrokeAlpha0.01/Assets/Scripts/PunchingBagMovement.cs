@@ -16,7 +16,7 @@ public class PunchingBagMovement : MonoBehaviour
     private List<HideAndShowScript> inRangeTiles = new List<HideAndShowScript>();
 
     private bool hasMoved;
-    public bool turnOver = false;
+    public bool turnOver;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +26,7 @@ public class PunchingBagMovement : MonoBehaviour
         rangeFinder = new RangefinderMovement();
 
         enemyUnit = GetComponent<EnemyUnitScript>();
+        GameEventSystem.current.onPlayerStartTurn += refreshActions;
     }
 
     void Update()
@@ -47,7 +48,9 @@ public class PunchingBagMovement : MonoBehaviour
             }
             else if (hasMoved == true && path.Count <= 0)
             {
-
+                Debug.Log("Turn Over");
+                turnOver = true;
+                //CombatStateManager.CSInstance.UpdateCombatState(CombatState.PlayerTurn);
             }
         }
     }
@@ -136,6 +139,12 @@ public class PunchingBagMovement : MonoBehaviour
         }*/
     }
 
+    private void refreshActions()
+    {
+        hasMoved = false;
+        turnOver = false;
+    }
+
     //This function adjusts the position of the character/unit on the gameplay tile
     private void PositionCharacterOnTile(HideAndShowScript tile)
     {
@@ -143,5 +152,6 @@ public class PunchingBagMovement : MonoBehaviour
         enemyUnit.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 2;
         enemyUnit.activeTile = tile;
         enemyUnit.activeTile.isBlocked = true;
+        CombatStateManager.CSInstance.UpdateCombatState(CombatState.EnemyTurn);
     }
 }
