@@ -71,6 +71,7 @@ public class CombatStateManager : MonoBehaviour
         CSInstance.UpdateCombatState(CombatState.PlayerTurn);
     }
 }
+
 /*
  * Context:
  * Deploy phase = Deployment part, similar to Into The Breach

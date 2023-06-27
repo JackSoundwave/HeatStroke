@@ -11,19 +11,91 @@ public class ObjectiveManager : MonoBehaviour
 
     public Objective obj;
 
-    public int hivesDestroyed, enemiesKilled, turnTimer;
+    public int hivesToDestroy, enemiesKilled, turnTimer, PoCKillCounter;
 
     private void Awake()
     {
         OMInstance = this;
     }
 
+    //Initialize objective type and set up subscriptions to game event within the start() function.
     private void Start()
     {
-      
+
+        switch (OMInstance.obj)
+        {
+            case Objective.Defense:
+                GameEventSystem.current.onEnemyTurnEnd += OMInstance.reduceTurnTimer;
+                break;
+            case Objective.Extermination:
+                GameEventSystem.current.onExterminateStructureDeath += OMInstance.reduceHivesToDestroy;
+                //tba
+                break;
+            case Objective.Escort:
+
+                //tba
+                break;
+            case Objective.Train:
+
+                //tba
+                break;
+
+            case Objective.PoC_Extermination:
+                GameEventSystem.current.onEnemyDeath += OMInstance.reduceEnemiesToKill;
+                break;
+            default:
+                Debug.Log("ERROR: MORON DID NOT SET PROPER OBJECTIVE TYPE");
+                throw new ArgumentOutOfRangeException(nameof(OMInstance.obj), OMInstance.obj, null); 
+        }
+    }
+
+    public void evaluateWinCondition()
+    {
+        switch (OMInstance.obj)
+        {
+            case Objective.Defense:
+                if(OMInstance.turnTimer == 0)
+                {
+                    CombatStateManager.CSInstance.UpdateCombatState(CombatState.Victory);
+                }
+                break;
+
+            case Objective.Extermination:
+                if (OMInstance.turnTimer == 0)
+                {
+                    CombatStateManager.CSInstance.UpdateCombatState(CombatState.Victory);
+                }
+                break;
+
+            case Objective.Escort:
+                if (OMInstance.turnTimer == 0)
+                {
+                    CombatStateManager.CSInstance.UpdateCombatState(CombatState.Victory);
+                }
+                break;
+
+            case Objective.Train:
+                if (OMInstance.turnTimer == 0)
+                {
+                    CombatStateManager.CSInstance.UpdateCombatState(CombatState.Victory);
+                }
+                break;
+
+            case Objective.PoC_Extermination:
+                if (OMInstance.PoCKillCounter == 0)
+                {
+                    CombatStateManager.CSInstance.UpdateCombatState(CombatState.Victory);
+                };
+                break;
+
+            default:
+                Debug.Log("ERROR: MORON DID NOT SET PROPER OBJECTIVE TYPE");
+                throw new ArgumentOutOfRangeException(nameof(OMInstance.obj), OMInstance.obj, null);
+        }
     }
 
     //forgot how this method is supposed to work, give me 5 minutes to think of it.
+    //I totally forgot how this method is supposed to work, just give me like a week to remember it
     public void UpdateObjectiveDetails()
     {
         
@@ -42,15 +114,23 @@ public class ObjectiveManager : MonoBehaviour
         return OMInstance.turnTimer;
     }
 
-    public void evaluateTurnTimer()
+    //Method to reduce turn timer by 1 everytime the enemy's turn ends and then evaluate win condition afterwards.
+    public void reduceTurnTimer()
     {
-        if(OMInstance.turnTimer == 0)
-        {
-            if (OMInstance.obj == Objective.Defense)
-            {
-                CombatStateManager.CSInstance.UpdateCombatState(CombatState.Victory);
-            }
-        }
+        OMInstance.turnTimer = OMInstance.turnTimer - 1;
+        evaluateWinCondition();
+    }
+
+    public void reduceHivesToDestroy()
+    {
+        OMInstance.hivesToDestroy = OMInstance.hivesToDestroy - 1;
+        evaluateWinCondition();
+    }
+
+    public void reduceEnemiesToKill()
+    {
+        OMInstance.PoCKillCounter = OMInstance.PoCKillCounter - 1;
+        evaluateWinCondition();
     }
 
     //okay real talk, is this method REALLY needed?
@@ -67,4 +147,5 @@ public enum Objective
     Defense,
     Train,
     Escort,
+    PoC_Extermination
 }

@@ -17,6 +17,8 @@ public class MouseController : MonoBehaviour
     //Made MouseController public static because we'll be using it for literally everything in relation to controlling the game.
     public static MouseController ActiveInstance { get; private set; }
 
+    //Adding a public deployableUnits array to neccesitate the deploying of said units.
+    public GameObject[] deployableUnits = new GameObject[3];
 
     private void Awake()
     {

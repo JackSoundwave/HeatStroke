@@ -12,12 +12,11 @@ public class CombatUIManager : MonoBehaviour
     [SerializeField] private Button _primeAttackButton;
     [SerializeField] private Button _deployConfirmButton;
     [SerializeField] private Button _deployResetButton;
-    [SerializeField] private TextMeshProUGUI unitsLeftText;
-    [SerializeField] private TextMeshProUGUI unitsLeftNumber;
+    [SerializeField] private TextMeshProUGUI _unitsLeftText;
+    [SerializeField] private TextMeshProUGUI _unitsLeftNumber;
 
 
     private CombatState currentCombatState;
-    private GameEventSystem gameEventSystem;
 
     void Awake()
     {
@@ -79,6 +78,8 @@ public class CombatUIManager : MonoBehaviour
             {
                 _deployConfirmButton.gameObject.SetActive(false);
                 _deployResetButton.gameObject.SetActive(false);
+                _unitsLeftText.gameObject.SetActive(false);
+                _unitsLeftNumber.gameObject.SetActive(false);
             } 
         } 
         else if(state != CombatState.PlayerTurn)
@@ -93,7 +94,6 @@ public class CombatUIManager : MonoBehaviour
     //method needs to be public so that we can hook it up to the buttons
     public void EndTurn()
     {
-
         CombatStateManager.CSInstance.UpdateCombatState(CombatState.EnemyTurn);
     }
     
