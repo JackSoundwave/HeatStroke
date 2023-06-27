@@ -34,6 +34,7 @@ public class MouseController : MonoBehaviour
     }
     public GameObject playerUnitPrefab;  
     private PlayerUnitScript pUnit;
+    public PlayerUnitScript[] unitList = new PlayerUnitScript[3];
     public EnemyUnitScript targetedEnemyUnit;
     public float speed;
     public GameObject cursor;
@@ -51,6 +52,7 @@ public class MouseController : MonoBehaviour
         rangeFinder = new RangefinderMovement();
         inRangeTiles = new List<HideAndShowScript>();
         mainCamera = Camera.main;
+        unitList[1] = pUnit;
     }
 
     //LateUpdate is called at the END of a previous update function call.
@@ -68,8 +70,10 @@ public class MouseController : MonoBehaviour
                     //Debug.Log("Enemy unit detected!");
                     //sets the current targeted Enemy to whatever the player is currently selecting.
                     //positions the cursor on the Enemy's tile, it's a minor UI bug that gets fixed with this line
-                    //transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>().activeTile.transform.position;
+                    
                     targetedEnemyUnit = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>();
+                    transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>().activeTile.transform.position;
+
                     //transform.position = targetedEnemyUnit.activeTile;
                     break;
 

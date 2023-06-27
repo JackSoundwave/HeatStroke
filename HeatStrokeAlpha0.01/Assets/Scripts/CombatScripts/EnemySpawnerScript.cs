@@ -10,9 +10,11 @@ public class EnemySpawnerScript : MonoBehaviour
      * enemyAboutToSpawn is a prefab that selects it's own activeTile, sets that tile to "enemyAboutToSpawn = true", which prevents the spawner from creating a new prefab
      * on that specific tile.
      * 
+     * When the enemyAboutToSpawn prefab dies, it spawns an enemyUnit from a random list of pre-determined prefabs.
     */
 
     public GameObject enemyUnitPrefab;
+    public GameObject shooterPrefab;
     private MapManager mapManager;
     private List<KeyValuePair<Vector2Int, HideAndShowScript>> overlayTiles;
     private List<Vector2Int> unblockedTiles;
@@ -23,6 +25,7 @@ public class EnemySpawnerScript : MonoBehaviour
         mapManager = FindObjectOfType<MapManager>();
         Debug.Log("MapManager object: " + mapManager);
         GameEventSystem.current.onGridGenerated += SpawnEnemyOnRandomTile;
+        //GameEventSystem.current.onGridGenerated += SpawnAllyOnRandomTile;
         GameEventSystem.current.onEnemyDeath += SpawnEnemyOnRandomTile;
     }
 
@@ -69,5 +72,50 @@ public class EnemySpawnerScript : MonoBehaviour
             Debug.LogWarning("No available unblocked tiles. Enemy cannot be spawned.");
         }
     }
+
+    /*
+    private void SpawnAllyOnRandomTile()
+    {
+        Debug.Log("Spawning Enemies");
+        overlayTiles = mapManager.GetOverLayTiles();
+        unblockedTiles = new List<Vector2Int>();
+        int counter = 0;
+
+        foreach (var tile in overlayTiles)
+        {
+            // Increment the counter
+            counter++;
+
+            // Only consider the last 32 tiles
+            if (!tile.Value.isBlocked && counter > overlayTiles.Count - 32)
+            {
+                unblockedTiles.Add(tile.Key);
+            }
+        }
+
+        if (unblockedTiles.Count > 0)
+        {
+            int randomIndex = Random.Range(0, unblockedTiles.Count);
+            Vector2Int randomTileKey = unblockedTiles[randomIndex];
+            HideAndShowScript randomTile = overlayTiles.Find(tile => tile.Key == randomTileKey).Value;
+
+            if (randomTile != null)
+            {
+                GameObject allyUnit = Instantiate(shooterPrefab, randomTile.transform.position, Quaternion.identity);
+                PlayerUnitScript allyUnitScript = allyUnit.GetComponent<PlayerUnitScript>();
+                allyUnitScript.activeTile = randomTile;
+                randomTile.isBlocked = true;
+            }
+            else
+            {
+                Debug.LogWarning("Selected tile is invalid. Trying again...");
+                SpawnEnemyOnRandomTile();
+            }
+        }
+        else
+        {
+            Debug.LogWarning("No available unblocked tiles. ally cannot be spawned.");
+        }
+    }*/
 
 }
