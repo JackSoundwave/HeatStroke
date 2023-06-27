@@ -31,7 +31,4 @@ public class EnemyUnitScript : MonoBehaviour
         isAttacking = false;
         hasAttacked = true;
     }
-
-
-
 }

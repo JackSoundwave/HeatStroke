@@ -8,10 +8,12 @@ public class DefenceStructure : MonoBehaviour
     public int currentHealth;
 
     public HeatGaugeSystem heatgaugeSystem;
+    public HeatBar heatBar;
     public HealthBar healthBar;
 
     void Start()
     {
+        heatBar = FindObjectOfType<HeatBar>();
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
     }
