@@ -12,6 +12,7 @@ public class HeatGaugeSystem : MonoBehaviour
 
     void Start()
     {
+        heatBar = FindObjectOfType<HeatBar>();
         heatBar.SetMaxHeatValue(maxTemperature, currentTemperature);
     }
 
