@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obj: 4
-  hivesDestroyed: 0
+  hivesToDestroy: 0
   enemiesKilled: 0
   turnTimer: 0
   PoCKillCounter: 6
@@ -2332,7 +2332,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 296345016}
     - target: {fileID: 2140864410780526225, guid: 673264557c480394cb94b24985e87119, type: 3}
+      propertyPath: _unitsLeftText
+      value: 
+      objectReference: {fileID: 296345016}
+    - target: {fileID: 2140864410780526225, guid: 673264557c480394cb94b24985e87119, type: 3}
       propertyPath: unitsLeftNumber
+      value: 
+      objectReference: {fileID: 1032296441}
+    - target: {fileID: 2140864410780526225, guid: 673264557c480394cb94b24985e87119, type: 3}
+      propertyPath: _unitsLeftNumber
       value: 
       objectReference: {fileID: 1032296441}
     - target: {fileID: 7850380109271301658, guid: 673264557c480394cb94b24985e87119, type: 3}

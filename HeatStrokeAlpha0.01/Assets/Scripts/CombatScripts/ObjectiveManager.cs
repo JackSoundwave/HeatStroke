@@ -29,7 +29,7 @@ public class ObjectiveManager : MonoBehaviour
                 break;
             case Objective.Extermination:
                 GameEventSystem.current.onExterminateStructureDeath += OMInstance.reduceHivesToDestroy;
-                //tba
+            
                 break;
             case Objective.Escort:
 

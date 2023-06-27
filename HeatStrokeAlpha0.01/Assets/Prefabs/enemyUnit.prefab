@@ -38,7 +38,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.09, y: 1.03}
+  m_AnchoredPosition: {x: 0.09, y: 0.816}
   m_SizeDelta: {x: 444.096, y: 107.293}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3942082148812554177
@@ -183,8 +183,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00024414062}
-  m_SizeDelta: {x: 1, y: 0.25}
+  m_AnchoredPosition: {x: -9.300034, y: 1.0599914}
+  m_SizeDelta: {x: -120.14, y: -20.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1938041692192483821
 CanvasRenderer:
@@ -350,8 +350,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -162.5, y: 0.00024414}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -111.41004, y: 1.0599918}
+  m_SizeDelta: {x: 62.84, y: 62.84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7201329240872946195
 CanvasRenderer:
@@ -426,8 +426,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.5397}
-  m_SizeDelta: {x: -2.8784, y: -3.9577}
+  m_AnchoredPosition: {x: -9.3, y: 1.4}
+  m_SizeDelta: {x: -122.58, y: -23.39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3389456900302210983
 CanvasRenderer:
@@ -544,7 +544,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: f27bdcbadce5a034fa9d3160a0c97834, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4bbdc0b71929f644cab9ba178d5e5909, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -572,7 +572,7 @@ MonoBehaviour:
   movementRange: 3
   attackDmg: 0
   attackRange: 0
-  maxHealth: 0
+  maxHealth: 3
   canMove: 1
   hasAttacked: 0
   isAttacking: 0
@@ -625,13 +625,13 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.2602402}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.3698799}
-    oldSize: {x: 2, y: 2}
+    pivot: {x: 0.5, y: 0.15}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.64, y: 0.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0

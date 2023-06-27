@@ -62,6 +62,16 @@ public class MouseController : MonoBehaviour
         {
             switch (focusedTileHit.Value.collider.gameObject.GetComponent<MonoBehaviour>())
             {
+                //if raycast detects an EnemyUnitScript attached to a gameObject
+                case EnemyUnitScript _:
+
+                    Debug.Log("Enemy unit detected!");
+                    //sets the current targeted Enemy to whatever the player is currently selecting.
+                    targetedEnemyUnit = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>();
+                    //positions the cursor on the Enemy's tile, it's a minor UI bug that gets fixed with this line
+                    transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>().activeTile.transform.position;
+                    break;
+
                 //if the raycast detects a playerScript attached to a gameObject
                 case PlayerUnitScript _:
                     //Debug.Log("Player unit detected!");
@@ -80,17 +90,6 @@ public class MouseController : MonoBehaviour
                     {
                         pUnit.isSelected = false;
                     }
-                    break;
-                //if raycast detects an EnemyUnitScript attached to a gameObject
-                case EnemyUnitScript _:
-                    Debug.Log("Enemy unit detected!");
-
-
-
-                    //sets the current targeted Enemy to whatever the player is currently selecting.
-                    targetedEnemyUnit = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>();
-                    //positions the cursor on the Enemy's tile, it's a minor UI bug that gets fixed with this line
-                    transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>().activeTile.transform.position;
                     break;
                     
                     //if raycast detects an empty tile.
