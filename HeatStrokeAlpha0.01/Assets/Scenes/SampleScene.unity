@@ -377,6 +377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyUnitPrefab: {fileID: 7852278502412264825, guid: fe24566cf33caae46bfa9f33a431ee4f, type: 3}
+  shooterPrefab: {fileID: 1550875582688529655, guid: b855a5bf63f574a4fa82ee12f0b0a87e, type: 3}
 --- !u!4 &1156735740
 Transform:
   m_ObjectHideFlags: 0
@@ -2125,6 +2126,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   playerUnitPrefab: {fileID: 1550875582688529655, guid: d8961262a30b9e445bb3576ce11b3ac6, type: 3}
+  unitList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   targetedEnemyUnit: {fileID: 0}
   speed: 4
   cursor: {fileID: 0}
