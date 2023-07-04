@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DefenceStructure : MonoBehaviour
 {
+    public HideAndShowScript activeTile;
     public int maxHealth = 100;
     public int currentHealth;
 

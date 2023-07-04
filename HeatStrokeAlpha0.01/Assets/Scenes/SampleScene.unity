@@ -186,7 +186,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.8125
+  orthographic size: 3.015625
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16bb008b8aea51d48bf68e99573c3a3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyUnitPrefab: {fileID: 7852278502412264825, guid: fe24566cf33caae46bfa9f33a431ee4f, type: 3}
+  enemyUnitPrefab: {fileID: 5196161148961684935, guid: 6b064273ad3216d4da8c234d859798ef, type: 3}
   shooterPrefab: {fileID: 1550875582688529655, guid: b855a5bf63f574a4fa82ee12f0b0a87e, type: 3}
 --- !u!4 &1156735740
 Transform:

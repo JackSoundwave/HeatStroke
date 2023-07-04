@@ -36,7 +36,7 @@ public class PunchingBagMovement : MonoBehaviour
 
         if (CombatStateManager.CSInstance.State == CombatState.EnemyTurn && turnOver == false)
         {
-            if (!hasMoved)
+            if (!hasMoved /*&& Communicator.Instance.AttackingPlayer*/)
             {
                 FindPathToPlayer();
                 //Debug.Log("Path value: " + path);

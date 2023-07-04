@@ -10,8 +10,14 @@ public class AttackState : State
 
     public override State RunCurrentState()
     {
-        Attacking();
-        return idle;
+        if (Input.GetKeyDown("space"))
+        {
+            return idle;
+        }
+        else
+        {
+            return this;
+        }
     }
     void Attacking()
     {
