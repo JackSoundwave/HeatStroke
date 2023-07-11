@@ -34,8 +34,6 @@ public class PlayerAttack
         attackRangeFinder = new AttackRangeFinder();
     }
 
-
-
     //Inherently the same to the "getInRangeTiles" for the movement, although this time, it's being used to get the attack range.
     public void getAttackRange()
     {

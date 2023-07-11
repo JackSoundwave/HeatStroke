@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UIElements;
 
 public class GameEventSystem : MonoBehaviour
 {
@@ -10,8 +11,15 @@ public class GameEventSystem : MonoBehaviour
     public static GameEventSystem current;
 
 
-    //Public list of units that currently holds info to be passed for all units in the scene, when a unit is placed down, they're added into this public list by default via events.
+    //Public array of units that currently holds info to be passed for all friendly units in the scene, when a unit is placed down, they're added into this public list by default via events.
+    //It's so that when a unit dies, it gets removed from the list.
+    //Keeps track of em basically.
+
     public PlayerUnitScript[] playerUnits = new PlayerUnitScript[3];
+
+    //public list of enemyUnits to get all the enemyUnits in the scene because reasons or something idfk okay.s
+    public List<EnemyUnitScript> enemyUnits;
+
 
 
     private void Awake()
@@ -19,20 +27,34 @@ public class GameEventSystem : MonoBehaviour
         current = this;
     }
 
-    //player Turn related actions
+    //==Player Related Actions==//
     public event Action onUnitDeployed;
     public event Action onUnitSelected;
     public event Action onPlayerStartTurn;
+    public event Action onPlayerEndTurn;
+    public event Action onResetDeployPressed;
+    public event Action onPrimeAttackButtonPressed;
+    //==Player Related Actions==//
 
-    //Enemy Turn related actions
+    //==Enemy Related Actions==//
     public event Action onSpawnEnemies;
+    public event Action onEnemyTurnStart;
+    public event Action onEnemyTurnEnd;
+    public event Action onEnemyDeath;
+    //==Enemy Related Actions==//
 
-    //Map Related actions
+    //==Map Related actions==//
     public event Action onGridGenerated;
     public event Action<MouseController> onMouseControllerCreated;
+    //==Map Related actions==//
 
-    //public Action<int> deez;
+    //==Objective Related actions==//
+    public event Action onDefenseStructureDeath;
+    public event Action onExterminateStructureDeath;
+    //==Objective Related actions==//
 
+
+    //==Misc==//
     public void generatedGrid()
     {
         Debug.Log("Grid Generation triggered");
@@ -49,22 +71,47 @@ public class GameEventSystem : MonoBehaviour
         Jon says so, so it must be right. ig
          */
     }
+    public void mouseControllerCreated(MouseController mouseController)
+    {
+        Debug.Log("MouseController created");
+        onMouseControllerCreated?.Invoke(mouseController);
+    }
+    //==Misc==//
+
+
+
+    //==Enemy Related==//
     public void spawnEnemies()
     {
         Debug.Log("SpawnEnemies triggered");
         onSpawnEnemies?.Invoke();
     }
 
-    public void deployUnit()
+    public void enemyTurnStart()
     {
-        Debug.Log("startPhase triggered");
-        onUnitDeployed?.Invoke();
+        Debug.Log("enemyTurnStart triggered");
+        onEnemyTurnStart?.Invoke();
     }
 
-    public void mouseControllerCreated(MouseController mouseController)
+    public void enemyTurnEnd()
     {
-        Debug.Log("MouseController created");
-        onMouseControllerCreated?.Invoke(mouseController);
+        Debug.Log("enemyTurnEnd triggered");
+        onEnemyTurnEnd?.Invoke();
+    }
+    public void enemyDeath()
+    {
+        Debug.Log("Enemy died");
+        onEnemyDeath?.Invoke(); //tysm Jon
+    }
+    //==Enemy Related==//
+
+
+
+    //==Player Related==//
+    public void deployUnit()
+    {
+        Debug.Log("Unit Deployed");
+        onUnitDeployed?.Invoke();
     }
 
     public void playerTurnStarted()
@@ -72,10 +119,40 @@ public class GameEventSystem : MonoBehaviour
         Debug.Log("PlayerTurn started");
         onPlayerStartTurn?.Invoke();
     }
-
     public void unitSelected()
     {
         Debug.Log("Unit selected");
         onUnitSelected?.Invoke();
     }
+    public void playerEndTurn()
+    {
+        Debug.Log("Player ended turn");
+        onPlayerEndTurn?.Invoke();
+    }
+    public void resetDeployPressed()
+    {
+        Debug.Log("Player reset deploy");
+        onResetDeployPressed?.Invoke();
+    }
+    public void primeAttackButtonPressed()
+    {
+        Debug.Log("Priming Attack");
+        onPrimeAttackButtonPressed?.Invoke();
+    }
+    //==Player Related==//
+
+
+
+    //==Objective Related==//
+    public void defenseStructureDeath()
+    {
+        Debug.Log("Defense structure has been destroyed");
+        onDefenseStructureDeath?.Invoke();
+    }
+    public void exterminateStructureDeath()
+    {
+        Debug.Log("Hive exterminated");
+        onExterminateStructureDeath?.Invoke();
+    }
+    //==Objective Related==//
 }

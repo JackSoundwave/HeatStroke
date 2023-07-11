@@ -16,6 +16,7 @@ public class PunchingBagMovement : MonoBehaviour
     private List<HideAndShowScript> inRangeTiles = new List<HideAndShowScript>();
 
     private bool hasMoved;
+    public bool turnOver;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,7 @@ public class PunchingBagMovement : MonoBehaviour
         rangeFinder = new RangefinderMovement();
 
         enemyUnit = GetComponent<EnemyUnitScript>();
+        GameEventSystem.current.onPlayerStartTurn += refreshActions;
     }
 
     void Update()
@@ -32,17 +34,25 @@ public class PunchingBagMovement : MonoBehaviour
         //This update function constantly checks if the enemyUnit has a playerUnit in range to move to
         inRangeTiles = rangeFinder.GetTilesInRange(enemyUnit.activeTile, enemyUnit.movementRange);
 
-        if (!hasMoved)
+        if (CombatStateManager.CSInstance.State == CombatState.EnemyTurn && turnOver == false)
         {
-            FindPathToPlayer();
-            //Debug.Log("Path value: " + path);
-        }
+            if (!hasMoved /*&& Communicator.Instance.AttackingPlayer*/)
+            {
+                FindPathToPlayer();
+                //Debug.Log("Path value: " + path);
+            }
 
-        if (hasMoved && path.Count > 0)
-        {
-            MoveAlongPath();
+            if (hasMoved && path.Count > 0)
+            {
+                MoveAlongPath();
+            }
+            else if (hasMoved == true && path.Count <= 0)
+            {
+                Debug.Log("Turn Over");
+                turnOver = true;
+                //CombatStateManager.CSInstance.UpdateCombatState(CombatState.PlayerTurn);
+            }
         }
-
     }
 
     //This is used for debugging purposes, should be removed in the final build of the game
@@ -93,7 +103,7 @@ public class PunchingBagMovement : MonoBehaviour
         {
             return;
         }
-
+        enemyUnit.activeTile.isBlocked = false;
         var step = speed * Time.deltaTime;
         var zIndex = path[0].transform.position.z;
         enemyUnit.transform.position = Vector2.MoveTowards(enemyUnit.transform.position, path[0].transform.position, step);
@@ -129,11 +139,19 @@ public class PunchingBagMovement : MonoBehaviour
         }*/
     }
 
+    private void refreshActions()
+    {
+        hasMoved = false;
+        turnOver = false;
+    }
+
     //This function adjusts the position of the character/unit on the gameplay tile
     private void PositionCharacterOnTile(HideAndShowScript tile)
     {
         enemyUnit.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z + 1);
-        enemyUnit.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 1;
+        enemyUnit.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 2;
         enemyUnit.activeTile = tile;
+        enemyUnit.activeTile.isBlocked = true;
+        CombatStateManager.CSInstance.UpdateCombatState(CombatState.EnemyTurn);
     }
 }

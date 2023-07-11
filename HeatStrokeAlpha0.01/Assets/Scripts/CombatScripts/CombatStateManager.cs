@@ -17,7 +17,7 @@ public class CombatStateManager : MonoBehaviour
     private void Awake()
     {
         CSInstance = this;
-        //GameEventSystem.current +=
+        CSInstance.State = CombatState.DeployPhase;
     }
 
     private void Start()
@@ -58,6 +58,7 @@ public class CombatStateManager : MonoBehaviour
     }
     public void HandlePlayerTurn()
     {
+        GameEventSystem.current.playerTurnStarted();
         Debug.Log("Player turn started");        
     }
 
@@ -65,16 +66,21 @@ public class CombatStateManager : MonoBehaviour
     public async void HandleEnemyTurn()
     {
         Debug.Log("Enemy Turn Started");
-        //in progress
-        await Task.Yield();
+        // Perform any initialization or setup here
+        GameEventSystem.current.enemyTurnStart();
+        // Wait for a short delay before starting the enemy AI's actions
+        await Task.Delay(500);
+        
+
+        Debug.Log("Enemy Turn Completed");
+        GameEventSystem.current.playerTurnStarted();
         CSInstance.UpdateCombatState(CombatState.PlayerTurn);
-    }
-
-    public void refreshAllPlayerActions()
-    {
-
+        // Trigger events or update the game state accordingly
+        //GameEventSystem.current.playerTurnStarted();
+        //CombatStateManager.CSInstance.UpdateCombatState(CombatState.PlayerTurn);
     }
 }
+
 /*
  * Context:
  * Deploy phase = Deployment part, similar to Into The Breach

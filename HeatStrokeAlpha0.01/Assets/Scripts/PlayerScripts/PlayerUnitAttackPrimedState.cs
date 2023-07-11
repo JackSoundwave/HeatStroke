@@ -19,6 +19,7 @@ public class PlayerUnitAttackPrimedState : PlayerUnitBaseState
         player.playerAttack.victim = player.cursor.targetedEnemyUnit;
 
 
+
         if (Input.GetKeyDown(KeyCode.R) || Input.GetMouseButtonDown(1))
         {
             player.thisUnit.attackPrimed = false;
@@ -33,10 +34,13 @@ public class PlayerUnitAttackPrimedState : PlayerUnitBaseState
             {
                 //essentially, if the victim is found, executes order66 on them
                 Debug.Log("player.cursor.targetedEnemyUnit is " + player.cursor.targetedEnemyUnit);
+                //this line basically says "if the enemy is within the attack range when the player clicked, attack that sumbitch"
                 if (player.playerAttack.findVictim(player.playerAttack.returnAttackRange(), player.playerAttack.victim?.activeTile) && player.cursor.targetedEnemyUnit != null)
                 {
                     player.thisUnit.hasAttacked = true;
+                    player.thisUnit.canMove = false;
                     player.playerAttack.DamageEnemy(player.playerAttack.victim);
+                    player.playerAttack.HideInRangeTiles();
                     player.SwitchState(player.idleState);
                 }
                 else

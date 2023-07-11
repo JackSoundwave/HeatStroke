@@ -14,32 +14,36 @@ public class AttackRangeFinder
         //inRangeTiles.Add(startingTile);
 
         // Check tiles in the four cardinal directions: up, down, left, right
+
+        //NOTE: I removed the "!tile.isBlocked" boolean because we need a different boolean to dictate whether or not a player can attack them.
+        //HideAndShowScript (the tile script) needs to be updated to include a new boolean, "isOccupied", which dictates whether or not there is an entity on top of it.
+        //isBlocked, only applies for tiles that have a STRUCTURE on top of them, like a mountain or something similar.
         for (int i = 1; i <= range; i++)
         {
             // Up
             var upTile = MapManager.instance2.getTileAtPosition(startingTile.gridLocation.x, startingTile.gridLocation.y + i);
-            if (upTile != null && !upTile.isBlocked)
+            if (upTile != null)
             {
                 inRangeTiles.Add(upTile);
             }
 
             // Down
             var downTile = MapManager.instance2.getTileAtPosition(startingTile.gridLocation.x, startingTile.gridLocation.y - i);
-            if (downTile != null && !downTile.isBlocked)
+            if (downTile != null)
             {
                 inRangeTiles.Add(downTile);
             }
 
             // Left
             var leftTile = MapManager.instance2.getTileAtPosition(startingTile.gridLocation.x - i, startingTile.gridLocation.y);
-            if (leftTile != null && !leftTile.isBlocked)
+            if (leftTile != null)
             {
                 inRangeTiles.Add(leftTile);
             }
 
             // Right
             var rightTile = MapManager.instance2.getTileAtPosition(startingTile.gridLocation.x + i, startingTile.gridLocation.y);
-            if (rightTile != null && !rightTile.isBlocked)
+            if (rightTile != null)
             {
                 inRangeTiles.Add(rightTile);
             }

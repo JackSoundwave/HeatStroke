@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using Unity.PlasticSCM.Editor.WebApi;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -25,7 +24,22 @@ public class PlayerUnitScript : MonoBehaviour
     private void Awake()
     {
         //when the onPlayerStartTurn action gets called, all actions are refreshed for this unit.
+        Debug.Log("Subscribed to onPlayerStartTurn");
         GameEventSystem.current.onPlayerStartTurn += refreshActions;
+
+        //So this may seem a bit counterintuitive, why would we want to deselect this unit if we attempt to select a different unit?
+        //You would be right, it doesn't make sense.
+        //However, we want the player to only have ONE unit selected at any given time.
+        //So, we invoke the unitselect action to trigger this de-select, just before selecting another unit to prevent conflicts from arising :)
+        GameEventSystem.current.onUnitSelected += deselectSelf;
+    }
+
+    void OnDestroy()
+    {
+        //Unsub from all actions to clear up space and save on data.
+        //idrk how it works but it's good practice apparently.
+        GameEventSystem.current.onPlayerStartTurn -= refreshActions;
+        GameEventSystem.current.onUnitSelected -= deselectSelf;
     }
 
     private void Update()
@@ -42,8 +56,14 @@ public class PlayerUnitScript : MonoBehaviour
         Destroy(this);
     }
 
+    private void deselectSelf()
+    {
+        isSelected = false;
+    }
+
     private void refreshActions()
     {
+        Debug.Log("Actions refreshed");
         canMove = true;
         hasAttacked = false;
         attackPrimed = false;

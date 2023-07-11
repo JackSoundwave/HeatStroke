@@ -8,14 +8,35 @@ public class EnemyUnitScript : MonoBehaviour
     public HideAndShowScript activeTile;
 
     //pretty sure I don't have to explain this
-    public int health, movementRange, attackDmg, attackRange;
+    public int health, movementRange, attackDmg, attackRange, maxHealth;
 
     //booleans to dictate whether or not the player has moved or has attacked already. canMove is set to true and hasAttacked is set to false.
     //If true, then the event manager tells the MouseController script that the unit can move after being selected.
     //isAttacking is to determine the current pUnit state. If the unit is attacking, the selected tile afterwards gets an attack on it
     public bool canMove, hasAttacked, isAttacking;
     public bool isSelected;
+    public HealthBar healthBar;
+    private void Start()
+    {
+        //upon starting, adds THIS unit to the EnemyUnit list in the GameEventSystem.
+        GameEventSystem.current.enemyUnits.Add(this);
+        healthBar.SetMaxHealth(maxHealth);
+    }
 
+    private void OnDestroy()
+    {
+        GameEventSystem.current.enemyUnits.Remove(this);
+    }
+
+    private void Update()
+    {
+        healthBar.SetHealth(health);
+        if (health <= 0)
+        {
+            GameEventSystem.current.enemyDeath();
+            Destroy(this.gameObject);
+        }
+    }
     public void PrimeWeapon()
     {
         isAttacking = true;

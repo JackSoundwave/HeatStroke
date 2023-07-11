@@ -5,31 +5,34 @@ using UnityEngine;
 public class Idle : State
 {
     EnemyUnitScript enemyUnitScript;
-    BooleanHolder booleanHolder;
-    public ChaseState chaseState;
-    //public bool canSeeThePlayer;
-    public float AttackRadius;
-    public Transform target;
-   
+    public ChasePlayerState chasePlayerState;
+    public ChaseDefenseState chaseDefenseState;
+    public Transform target1;
+    public Transform target2;
+
 
     void Start()
     {
-
+       
+       
     }
+
 
     void Update()
     {
-        if (Vector2.Distance(transform.position, target.position) < AttackRadius)
-        {
-            booleanHolder.canSeeThePlayer = true;
-        }
+        target1 = FindObjectOfType<PlayerUnitScript>().transform;
+        target2 = FindObjectOfType<DefenceStructure>().transform;
     }
-
+    
     public override State RunCurrentState()
     {
-        if (booleanHolder.canSeeThePlayer)
+        if (Vector2.Distance(transform.position, target1.position) < Vector2.Distance(transform.position, target2.position))
         {
-            return chaseState;
+            return chasePlayerState;
+        }
+        else if (Vector2.Distance(transform.position, target2.position) < Vector2.Distance(transform.position, target1.position))
+        {
+            return chaseDefenseState;
         }
         else
         {
@@ -38,3 +41,5 @@ public class Idle : State
     }
 }
         
+    
+

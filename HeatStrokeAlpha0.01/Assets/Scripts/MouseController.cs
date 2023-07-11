@@ -16,6 +16,8 @@ public class MouseController : MonoBehaviour
     //Made MouseController public static because we'll be using it for literally everything in relation to controlling the game.
     public static MouseController ActiveInstance { get; private set; }
 
+    //Adding a public deployableUnits array to neccesitate the deploying of said units.
+    public GameObject[] deployableUnits = new GameObject[3];
 
     private void Awake()
     {
@@ -29,8 +31,9 @@ public class MouseController : MonoBehaviour
             ActiveInstance = null;
         }
     }
-    public GameObject playerUnitPrefab;
+    public GameObject playerUnitPrefab;  
     private PlayerUnitScript pUnit;
+    public PlayerUnitScript[] unitList = new PlayerUnitScript[3];
     public EnemyUnitScript targetedEnemyUnit;
     public float speed;
     public GameObject cursor;
@@ -48,6 +51,7 @@ public class MouseController : MonoBehaviour
         rangeFinder = new RangefinderMovement();
         inRangeTiles = new List<HideAndShowScript>();
         mainCamera = Camera.main;
+        unitList[1] = pUnit;
     }
 
     //LateUpdate is called at the END of a previous update function call.
@@ -59,7 +63,41 @@ public class MouseController : MonoBehaviour
         {
             switch (focusedTileHit.Value.collider.gameObject.GetComponent<MonoBehaviour>())
             {
-                case HideAndShowScript hideAndShowScript:
+                //if raycast detects an EnemyUnitScript attached to a gameObject
+                case EnemyUnitScript _:
+
+                    //Debug.Log("Enemy unit detected!");
+                    //sets the current targeted Enemy to whatever the player is currently selecting.
+                    //positions the cursor on the Enemy's tile, it's a minor UI bug that gets fixed with this line
+                    
+                    targetedEnemyUnit = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>();
+                    transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>().activeTile.transform.position;
+
+                    //transform.position = targetedEnemyUnit.activeTile;
+                    break;
+
+                //if the raycast detects a playerScript attached to a gameObject
+                case PlayerUnitScript _:
+                    //Debug.Log("Player unit detected!");
+
+                    //setting the targeted EnemyUnit to null when NOT hovering over it in the scene.
+                    targetedEnemyUnit = null;
+                    transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<PlayerUnitScript>().activeTile.transform.position;
+
+                    //can only be selected if the current state is player turn.
+                    if (Input.GetMouseButtonDown(0) && CombatStateManager.CSInstance.State == CombatState.PlayerTurn)
+                    {
+                        GameEventSystem.current.unitSelected();
+                        pUnit.isSelected = true;
+                    }
+                    else if (Input.GetMouseButtonDown(1))
+                    {
+                        pUnit.isSelected = false;
+                    }
+                    break;
+                    
+                    //if raycast detects an empty tile.
+                 case HideAndShowScript hideAndShowScript:
 
                     transform.position = hideAndShowScript.transform.position;
                     gameObject.GetComponent<SpriteRenderer>().sortingOrder = hideAndShowScript.GetComponent<SpriteRenderer>().sortingOrder + 1;
@@ -71,6 +109,7 @@ public class MouseController : MonoBehaviour
                     {
                         if (pUnit == null)
                         {
+                            //spawn a unit if prefab 1 is null
                             pUnit = Instantiate(playerUnitPrefab).GetComponent<PlayerUnitScript>();
                             PositionCharacterOnTile(hideAndShowScript);
                         }
@@ -81,36 +120,7 @@ public class MouseController : MonoBehaviour
                     }
                     break;
 
-                    //if the raycast detects a playerScript attached to a gameObject
-                case PlayerUnitScript _:
-                    //Debug.Log("Player unit detected!");
-
-                    //setting the targeted EnemyUnit to null when NOT hovering over it in the scene.
-                    targetedEnemyUnit = null;
-                    transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<PlayerUnitScript>().activeTile.transform.position;
-
-
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        pUnit.isSelected = true;
-                    } else if (Input.GetMouseButtonDown(1))
-                    {
-                        pUnit.isSelected = false;
-                    }
-                    break;
-
-                    //if raycast detects an EnemyUnitScript attached to a gameObject
-                case EnemyUnitScript _:
-                    Debug.Log("Enemy unit detected!");
-
-                    //positions the cursor on the Enemy's tile, it's a minor UI bug that gets fixed with this line
-                    transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>().activeTile.transform.position;
-
-                    //sets the current targeted Enemy to whatever the player is currently selecting.
-                    targetedEnemyUnit = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>();
-                    break;
-
-                    //default case so that it still runs despite detecting something invalid (like something out of bounds)
+                    //default case so that it still runs despite detecting something invalid (like something out of bounds, for example)
                 default:
                     Debug.Log("Nothing detected");
                     break;
@@ -139,7 +149,7 @@ public class MouseController : MonoBehaviour
     {
         var step = speed * Time.deltaTime;
 
-        
+        pUnit.activeTile.isBlocked = false;
         var zIndex = path[0].transform.position.z;
         pUnit.transform.position = Vector2.MoveTowards(pUnit.transform.position, path[0].transform.position, step);
         pUnit.transform.position = new Vector3(pUnit.transform.position.x, pUnit.transform.position.y, zIndex);
@@ -237,6 +247,7 @@ public class MouseController : MonoBehaviour
         pUnit.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z + 1);
         pUnit.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 2;
         pUnit.activeTile = tile;
+        pUnit.activeTile.isBlocked = true;
     }
 
 
