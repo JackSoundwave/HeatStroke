@@ -17,7 +17,9 @@ public class GameEventSystem : MonoBehaviour
 
     public PlayerUnitScript[] playerUnits = new PlayerUnitScript[3];
 
-    //public list of enemyUnits to get all the enemyUnits in the scene because reasons or something idfk okay.s
+    //public list of enemyUnits to get all the enemyUnits in the scene. We need this so that we can iterate through the list and decide which units act first.
+    //The first unit in this list acts first, then the next unit acts.
+    //Once all units have acted, cycle back to player turn.
     public List<EnemyUnitScript> enemyUnits;
 
 

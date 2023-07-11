@@ -12,7 +12,10 @@ public class PlayerUnitIdleState : PlayerUnitBaseState
         Debug.Log("Player unit is now idle");
         //Swapping material to "idle" material.
         player.thisUnit.GetComponent<SpriteRenderer>().material = player.thisUnit.normal;
-        player.cursor.HideInRangeTiles();
+        if(player.cursor != null) 
+        {
+            player.cursor.HideInRangeTiles();
+        }
     }
 
     public override void UpdateState(PlayerStateManager player)

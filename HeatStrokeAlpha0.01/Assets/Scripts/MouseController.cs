@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-//Adding this in for brevity and clarity's sake, this script is meant for the user to use during gameplay.
+//Adding this in for clarity's sake, this script is meant for the user to use during gameplay.
 //Think of the gamepad, people call it a "Controller" because you use it to "control" what's happening on screen.
 //Hence this class is called "MouseController"
 
@@ -31,9 +31,19 @@ public class MouseController : MonoBehaviour
             ActiveInstance = null;
         }
     }
-    public GameObject playerUnitPrefab;  
+
+    public GameObject playerUnitPrefab;
+    //serializing these fields for debugging purposes
+    [SerializeField]
+    private PlayerUnitScript hoveredPlayerUnit;
+
+    [SerializeField]
     private PlayerUnitScript pUnit;
+
+    [HideInInspector]
     public PlayerUnitScript[] unitList = new PlayerUnitScript[3];
+
+
     public EnemyUnitScript targetedEnemyUnit;
     public float speed;
     public GameObject cursor;
@@ -51,10 +61,9 @@ public class MouseController : MonoBehaviour
         rangeFinder = new RangefinderMovement();
         inRangeTiles = new List<HideAndShowScript>();
         mainCamera = Camera.main;
-        unitList[1] = pUnit;
     }
 
-    //LateUpdate is called at the END of a previous update function call.
+     //LateUpdate is called at the END of a previous update function call.
      void LateUpdate()
      {
         var focusedTileHit = GetFocusedOnTile();
@@ -72,6 +81,7 @@ public class MouseController : MonoBehaviour
                     
                     targetedEnemyUnit = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>();
                     transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>().activeTile.transform.position;
+                    hoveredPlayerUnit = null;
 
                     //transform.position = targetedEnemyUnit.activeTile;
                     break;
@@ -82,12 +92,14 @@ public class MouseController : MonoBehaviour
 
                     //setting the targeted EnemyUnit to null when NOT hovering over it in the scene.
                     targetedEnemyUnit = null;
-                    transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<PlayerUnitScript>().activeTile.transform.position;
+                    hoveredPlayerUnit = focusedTileHit.Value.collider.gameObject.GetComponent<PlayerUnitScript>();
+                    transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<PlayerUnitScript>().activeTile.transform.position;                    
 
                     //can only be selected if the current state is player turn.
                     if (Input.GetMouseButtonDown(0) && CombatStateManager.CSInstance.State == CombatState.PlayerTurn)
                     {
                         GameEventSystem.current.unitSelected();
+                        pUnit = hoveredPlayerUnit;
                         pUnit.isSelected = true;
                     }
                     else if (Input.GetMouseButtonDown(1))
@@ -96,14 +108,16 @@ public class MouseController : MonoBehaviour
                     }
                     break;
                     
-                    //if raycast detects an empty tile.
+                 //if raycast detects an empty tile.
                  case HideAndShowScript hideAndShowScript:
 
                     transform.position = hideAndShowScript.transform.position;
                     gameObject.GetComponent<SpriteRenderer>().sortingOrder = hideAndShowScript.GetComponent<SpriteRenderer>().sortingOrder + 1;
 
+
                     //setting the targeted EnemyUnit to null when NOT hovering over it in the scene.
-                    targetedEnemyUnit = null;
+                    //targetedEnemyUnit = null;
+                    //hoveredPlayerUnit = null;
 
                     if (Input.GetMouseButtonDown(0))
                     {
@@ -126,11 +140,9 @@ public class MouseController : MonoBehaviour
                     break;
             }
         }
-        
-        
      }
 
-   /* void LateUpdate()
+   /*void LateUpdate()
     {
         var focusedTileHit = GetFocusedOnTile();
 
@@ -179,7 +191,14 @@ public class MouseController : MonoBehaviour
 
         foreach (var item in inRangeTiles)
         {
-            item.ShowTile();
+            if (item.isBlocked)
+            {
+                item.DyeTileBlue();
+            }
+            else 
+            {
+                item.ShowTile();
+            }
         }
     }
 
@@ -196,10 +215,13 @@ public class MouseController : MonoBehaviour
     //Refer to previous comment.
     public void HideInRangeTiles()
     {
-        inRangeTiles = rangeFinder.GetTilesInRange(pUnit.activeTile, pUnit.movementRange);
-        foreach (var item in inRangeTiles)
+        if(pUnit != null) 
         {
-            item.HideTile();
+            inRangeTiles = rangeFinder.GetTilesInRange(pUnit.activeTile, pUnit.movementRange);
+            foreach (var item in inRangeTiles)
+            {
+                item.HideTile();
+            }
         }
     }
 
@@ -249,6 +271,5 @@ public class MouseController : MonoBehaviour
         pUnit.activeTile = tile;
         pUnit.activeTile.isBlocked = true;
     }
-
 
 }

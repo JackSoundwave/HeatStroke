@@ -28,7 +28,7 @@ public class PlayerUnitScript : MonoBehaviour
         GameEventSystem.current.onPlayerStartTurn += refreshActions;
 
         //So this may seem a bit counterintuitive, why would we want to deselect this unit if we attempt to select a different unit?
-        //You would be right, it doesn't make sense.
+        //You would be right, it doesn't make sense
         //However, we want the player to only have ONE unit selected at any given time.
         //So, we invoke the unitselect action to trigger this de-select, just before selecting another unit to prevent conflicts from arising :)
         GameEventSystem.current.onUnitSelected += deselectSelf;
@@ -53,6 +53,7 @@ public class PlayerUnitScript : MonoBehaviour
     
     private void killSelf()
     {
+        //we'll add like, animations and stuff inside this script later
         Destroy(this);
     }
 
