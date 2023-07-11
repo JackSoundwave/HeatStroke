@@ -8,11 +8,16 @@ public class DefenceStructure : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
 
+    public HideAndShowScript activeTile;
+
     public HeatGaugeSystem heatgaugeSystem;
+    public HeatBar heatBar;
     public HealthBar healthBar;
 
     void Start()
     {
+        heatBar = FindObjectOfType<HeatBar>();
+        heatgaugeSystem = FindObjectOfType<HeatGaugeSystem>();
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
     }

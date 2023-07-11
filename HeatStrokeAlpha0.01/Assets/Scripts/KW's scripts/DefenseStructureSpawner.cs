@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class DefenseStructureSpawner : MonoBehaviour
 {
-    public GameObject defenseStructurePrefab;
+    public GameObject DefenseStructureUnitPrefab;
     private MapManager mapManager;
     private List<KeyValuePair<Vector2Int, HideAndShowScript>> overlayTiles;
     private List<Vector2Int> unblockedTiles;
-    private HideAndShowScript activeTile;
 
     private void Start()
     {
-        Debug.Log("DefenseStructureSpawner starting");
+        Debug.Log("DefenseStructureScript starting");
         mapManager = FindObjectOfType<MapManager>();
         Debug.Log("MapManager object: " + mapManager);
         GameEventSystem.current.onGridGenerated += SpawnDefenseStructure;
@@ -20,39 +19,47 @@ public class DefenseStructureSpawner : MonoBehaviour
 
     private void SpawnDefenseStructure()
     {
-        Debug.Log("Spawning DefenseStructure");
+        Debug.Log("Spawning Enemies");
         overlayTiles = mapManager.GetOverLayTiles();
         unblockedTiles = new List<Vector2Int>();
+        int counter = 0;
 
-        // Specify the coordinates of the desired tile
-
-        int desiredX = 1;
-        int desiredY = 3;
-        Vector2Int desiredTileKey = new Vector2Int(desiredX, desiredY);
-
-
-
-        if (overlayTiles.Exists(tile => tile.Key == desiredTileKey))
+        foreach (var tile in overlayTiles)
         {
+            //the counter variable is here so that it only counts the first 16 tiles. Meaning, the first two rows from the right hand side.
+            //I hate living
+
+            counter++;
+            if (!tile.Value.isBlocked && counter <= 16)
+            {
+                unblockedTiles.Add(tile.Key);
+            }
+        }
+
+        if (unblockedTiles.Count > 0)
+        {
+            Vector2Int desiredTileKey = new Vector2Int(-3, -6); // Set desiredX and desiredY to the desired tile's coordinates
+
             HideAndShowScript desiredTile = overlayTiles.Find(tile => tile.Key == desiredTileKey).Value;
 
             if (desiredTile != null && !desiredTile.isBlocked)
             {
-                GameObject defenseStructure = Instantiate(defenseStructurePrefab, desiredTile.transform.position, Quaternion.identity);
-                DefenseStructureSpawner defenseScript = defenseStructure.GetComponent<DefenseStructureSpawner>();
-                defenseScript.activeTile = desiredTile;
+                Debug.Log("DefenseStructure Spawned");
+                GameObject defenseStructureUnit = Instantiate(DefenseStructureUnitPrefab, desiredTile.transform.position, Quaternion.identity);
+                DefenceStructure defenseStructure = defenseStructureUnit.GetComponent<DefenceStructure>();
+                defenseStructure.activeTile = desiredTile;
                 desiredTile.isBlocked = true;
             }
             else
             {
                 Debug.LogWarning("The desired tile is already blocked or invalid. Defense structure cannot be spawned.");
             }
+
         }
         else
         {
-            Debug.LogWarning("The desired tile is invalid. Defense structure cannot be spawned.");
+            Debug.LogWarning("No available unblocked tiles. Enemy cannot be spawned.");
         }
-
     }
 
 }
