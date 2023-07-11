@@ -166,12 +166,6 @@ public class MapManager : MonoBehaviour
         return null;
     }
 
-    public float GetTileSize()
-    {
-        // Add your logic here to calculate and return the tile size
-        return 1.0f; // Replace with the actual tile size value
-    }
-
 
     public List<KeyValuePair<Vector2Int, HideAndShowScript>> GetOverLayTiles()
     {

@@ -19,14 +19,16 @@ public class DefenseStructureSpawner : MonoBehaviour
 
     private void SpawnDefenseStructure()
     {
-        Debug.Log("Spawning Defense Structure");
+        Debug.Log("Spawning Enemies");
         overlayTiles = mapManager.GetOverLayTiles();
         unblockedTiles = new List<Vector2Int>();
-
-        // Iterate through the overlay tiles and find unblocked tiles in the first two rows from the right side
         int counter = 0;
+
         foreach (var tile in overlayTiles)
         {
+            //the counter variable is here so that it only counts the first 16 tiles. Meaning, the first two rows from the right hand side.
+            //I hate living
+
             counter++;
             if (!tile.Value.isBlocked && counter <= 16)
             {
@@ -36,16 +38,14 @@ public class DefenseStructureSpawner : MonoBehaviour
 
         if (unblockedTiles.Count > 0)
         {
-            Vector2Int desiredTileKey = new Vector2Int(-3, -6);
-            float tileSize = mapManager.GetTileSize(); // Get the size of the tiles from the mapManager (assuming it provides this information)
-            Vector3 desiredTilePosition = new Vector3(desiredTileKey.x + 0.5f, desiredTileKey.y + 0.5f, 0f) * tileSize;
+            Vector2Int desiredTileKey = new Vector2Int(-3, -6); // Set desiredX and desiredY to the desired tile's coordinates
 
             HideAndShowScript desiredTile = overlayTiles.Find(tile => tile.Key == desiredTileKey).Value;
 
             if (desiredTile != null && !desiredTile.isBlocked)
             {
-                Debug.Log("Defense Structure Spawned");
-                GameObject defenseStructureUnit = Instantiate(DefenseStructureUnitPrefab, desiredTilePosition, Quaternion.identity);
+                Debug.Log("DefenseStructure Spawned");
+                GameObject defenseStructureUnit = Instantiate(DefenseStructureUnitPrefab, desiredTile.transform.position, Quaternion.identity);
                 DefenceStructure defenseStructure = defenseStructureUnit.GetComponent<DefenceStructure>();
                 defenseStructure.activeTile = desiredTile;
                 desiredTile.isBlocked = true;
@@ -55,11 +55,11 @@ public class DefenseStructureSpawner : MonoBehaviour
                 Debug.LogWarning("The desired tile is already blocked or invalid. Defense structure cannot be spawned.");
             }
 
-
         }
         else
         {
-            Debug.LogWarning("No available unblocked tiles. Defense structure cannot be spawned.");
+            Debug.LogWarning("No available unblocked tiles. Enemy cannot be spawned.");
         }
     }
+
 }
