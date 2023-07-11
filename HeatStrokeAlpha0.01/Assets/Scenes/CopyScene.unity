@@ -580,7 +580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd442df06fa5ef4f93c87d331746d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefenseStructureUnitPrefab: {fileID: 3290574489773074726, guid: 8bd44389aa684d04398f2e7a38773b72, type: 3}
+  DefenseStructureUnitPrefab: {fileID: 4268732427849008521, guid: 8bd44389aa684d04398f2e7a38773b72, type: 3}
 --- !u!1 &757102721
 GameObject:
   m_ObjectHideFlags: 0
