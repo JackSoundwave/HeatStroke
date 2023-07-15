@@ -38,7 +38,7 @@ public class MouseController : MonoBehaviour
     private PlayerUnitScript hoveredPlayerUnit;
 
     [SerializeField]
-    private PlayerUnitScript pUnit;
+    public PlayerUnitScript pUnit;
 
     [HideInInspector]
     public PlayerUnitScript[] unitList = new PlayerUnitScript[3];

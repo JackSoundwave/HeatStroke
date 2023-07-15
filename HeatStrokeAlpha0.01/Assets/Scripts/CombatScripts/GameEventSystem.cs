@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class GameEventSystem : MonoBehaviour
 {
@@ -14,8 +15,8 @@ public class GameEventSystem : MonoBehaviour
     //Public array of units that currently holds info to be passed for all friendly units in the scene, when a unit is placed down, they're added into this public list by default via events.
     //It's so that when a unit dies, it gets removed from the list.
     //Keeps track of em basically.
-
-    public PlayerUnitScript[] playerUnits = new PlayerUnitScript[3];
+    public PlayerUnitScript[] unitsToDeploy = new PlayerUnitScript[3];
+    public PlayerUnitScript[] playerUnits = new PlayerUnitScript[6];
 
     //public list of enemyUnits to get all the enemyUnits in the scene. We need this so that we can iterate through the list and decide which units act first.
     //The first unit in this list acts first, then the next unit acts.
@@ -27,9 +28,11 @@ public class GameEventSystem : MonoBehaviour
     private void Awake()
     {
         current = this;
+        
     }
 
     //==Player Related Actions==//
+    public event Action onUnitSpawned;
     public event Action onUnitDeployed;
     public event Action onUnitSelected;
     public event Action onPlayerStartTurn;
@@ -110,12 +113,16 @@ public class GameEventSystem : MonoBehaviour
 
 
     //==Player Related==//
+    public void spawnUnit()
+    {
+        Debug.Log("Unit spawned");
+        onUnitSpawned?.Invoke();
+    }
     public void deployUnit()
     {
         Debug.Log("Unit Deployed");
         onUnitDeployed?.Invoke();
     }
-
     public void playerTurnStarted()
     {
         Debug.Log("PlayerTurn started");
@@ -157,4 +164,15 @@ public class GameEventSystem : MonoBehaviour
         onExterminateStructureDeath?.Invoke();
     }
     //==Objective Related==//
+
+    //==Changing Scene Related==//
+    private void resetLists()
+    {
+        //resetting unitList
+        for (int i =0; i < playerUnits.Length; i++)
+        {
+            playerUnits[i] = null;
+        }
+    }
+    //==Changing Scene Related==//
 }

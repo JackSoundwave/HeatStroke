@@ -112,8 +112,6 @@ public class MapManager : MonoBehaviour
             tileToSearch = map;
         }
 
-   
-
         List<HideAndShowScript> neighbours = new List<HideAndShowScript>();
 
         //Top tile

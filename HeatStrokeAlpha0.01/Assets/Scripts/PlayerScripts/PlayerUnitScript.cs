@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.PlasticSCM.Editor.WebApi;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -24,7 +25,6 @@ public class PlayerUnitScript : MonoBehaviour
     private void Awake()
     {
         //when the onPlayerStartTurn action gets called, all actions are refreshed for this unit.
-        Debug.Log("Subscribed to onPlayerStartTurn");
         GameEventSystem.current.onPlayerStartTurn += refreshActions;
 
         //So this may seem a bit counterintuitive, why would we want to deselect this unit if we attempt to select a different unit?
@@ -32,6 +32,7 @@ public class PlayerUnitScript : MonoBehaviour
         //However, we want the player to only have ONE unit selected at any given time.
         //So, we invoke the unitselect action to trigger this de-select, just before selecting another unit to prevent conflicts from arising :)
         GameEventSystem.current.onUnitSelected += deselectSelf;
+        addSelfToList();
     }
 
     void OnDestroy()
@@ -70,5 +71,19 @@ public class PlayerUnitScript : MonoBehaviour
         attackPrimed = false;
         isSelected = false;
         isAttacking = false;
+    }
+
+    private void addSelfToList()
+    {
+        for (int i = 0; i < GameEventSystem.current.playerUnits.Length; i++)
+        {
+            if (GameEventSystem.current.playerUnits[i] == null)
+            {
+                GameEventSystem.current.playerUnits[i] = this;
+                return;
+            }
+        }
+        //This block executes if an element could not be found, needs proper error handling.
+        Debug.Log("Could not add element to unitList in the GameEventSystem");
     }
 }
