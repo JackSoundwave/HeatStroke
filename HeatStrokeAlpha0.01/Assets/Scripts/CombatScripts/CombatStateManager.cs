@@ -23,7 +23,7 @@ public class CombatStateManager : MonoBehaviour
     private void Start()
     {
         //first turn is playerTurn, truthfully it should be the deploy phase, but for now we'll go with PlayerTurn instead.
-        UpdateCombatState(CombatState.PlayerTurn);
+        //UpdateCombatState(CombatState.PlayerTurn);
     }
 
     public void UpdateCombatState(CombatState newState)
@@ -37,6 +37,9 @@ public class CombatStateManager : MonoBehaviour
                 break;
             case CombatState.PlayerTurn:
                 HandlePlayerTurn();
+                break;
+            case CombatState.Decide:
+                HandleDecideState();
                 break;
             case CombatState.EnemyTurn:
                 HandleEnemyTurn();
@@ -78,6 +81,11 @@ public class CombatStateManager : MonoBehaviour
         // Trigger events or update the game state accordingly
         //GameEventSystem.current.playerTurnStarted();
         //CombatStateManager.CSInstance.UpdateCombatState(CombatState.PlayerTurn);
+    }
+
+    public void HandleDecideState()
+    {
+
     }
 }
 

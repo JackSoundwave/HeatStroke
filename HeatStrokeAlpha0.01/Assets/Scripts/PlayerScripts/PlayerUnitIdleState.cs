@@ -24,6 +24,5 @@ public class PlayerUnitIdleState : PlayerUnitBaseState
         {
            player.SwitchState(player.selectedState);
         } 
-    }
-    
+    }    
 }

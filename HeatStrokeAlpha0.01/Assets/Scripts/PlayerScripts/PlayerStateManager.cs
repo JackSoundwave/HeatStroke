@@ -29,7 +29,7 @@ public class PlayerStateManager : MonoBehaviour
 
     void Start()
     {
-        //Starting state for our player
+        //Starting state for our player !!DO NOT CHANGE THIS LINE!!
         currentState = idleState;
 
         //Referencing "THIS" state.

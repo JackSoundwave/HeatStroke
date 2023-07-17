@@ -16,7 +16,7 @@ public class PlayerUnitScript : MonoBehaviour
     //booleans to dictate whether or not the player has moved or has attacked already. canMove is set to true and hasAttacked is set to false.
     //If true, then the event manager tells the MouseController script that the unit can move after being selected.\
     //isAttacking is to determine the current pUnit state. If the unit is attacking, the selected tile afterwards gets an attack on it
-    public bool canMove, hasAttacked, attackPrimed, isSelected, isAttacking, isMoving;
+    public bool canMove, hasAttacked, attackPrimed, isSelected, isAttacking, isMoving, isDeploying;
 
 
     public Material normal;
@@ -61,6 +61,7 @@ public class PlayerUnitScript : MonoBehaviour
     private void deselectSelf()
     {
         isSelected = false;
+        attackPrimed = false;
     }
 
     private void refreshActions()
@@ -85,5 +86,10 @@ public class PlayerUnitScript : MonoBehaviour
         }
         //This block executes if an element could not be found, needs proper error handling.
         Debug.Log("Could not add element to unitList in the GameEventSystem");
+    }
+
+    private void onConfirmDeployPressed()
+    {
+        isDeploying = false;        
     }
 }

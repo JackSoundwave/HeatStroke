@@ -15,7 +15,12 @@ public class GameEventSystem : MonoBehaviour
     //Public array of units that currently holds info to be passed for all friendly units in the scene, when a unit is placed down, they're added into this public list by default via events.
     //It's so that when a unit dies, it gets removed from the list.
     //Keeps track of em basically.
-    public PlayerUnitScript[] unitsToDeploy = new PlayerUnitScript[3];
+
+    //unitsToDeploy acts as the holder for the player's currently selected team. Hence, they're a GameObject that's stored.
+    public GameObject[] unitsToDeploy = new GameObject[3];
+
+    //These are the playerUnits currently on the field, resets after every level.
+    [HideInInspector]
     public PlayerUnitScript[] playerUnits = new PlayerUnitScript[6];
 
     //public list of enemyUnits to get all the enemyUnits in the scene. We need this so that we can iterate through the list and decide which units act first.
@@ -28,7 +33,7 @@ public class GameEventSystem : MonoBehaviour
     private void Awake()
     {
         current = this;
-        
+        SceneManager.sceneLoaded += onSceneLoaded;
     }
 
     //==Player Related Actions==//
@@ -37,6 +42,7 @@ public class GameEventSystem : MonoBehaviour
     public event Action onUnitSelected;
     public event Action onPlayerStartTurn;
     public event Action onPlayerEndTurn;
+    public event Action onConfirmDeployPressed;
     public event Action onResetDeployPressed;
     public event Action onPrimeAttackButtonPressed;
     //==Player Related Actions==//
@@ -125,7 +131,7 @@ public class GameEventSystem : MonoBehaviour
     }
     public void playerTurnStarted()
     {
-        Debug.Log("PlayerTurn started");
+        //Debug.Log("PlayerTurn started");
         onPlayerStartTurn?.Invoke();
     }
     public void unitSelected()
@@ -140,8 +146,14 @@ public class GameEventSystem : MonoBehaviour
     }
     public void resetDeployPressed()
     {
-        Debug.Log("Player reset deploy");
+        //Debug.Log("Player reset deploy");
         onResetDeployPressed?.Invoke();
+    }
+    public void confirmDeployPressed()
+    {
+        Debug.Log("Player Confirmed Deploy");
+        onConfirmDeployPressed?.Invoke();
+
     }
     public void primeAttackButtonPressed()
     {
@@ -173,6 +185,11 @@ public class GameEventSystem : MonoBehaviour
         {
             playerUnits[i] = null;
         }
+    }
+
+    private void onSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        resetLists();
     }
     //==Changing Scene Related==//
 }

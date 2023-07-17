@@ -17,8 +17,6 @@ public class CombatUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _enemyUnitsRemainingNumber;
 
 
-    private CombatState currentCombatState;
-
     void Awake()
     {
         CombatStateManager.OnCombatStateChanged += CombatStateManagerOnOnCombatStateChanged;
@@ -119,5 +117,17 @@ public class CombatUIManager : MonoBehaviour
     {
         //code for executing attack durng "primeAttack" state goes here
         //side note for myself: make sure to add "isAttacking" state for player. Or just make the attack instant and set the "hasAttacked" boolean to true after.
+    }
+
+    public void resetDeploy()
+    {
+        //Code should execute in this order:
+        //Kill all playerUnits on the grid (Only the PlayerUnits that are part of the players team. This is an important distinction to make)
+        //Reset the MouseController's deploy unit list
+    }
+
+    public void confirmDeploy()
+    {
+        CombatStateManager.CSInstance.UpdateCombatState(CombatState.PlayerTurn);
     }
 }
