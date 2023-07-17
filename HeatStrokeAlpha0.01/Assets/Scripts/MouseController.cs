@@ -24,12 +24,12 @@ public class MouseController : MonoBehaviour
     private void Awake()
     {
         ActiveInstance = this;
-        SceneManager.sceneLoaded += deployUnitSetup;
+        SceneManager.sceneLoaded += deployUnitSetupOnSceneLoad;
     }
 
     private void OnDestroy()
     {
-        SceneManager.sceneLoaded -= deployUnitSetup;
+        SceneManager.sceneLoaded -= deployUnitSetupOnSceneLoad;
         if (ActiveInstance == this)
         {
             ActiveInstance = null;
@@ -111,7 +111,7 @@ public class MouseController : MonoBehaviour
                         }
                         break;
 
-                    //if raycast detects an empty tile tile.
+                    //if raycast detects an empty tile.
                     case HideAndShowScript hideAndShowScript:
 
                         transform.position = hideAndShowScript.transform.position;
@@ -142,30 +142,41 @@ public class MouseController : MonoBehaviour
         }
         //==PLAYER TURN LOGIC==//
 
+
+
         //==DEPLOY PHASE LOGIC==//
         else if (CombatStateManager.CSInstance?.State == CombatState.DeployPhase)
         {
-            if (focusedTileHit.Value.collider.gameObject.GetComponent<MonoBehaviour>() is HideAndShowScript hideAndShowScript)
+            if (focusedTileHit.HasValue)
             {
-                transform.position = hideAndShowScript.transform.position;
-                gameObject.GetComponent<SpriteRenderer>().sortingOrder = hideAndShowScript.GetComponent<SpriteRenderer>().sortingOrder + 1;
-
-                if (Input.GetMouseButtonDown(0))
+                switch (focusedTileHit.Value.collider.gameObject.GetComponent<MonoBehaviour>())
                 {
-                    //checks if all units in the array are null or not
-                    if (deployableUnits.All(GameObject => GameObject != null))
-                    {
-                        instantiateUnitAtPosition(hideAndShowScript);                        
-                    }
-                    else
-                    {
-                        // !!play Error Sound!!
-                    }
+                    //if raycast detects an empty tile.
+                    case HideAndShowScript hideAndShowScript:
+
+                        transform.position = hideAndShowScript.transform.position;
+                        gameObject.GetComponent<SpriteRenderer>().sortingOrder = hideAndShowScript.GetComponent<SpriteRenderer>().sortingOrder + 1;
+
+
+                        if (Input.GetMouseButtonDown(0))
+                        {
+                            //checks if all units in the array are null or not
+                            if (!deployableUnits.All(GameObject => GameObject == null) && hideAndShowScript.isBlocked == false)
+                            {
+                                instantiateUnitAtPosition(hideAndShowScript);
+                            }
+                            else
+                            {
+                                Debug.Log("No");
+                            }
+                        }
+                        break;
+
+                    //default case so that it still runs despite detecting something invalid (like something out of bounds, for example)
+                    default:
+                        Debug.Log("Nothing detected");
+                        break;
                 }
-            }
-            else
-            {
-                Debug.Log("Nothing detected");
             }
         }
         else
@@ -309,7 +320,17 @@ public class MouseController : MonoBehaviour
     //==Selection Related==/
 
     //==Deployment Phase Related==//
-    private void deployUnitSetup(Scene currentScene, LoadSceneMode mode)
+    private void deployUnitSetup()
+    {
+        if (deployableUnits.Length == GameEventSystem.current?.unitsToDeploy.Length)
+        {
+            for (int i = 0; i < deployableUnits.Length; i++)
+            {
+                deployableUnits[i] = GameEventSystem.current?.unitsToDeploy[i];
+            }
+        }
+    }
+    private void deployUnitSetupOnSceneLoad(Scene currentScene, LoadSceneMode mode)
     {
         if (deployableUnits.Length == GameEventSystem.current?.unitsToDeploy.Length)
         {
@@ -327,11 +348,12 @@ public class MouseController : MonoBehaviour
         {
             if (deployableUnits[i] != null) 
             {
-                Instantiate(deployableUnits[i], tileToSpawnAt.transform);
-                pUnit = deployableUnits[i].GetComponent<PlayerUnitScript>();
+                GameObject newPlayerUnitGO = Instantiate(deployableUnits[i]);
+                PlayerUnitScript newPlayerUnit = newPlayerUnitGO.GetComponent<PlayerUnitScript>();
+                pUnit = newPlayerUnit;
                 PositionCharacterOnTile(tileToSpawnAt);
-                pUnit = null;
                 deployableUnits[i] = null;
+                pUnit = newPlayerUnit;
                 break;
             }
         }

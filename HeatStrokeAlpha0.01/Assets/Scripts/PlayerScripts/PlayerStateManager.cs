@@ -47,12 +47,4 @@ public class PlayerStateManager : MonoBehaviour
         currentState = state;
         state.EnterState(this);
     }
-
-    private void OnMouseDown()
-    {
-        thisUnit.isSelected = true;
-        cursor.pUnit = thisUnit;
-    }
-
-
 }

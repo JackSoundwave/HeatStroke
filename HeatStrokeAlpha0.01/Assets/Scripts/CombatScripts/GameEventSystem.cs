@@ -33,7 +33,7 @@ public class GameEventSystem : MonoBehaviour
     private void Awake()
     {
         current = this;
-        SceneManager.sceneLoaded += onSceneLoaded;
+        SceneManager.sceneLoaded += onSceneLoaded; 
     }
 
     //==Player Related Actions==//
