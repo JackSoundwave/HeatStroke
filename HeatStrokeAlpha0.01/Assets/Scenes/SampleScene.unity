@@ -2095,10 +2095,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   playerUnitPrefab: {fileID: 1550875582688529655, guid: d8961262a30b9e445bb3576ce11b3ac6, type: 3}
-  unitList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  hoveredPlayerUnit: {fileID: 0}
+  pUnit: {fileID: 0}
   targetedEnemyUnit: {fileID: 0}
   speed: 4
   cursor: {fileID: 0}
@@ -2238,6 +2236,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2983254206159050779, guid: ec36f6a112cbdf543ae4d9f492114d3b, type: 3}
+      propertyPath: playerUnits.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2983254206159050779, guid: ec36f6a112cbdf543ae4d9f492114d3b, type: 3}
+      propertyPath: unitsToDeploy.Array.data[0]
+      value: 
+      objectReference: {fileID: 1550875582688529655, guid: 8e76a90a0e9c9d5468daf47198d8b3f4, type: 3}
+    - target: {fileID: 2983254206159050779, guid: ec36f6a112cbdf543ae4d9f492114d3b, type: 3}
+      propertyPath: unitsToDeploy.Array.data[1]
+      value: 
+      objectReference: {fileID: 1550875582688529655, guid: b855a5bf63f574a4fa82ee12f0b0a87e, type: 3}
+    - target: {fileID: 2983254206159050779, guid: ec36f6a112cbdf543ae4d9f492114d3b, type: 3}
+      propertyPath: unitsToDeploy.Array.data[2]
+      value: 
+      objectReference: {fileID: 1550875582688529655, guid: d8961262a30b9e445bb3576ce11b3ac6, type: 3}
     - target: {fileID: 3172999765355024171, guid: ec36f6a112cbdf543ae4d9f492114d3b, type: 3}
       propertyPath: m_Name
       value: GameEventSystem

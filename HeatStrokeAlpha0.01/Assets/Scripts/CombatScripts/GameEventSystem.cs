@@ -20,7 +20,6 @@ public class GameEventSystem : MonoBehaviour
     public GameObject[] unitsToDeploy = new GameObject[3];
 
     //These are the playerUnits currently on the field, resets after every level.
-    [HideInInspector]
     public PlayerUnitScript[] playerUnits = new PlayerUnitScript[6];
 
     //public list of enemyUnits to get all the enemyUnits in the scene. We need this so that we can iterate through the list and decide which units act first.
