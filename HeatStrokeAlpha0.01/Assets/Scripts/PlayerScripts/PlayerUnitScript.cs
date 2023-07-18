@@ -80,7 +80,7 @@ public class PlayerUnitScript : MonoBehaviour
         {
             if (GameEventSystem.current.playerUnits[i] == null)
             {
-                GameEventSystem.current.playerUnits[i] = this;
+                GameEventSystem.current.playerUnits[i] = gameObject;
                 return;
             }
         }
@@ -88,8 +88,25 @@ public class PlayerUnitScript : MonoBehaviour
         Debug.Log("Could not add element to unitList in the GameEventSystem");
     }
 
+    public void removeSelfFromList()
+    {
+        for(int i =0; i < GameEventSystem.current.playerUnits.Length; i++)
+        {
+            if (GameEventSystem.current.playerUnits[i] == gameObject)
+            {
+                GameEventSystem.current.playerUnits[i] = null;
+                return;
+            }
+        }
+    }
+
     private void onConfirmDeployPressed()
     {
         isDeploying = false;        
+    }
+
+    public HideAndShowScript getActiveTile()
+    {
+        return activeTile;
     }
 }

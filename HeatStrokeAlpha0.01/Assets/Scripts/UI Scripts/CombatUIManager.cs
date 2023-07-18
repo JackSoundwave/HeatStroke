@@ -80,8 +80,24 @@ public class CombatUIManager : MonoBehaviour
                 _deployResetButton.gameObject.SetActive(false);
                 _unitsLeftText.gameObject.SetActive(false);
                 _unitsLeftNumber.gameObject.SetActive(false);
-            } 
-        } 
+                _endTurnButton.gameObject.SetActive(false);
+            }
+            
+            if (_primeAttackButton.gameObject.activeSelf == false && _endTurnButton.gameObject.activeSelf == false)
+            {
+                _primeAttackButton.gameObject.SetActive(true);
+                _endTurnButton.gameObject.SetActive(true);
+            }
+        }
+        else if (state == CombatState.DeployPhase)
+        {
+            _primeAttackButton.gameObject.SetActive(false);
+            _endTurnButton.gameObject.SetActive(false);
+        }
+        else if (state == CombatState.OutOfCombat)
+        {
+
+        }
         else if(state != CombatState.PlayerTurn)
         {
             _primeAttackButton.interactable = false;
@@ -119,15 +135,25 @@ public class CombatUIManager : MonoBehaviour
         //side note for myself: make sure to add "isAttacking" state for player. Or just make the attack instant and set the "hasAttacked" boolean to true after.
     }
 
-    public void resetDeploy()
+    public void resetDeployButton()
     {
-        //Code should execute in this order:
-        //Kill all playerUnits on the grid (Only the PlayerUnits that are part of the players team. This is an important distinction to make)
-        //Reset the MouseController's deploy unit list
+        GameEventSystem.current.resetDeployPressed();
     }
 
     public void confirmDeploy()
     {
         CombatStateManager.CSInstance.UpdateCombatState(CombatState.PlayerTurn);
+    }
+
+    //used for later
+    private void deactivateAllCombatUI()
+    {
+        _primeAttackButton.gameObject.SetActive(false);
+        _endTurnButton.gameObject.SetActive(false);
+        _deployConfirmButton.gameObject.SetActive(false);
+        _deployResetButton.gameObject.SetActive(false);
+        _unitsLeftText.gameObject.SetActive(false);
+        _unitsLeftNumber.gameObject.SetActive(false);
+        _enemyUnitsRemainingNumber.gameObject.SetActive(false);
     }
 }

@@ -32,7 +32,7 @@ Transform:
   - {fileID: 8156939402822322854}
   - {fileID: 3133476294475825375}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &125322348736311668
 GameObject:
@@ -1984,19 +1984,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 889993984299696236}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2140864410780526225}
-        m_TargetAssemblyTypeName: CombatUIManager, Assembly-CSharp
-        m_MethodName: EndTurn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &9107284038049413887
 GameObject:
   m_ObjectHideFlags: 0

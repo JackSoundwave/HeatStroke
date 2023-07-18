@@ -48,6 +48,8 @@ public class CombatStateManager : MonoBehaviour
                 break;
             case CombatState.Lose:
                 break;
+            case CombatState.OutOfCombat:
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
@@ -103,5 +105,6 @@ public enum CombatState
     EnemyTurn,
     Decide,
     Victory,
-    Lose
+    Lose,
+    OutOfCombat
 }

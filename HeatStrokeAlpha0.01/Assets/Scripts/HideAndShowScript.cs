@@ -43,4 +43,9 @@ public class HideAndShowScript : MonoBehaviour
     {
         gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
     }
+
+    public void unBlockSelf()
+    {
+        isBlocked = false;
+    }
 }

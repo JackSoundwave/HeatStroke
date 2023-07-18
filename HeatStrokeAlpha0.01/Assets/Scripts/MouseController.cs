@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -30,6 +29,7 @@ public class MouseController : MonoBehaviour
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= deployUnitSetupOnSceneLoad;
+        GameEventSystem.current.onResetDeployPressed -= deployUnitSetup;
         if (ActiveInstance == this)
         {
             ActiveInstance = null;
@@ -61,6 +61,7 @@ public class MouseController : MonoBehaviour
         rangeFinder = new RangefinderMovement();
         inRangeTiles = new List<HideAndShowScript>();
         mainCamera = Camera.main;
+        GameEventSystem.current.onResetDeployPressed += deployUnitSetup;
     }
 
     //LateUpdate is called at the END of a previous update function call.
@@ -309,12 +310,25 @@ public class MouseController : MonoBehaviour
     {
         for(int i = 0; i < GameEventSystem.current.playerUnits.Length; i++)
         {
-            if (GameEventSystem.current.playerUnits[i].activeTile == tileToCheck)
+            if (GameEventSystem.current.playerUnits[i].GetComponent<PlayerUnitScript>().activeTile == tileToCheck)
             {
-                return GameEventSystem.current.playerUnits[i];
+                return GameEventSystem.current.playerUnits[i].GetComponent<PlayerUnitScript>();
             }
         }
         //returns null if the value can't be found
+        return null;
+    }
+
+    private EnemyUnitScript tileCheckerEnemyUnit(HideAndShowScript tileToCheck)
+    {
+        foreach(EnemyUnitScript enemyUnit in GameEventSystem.current.enemyUnits)
+        {
+            if(enemyUnit.activeTile == tileToCheck)
+            {
+                return enemyUnit;
+            } 
+        }
+        //returns null if no value can be found.
         return null;
     }
     //==Selection Related==/

@@ -20,7 +20,7 @@ public class GameEventSystem : MonoBehaviour
     public GameObject[] unitsToDeploy = new GameObject[3];
 
     //These are the playerUnits currently on the field, resets after every level.
-    public PlayerUnitScript[] playerUnits = new PlayerUnitScript[6];
+    public GameObject[] playerUnits = new GameObject[6];
 
     //public list of enemyUnits to get all the enemyUnits in the scene. We need this so that we can iterate through the list and decide which units act first.
     //The first unit in this list acts first, then the next unit acts.
@@ -145,8 +145,9 @@ public class GameEventSystem : MonoBehaviour
     }
     public void resetDeployPressed()
     {
-        //Debug.Log("Player reset deploy");
+        Debug.Log("Player reset deploy");
         onResetDeployPressed?.Invoke();
+        resetDeploy();
     }
     public void confirmDeployPressed()
     {
@@ -191,4 +192,20 @@ public class GameEventSystem : MonoBehaviour
         resetLists();
     }
     //==Changing Scene Related==//
+
+    public void resetDeploy()
+    {
+        //Code should execute in this order:
+        //Kill all playerUnits on the grid (Only the PlayerUnits that are part of the players team. This is an important distinction to make.)
+        //Reset the MouseController's deploy unit list
+        foreach (GameObject playerUnit in GameEventSystem.current.playerUnits)
+        {
+            if (playerUnit != null)
+            {
+                playerUnit.gameObject.GetComponent<PlayerUnitScript>()?.removeSelfFromList();
+                playerUnit.gameObject.GetComponent<PlayerUnitScript>()?.activeTile.unBlockSelf();
+                Destroy(playerUnit);
+            }
+        }
+    }
 }

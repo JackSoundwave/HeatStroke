@@ -25,7 +25,6 @@ public class EnemySpawnerScript : MonoBehaviour
         mapManager = FindObjectOfType<MapManager>();
         Debug.Log("MapManager object: " + mapManager);
         GameEventSystem.current.onGridGenerated += SpawnEnemyOnRandomTile;
-        GameEventSystem.current.onGridGenerated += SpawnAllyOnRandomTile;
         GameEventSystem.current.onEnemyDeath += SpawnEnemyOnRandomTile;
     }
 
