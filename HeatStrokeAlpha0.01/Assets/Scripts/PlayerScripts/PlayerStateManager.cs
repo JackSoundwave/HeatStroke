@@ -34,6 +34,13 @@ public class PlayerStateManager : MonoBehaviour
 
         //Referencing "THIS" state.
         currentState.EnterState(this);
+
+        GameEventSystem.current.onUnitSelected += deselectSelf;
+    }
+
+    private void OnDestroy()
+    {
+        GameEventSystem.current.onUnitSelected -= deselectSelf;
     }
 
     // Update is called once per frame
@@ -46,5 +53,12 @@ public class PlayerStateManager : MonoBehaviour
     {
         currentState = state;
         state.EnterState(this);
+    }
+
+    private void deselectSelf()
+    {
+        thisUnit.isSelected = false;
+        thisUnit.attackPrimed = false;
+        cursor.HideInRangeTiles();
     }
 }

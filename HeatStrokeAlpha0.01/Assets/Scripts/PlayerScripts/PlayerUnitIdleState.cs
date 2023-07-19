@@ -23,6 +23,6 @@ public class PlayerUnitIdleState : PlayerUnitBaseState
         if(player.thisUnit.isSelected == true)
         {
            player.SwitchState(player.selectedState);
-        } 
+        }
     }    
 }
