@@ -8,8 +8,6 @@ public class DefenceStructure : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
 
-    public HideAndShowScript activeTile;
-
     public HeatGaugeSystem heatgaugeSystem;
     public HeatBar heatBar;
     public HealthBar healthBar;
