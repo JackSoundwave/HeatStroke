@@ -17,13 +17,12 @@ public class CombatStateManager : MonoBehaviour
     private void Awake()
     {
         CSInstance = this;
-        CSInstance.State = CombatState.DeployPhase;
+        //CSInstance.State = CombatState.DeployPhase;
     }
 
     private void Start()
     {
-        //first turn is playerTurn, truthfully it should be the deploy phase, but for now we'll go with PlayerTurn instead.
-        //UpdateCombatState(CombatState.PlayerTurn);
+        UpdateCombatState(CombatState.DeployPhase);
     }
 
     public void UpdateCombatState(CombatState newState)

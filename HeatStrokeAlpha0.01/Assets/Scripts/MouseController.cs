@@ -162,10 +162,20 @@ public class MouseController : MonoBehaviour
                             //checks if all units in the array are null or not
                             if (!deployableUnits.All(GameObject => GameObject == null) && hideAndShowScript.isBlocked == false)
                             {
-                                instantiateUnitAtPosition(hideAndShowScript);
+                                if(hideAndShowScript.isDeployTile == true) 
+                                {
+                                    instantiateUnitAtPosition(hideAndShowScript);
+                                    GameEventSystem.current.deployUnit(); //call the deployUnit method
+                                }
+                                else
+                                {
+                                    //play error sound
+                                    Debug.Log("No, stop it. That's enough. Why are you like this.");
+                                }
                             }
                             else
                             {
+                                //play error sound here
                                 Debug.Log("No");
                             }
                         }

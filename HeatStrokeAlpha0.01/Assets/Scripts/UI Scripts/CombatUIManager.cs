@@ -16,6 +16,7 @@ public class CombatUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _unitsLeftNumber;
     [SerializeField] private TextMeshProUGUI _enemyUnitsRemainingNumber;
 
+    private bool allUnitsDeployed;
 
     void Awake()
     {
@@ -26,11 +27,13 @@ public class CombatUIManager : MonoBehaviour
     private void Start()
     {
         UpdateCombatStateText(CombatStateManager.CSInstance.State);
+        GameEventSystem.current.onUnitDeployed += checkDeployUnits;
     }
     void OnDestroy()
     {
         CombatStateManager.OnCombatStateChanged -= CombatStateManagerOnOnCombatStateChanged;
         CombatStateManager.OnCombatStateChanged -= UpdateCombatStateText;
+        GameEventSystem.current.onUnitDeployed -= checkDeployUnits;
     }
 
     private void UpdateCombatStateText(CombatState newState)
@@ -93,6 +96,7 @@ public class CombatUIManager : MonoBehaviour
         {
             _primeAttackButton.gameObject.SetActive(false);
             _endTurnButton.gameObject.SetActive(false);
+            _deployConfirmButton.interactable = false;
         }
         else if (state == CombatState.OutOfCombat)
         {
@@ -138,6 +142,7 @@ public class CombatUIManager : MonoBehaviour
     public void resetDeployButton()
     {
         GameEventSystem.current.resetDeployPressed();
+        _deployConfirmButton.interactable = false;
     }
 
     public void confirmDeploy()
@@ -155,5 +160,20 @@ public class CombatUIManager : MonoBehaviour
         _unitsLeftText.gameObject.SetActive(false);
         _unitsLeftNumber.gameObject.SetActive(false);
         _enemyUnitsRemainingNumber.gameObject.SetActive(false);
+    }
+
+    //this method is called whenever the unit is added to the global list within the GameEventSystem class.
+    private void checkDeployUnits()
+    {
+        foreach(GameObject unit in GameEventSystem.current.playerUnits)
+        {
+            // if any element in the array is NULL (aka all units are not yet placed), set the interactivity of the button to false
+            if (unit == null)
+            {
+                _deployConfirmButton.interactable = false;
+                return;
+            }
+            _deployConfirmButton.interactable = true;
+        }
     }
 }
