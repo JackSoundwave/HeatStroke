@@ -123,8 +123,6 @@ public class MouseController : MonoBehaviour
                         {
                             if (pUnit == null)
                             {
-                                //spawn a unit if prefab 1 is null
-                                pUnit = Instantiate(playerUnitPrefab).GetComponent<PlayerUnitScript>();
                                 PositionCharacterOnTile(hideAndShowScript);
                             }
                             else
