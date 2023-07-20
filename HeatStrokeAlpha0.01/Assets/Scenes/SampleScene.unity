@@ -314,7 +314,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab2239eace8fa64d90d1b88c6660e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileNumbersToMark: 3f0000003e0000003700000036000000
+  markDefaultDeploy: 1
+  tileNumbersToMark: 
 --- !u!4 &623350948
 Transform:
   m_ObjectHideFlags: 0
