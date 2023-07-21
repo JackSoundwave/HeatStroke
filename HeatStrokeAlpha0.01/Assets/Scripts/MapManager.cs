@@ -44,6 +44,12 @@ public class MapManager : MonoBehaviour
     private void Start()
     {
         generateGrid();
+        GameEventSystem.current.onConfirmDeployPressed += HideAllTiles;
+    }
+
+    private void OnDestroy()
+    {
+        GameEventSystem.current.onConfirmDeployPressed -= HideAllTiles;
     }
 
     private void generateGrid()
@@ -195,4 +201,15 @@ public class MapManager : MonoBehaviour
         return false;
     }
 
+    private void HideAllTiles()
+    {
+        List < KeyValuePair < Vector2Int, HideAndShowScript >> tiles = GetOverLayTiles();
+
+        foreach (var tile in tiles)
+        {
+            UnityEngine.Debug.Log(tile);
+            HideAndShowScript tileToHide = tile.Value;
+            tileToHide.HideTile();
+        }
+    }
 }

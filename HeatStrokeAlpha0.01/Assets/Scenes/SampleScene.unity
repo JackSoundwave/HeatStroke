@@ -2323,7 +2323,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2983254206159050779, guid: ec36f6a112cbdf543ae4d9f492114d3b, type: 3}
       propertyPath: playerUnits.Array.size
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2983254206159050779, guid: ec36f6a112cbdf543ae4d9f492114d3b, type: 3}
       propertyPath: unitsToDeploy.Array.data[0]

@@ -12,7 +12,6 @@ public class DeployMarker : MonoBehaviour
 
     private MapManager mapManager;
     private List<KeyValuePair<Vector2Int, HideAndShowScript>> overlayTiles;
-    private List<Vector2Int> unblockedTiles;
 
     private void Start()
     {
@@ -62,7 +61,7 @@ public class DeployMarker : MonoBehaviour
 
     private void MarkDefaultDeployZone()
     {
-        defaultZone = new List<int> { 46, 45, 44, 43, 42, 41, 38, 37, 36, 35, 34, 33};
+        defaultZone = new List<int> { 46, 45, 44, 43, 42, 41, 38, 37, 36, 35, 34, 33, 30, 29, 28, 27, 26, 25};
         overlayTiles = mapManager.GetOverLayTiles();
 
         foreach (int indexToMark in defaultZone)
