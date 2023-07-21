@@ -148,7 +148,7 @@ public class CombatUIManager : MonoBehaviour
     public void confirmDeploy()
     {
         GameEventSystem.current.confirmDeployPressed();
-        CombatStateManager.CSInstance.UpdateCombatState(CombatState.PlayerTurn);
+        CombatStateManager.CSInstance.UpdateCombatState(CombatState.EnemyTurn);
     }
 
     //used for later

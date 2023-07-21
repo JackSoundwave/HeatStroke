@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.WSA;
 
 
 /*This script will handle everything related to map logic using the HideAndShowScript tiles. Just a heads up, the "HideAndShowScript" class or .cs file is essentially the main code for the gridtiles 
@@ -204,7 +205,7 @@ public class MapManager : MonoBehaviour
     private void HideAllTiles()
     {
         List < KeyValuePair < Vector2Int, HideAndShowScript >> tiles = GetOverLayTiles();
-
+        UnityEngine.Debug.Log(tiles);
         foreach (var tile in tiles)
         {
             UnityEngine.Debug.Log(tile);
