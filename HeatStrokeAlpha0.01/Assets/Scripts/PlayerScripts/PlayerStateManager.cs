@@ -29,11 +29,18 @@ public class PlayerStateManager : MonoBehaviour
 
     void Start()
     {
-        //Starting state for our player
+        //Starting state for our player !!DO NOT CHANGE THIS LINE!!
         currentState = idleState;
 
         //Referencing "THIS" state.
         currentState.EnterState(this);
+
+        GameEventSystem.current.onUnitSelected += deselectSelf;
+    }
+
+    private void OnDestroy()
+    {
+        GameEventSystem.current.onUnitSelected -= deselectSelf;
     }
 
     // Update is called once per frame
@@ -48,11 +55,10 @@ public class PlayerStateManager : MonoBehaviour
         state.EnterState(this);
     }
 
-    private void OnMouseDown()
+    private void deselectSelf()
     {
-        thisUnit.isSelected = true;
-        cursor.pUnit = thisUnit;
+        thisUnit.isSelected = false;
+        thisUnit.attackPrimed = false;
+        cursor.HideInRangeTiles();
     }
-
-
 }

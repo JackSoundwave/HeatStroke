@@ -14,7 +14,10 @@ public class PlayerUnitIdleState : PlayerUnitBaseState
         player.thisUnit.GetComponent<SpriteRenderer>().material = player.thisUnit.normal;
         if(player.cursor != null) 
         {
-            player.cursor.HideInRangeTiles();
+            if(CombatStateManager.CSInstance.State != CombatState.DeployPhase)
+            {
+                player.cursor.HideInRangeTiles();
+            }
         }
     }
 
@@ -23,7 +26,6 @@ public class PlayerUnitIdleState : PlayerUnitBaseState
         if(player.thisUnit.isSelected == true)
         {
            player.SwitchState(player.selectedState);
-        } 
-    }
-    
+        }
+    }    
 }

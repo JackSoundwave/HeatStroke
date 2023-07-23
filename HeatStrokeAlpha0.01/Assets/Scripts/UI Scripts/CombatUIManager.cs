@@ -16,8 +16,7 @@ public class CombatUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _unitsLeftNumber;
     [SerializeField] private TextMeshProUGUI _enemyUnitsRemainingNumber;
 
-
-    private CombatState currentCombatState;
+    private bool allUnitsDeployed;
 
     void Awake()
     {
@@ -28,11 +27,13 @@ public class CombatUIManager : MonoBehaviour
     private void Start()
     {
         UpdateCombatStateText(CombatStateManager.CSInstance.State);
+        GameEventSystem.current.onUnitDeployed += checkDeployUnits;
     }
     void OnDestroy()
     {
         CombatStateManager.OnCombatStateChanged -= CombatStateManagerOnOnCombatStateChanged;
         CombatStateManager.OnCombatStateChanged -= UpdateCombatStateText;
+        GameEventSystem.current.onUnitDeployed -= checkDeployUnits;
     }
 
     private void UpdateCombatStateText(CombatState newState)
@@ -82,8 +83,25 @@ public class CombatUIManager : MonoBehaviour
                 _deployResetButton.gameObject.SetActive(false);
                 _unitsLeftText.gameObject.SetActive(false);
                 _unitsLeftNumber.gameObject.SetActive(false);
-            } 
-        } 
+                _endTurnButton.gameObject.SetActive(false);
+            }
+            
+            if (_primeAttackButton.gameObject.activeSelf == false && _endTurnButton.gameObject.activeSelf == false)
+            {
+                _primeAttackButton.gameObject.SetActive(true);
+                _endTurnButton.gameObject.SetActive(true);
+            }
+        }
+        else if (state == CombatState.DeployPhase)
+        {
+            _primeAttackButton.gameObject.SetActive(false);
+            _endTurnButton.gameObject.SetActive(false);
+            _deployConfirmButton.interactable = false;
+        }
+        else if (state == CombatState.OutOfCombat)
+        {
+
+        }
         else if(state != CombatState.PlayerTurn)
         {
             _primeAttackButton.interactable = false;
@@ -119,5 +137,44 @@ public class CombatUIManager : MonoBehaviour
     {
         //code for executing attack durng "primeAttack" state goes here
         //side note for myself: make sure to add "isAttacking" state for player. Or just make the attack instant and set the "hasAttacked" boolean to true after.
+    }
+
+    public void resetDeployButton()
+    {
+        GameEventSystem.current.resetDeployPressed();
+        _deployConfirmButton.interactable = false;
+    }
+
+    public void confirmDeploy()
+    {
+        GameEventSystem.current.confirmDeployPressed();
+        CombatStateManager.CSInstance.UpdateCombatState(CombatState.EnemyTurn);
+    }
+
+    //used for later
+    private void deactivateAllCombatUI()
+    {
+        _primeAttackButton.gameObject.SetActive(false);
+        _endTurnButton.gameObject.SetActive(false);
+        _deployConfirmButton.gameObject.SetActive(false);
+        _deployResetButton.gameObject.SetActive(false);
+        _unitsLeftText.gameObject.SetActive(false);
+        _unitsLeftNumber.gameObject.SetActive(false);
+        _enemyUnitsRemainingNumber.gameObject.SetActive(false);
+    }
+
+    //this method is called whenever the unit is added to the global list within the GameEventSystem class.
+    private void checkDeployUnits()
+    {
+        foreach(GameObject unit in GameEventSystem.current.playerUnits)
+        {
+            // if any element in the array is NULL (aka all units are not yet placed), set the interactivity of the button to false
+            if (unit == null)
+            {
+                _deployConfirmButton.interactable = false;
+                return;
+            }
+            _deployConfirmButton.interactable = true;
+        }
     }
 }

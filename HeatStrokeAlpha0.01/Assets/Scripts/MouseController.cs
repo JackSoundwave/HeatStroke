@@ -5,6 +5,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //Adding this in for clarity's sake, this script is meant for the user to use during gameplay.
 //Think of the gamepad, people call it a "Controller" because you use it to "control" what's happening on screen.
@@ -22,10 +23,13 @@ public class MouseController : MonoBehaviour
     private void Awake()
     {
         ActiveInstance = this;
+        SceneManager.sceneLoaded += deployUnitSetupOnSceneLoad;
     }
 
     private void OnDestroy()
     {
+        SceneManager.sceneLoaded -= deployUnitSetupOnSceneLoad;
+        GameEventSystem.current.onResetDeployPressed -= deployUnitSetup;
         if (ActiveInstance == this)
         {
             ActiveInstance = null;
@@ -37,12 +41,8 @@ public class MouseController : MonoBehaviour
     [SerializeField]
     private PlayerUnitScript hoveredPlayerUnit;
 
-    [SerializeField]
+    //This pUnit variable is the currently selected unit for the mouse.
     public PlayerUnitScript pUnit;
-
-    [HideInInspector]
-    public PlayerUnitScript[] unitList = new PlayerUnitScript[3];
-
 
     public EnemyUnitScript targetedEnemyUnit;
     public float speed;
@@ -61,168 +61,138 @@ public class MouseController : MonoBehaviour
         rangeFinder = new RangefinderMovement();
         inRangeTiles = new List<HideAndShowScript>();
         mainCamera = Camera.main;
+        GameEventSystem.current.onResetDeployPressed += deployUnitSetup;
     }
 
-     //LateUpdate is called at the END of a previous update function call.
-     void LateUpdate()
-     {
+    //LateUpdate is called at the END of a previous update function call.
+    void LateUpdate()
+    {
         var focusedTileHit = GetFocusedOnTile();
 
-        if (focusedTileHit.HasValue)
+        //==PLAYER TURN LOGIC==//
+        if (CombatStateManager.CSInstance?.State == CombatState.PlayerTurn)
         {
-            switch (focusedTileHit.Value.collider.gameObject.GetComponent<MonoBehaviour>())
+            if (focusedTileHit.HasValue)
             {
-                //if raycast detects an EnemyUnitScript attached to a gameObject
-                case EnemyUnitScript _:
+                switch (focusedTileHit.Value.collider.gameObject.GetComponent<MonoBehaviour>())
+                {
+                    //if raycast detects an EnemyUnitScript attached to a gameObject
+                    case EnemyUnitScript _:
 
-                    //Debug.Log("Enemy unit detected!");
-                    //sets the current targeted Enemy to whatever the player is currently selecting.
-                    //positions the cursor on the Enemy's tile, it's a minor UI bug that gets fixed with this line
-                    
-                    targetedEnemyUnit = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>();
-                    transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>().activeTile.transform.position;
-                    hoveredPlayerUnit = null;
+                        //Debug.Log("Enemy unit detected!");
+                        //sets the current targeted Enemy to whatever the player is currently selecting.
+                        //positions the cursor on the Enemy's tile, it's a minor UI bug that gets fixed with this line
 
-                    //transform.position = targetedEnemyUnit.activeTile;
-                    break;
+                        targetedEnemyUnit = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>();
+                        transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>().activeTile.transform.position;
+                        hoveredPlayerUnit = null;
 
-                //if the raycast detects a playerScript attached to a gameObject
-                case PlayerUnitScript _:
-                    //Debug.Log("Player unit detected!");
+                        //transform.position = targetedEnemyUnit.activeTile;
+                        break;
 
-                    //setting the targeted EnemyUnit to null when NOT hovering over it in the scene.
-                    targetedEnemyUnit = null;
-                    hoveredPlayerUnit = focusedTileHit.Value.collider.gameObject.GetComponent<PlayerUnitScript>();
-                    transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<PlayerUnitScript>().activeTile.transform.position;                    
+                    //if the raycast detects a playerScript attached to a gameObject
+                    case PlayerUnitScript _:
+                        //Debug.Log("Player unit detected!");
 
-                    //can only be selected if the current state is player turn.
-                    if (Input.GetMouseButtonDown(0) && CombatStateManager.CSInstance.State == CombatState.PlayerTurn)
-                    {
-                        GameEventSystem.current.unitSelected();
-                        pUnit = hoveredPlayerUnit;
-                        pUnit.isSelected = true;
-                    }
-                    else if (Input.GetMouseButtonDown(1))
-                    {
-                        pUnit.isSelected = false;
-                    }
-                    break;
-                    
-                 //if raycast detects an empty tile.
-                 case HideAndShowScript hideAndShowScript:
+                        //setting the targeted EnemyUnit to null when NOT hovering over it in the scene.
+                        targetedEnemyUnit = null;
+                        hoveredPlayerUnit = focusedTileHit.Value.collider.gameObject.GetComponent<PlayerUnitScript>();
+                        transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<PlayerUnitScript>().activeTile.transform.position;
 
-                    transform.position = hideAndShowScript.transform.position;
-                    gameObject.GetComponent<SpriteRenderer>().sortingOrder = hideAndShowScript.GetComponent<SpriteRenderer>().sortingOrder + 1;
-
-
-                    //setting the targeted EnemyUnit to null when NOT hovering over it in the scene.
-                    //targetedEnemyUnit = null;
-                    //hoveredPlayerUnit = null;
-
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        if (pUnit == null)
+                        //can only be selected if the current state is player turn.
+                        if (Input.GetMouseButtonDown(0) && CombatStateManager.CSInstance.State == CombatState.PlayerTurn)
                         {
-                            //spawn a unit if prefab 1 is null
-                            pUnit = Instantiate(playerUnitPrefab).GetComponent<PlayerUnitScript>();
-                            PositionCharacterOnTile(hideAndShowScript);
+                            GameEventSystem.current.unitSelected();
+                            pUnit = hoveredPlayerUnit;
+                            pUnit.isSelected = true;
                         }
-                        else
+                        else if (Input.GetMouseButtonDown(1))
                         {
-                            //path = pathFinder.FindPath(pUnit.activeTile, hideAndShowScript, inRangeTiles);
+                            pUnit.isSelected = false;
                         }
-                    }
-                    break;
+                        break;
+
+                    //if raycast detects an empty tile.
+                    case HideAndShowScript hideAndShowScript:
+
+                        transform.position = hideAndShowScript.transform.position;
+                        gameObject.GetComponent<SpriteRenderer>().sortingOrder = hideAndShowScript.GetComponent<SpriteRenderer>().sortingOrder + 1;
+
+
+                        if (Input.GetMouseButtonDown(0))
+                        {
+                            if (pUnit == null)
+                            {
+                                PositionCharacterOnTile(hideAndShowScript);
+                            }
+                            else
+                            {
+                                //path = pathFinder.FindPath(pUnit.activeTile, hideAndShowScript, inRangeTiles);
+                            }
+                        }
+                        break;
 
                     //default case so that it still runs despite detecting something invalid (like something out of bounds, for example)
-                default:
-                    Debug.Log("Nothing detected");
-                    break;
+                    default:
+                        Debug.Log("Nothing detected");
+                        break;
+                }
             }
         }
-     }
+        //==PLAYER TURN LOGIC==//
 
-   /*void LateUpdate()
-    {
-        var focusedTileHit = GetFocusedOnTile();
 
-        if (focusedTileHit.HasValue)
+
+        //==DEPLOY PHASE LOGIC==//
+        else if (CombatStateManager.CSInstance?.State == CombatState.DeployPhase)
         {
-            HideAndShowScript overlayTile = focusedTileHit.Value.collider.gameObject.GetComponent<HideAndShowScript>();
-            transform.position = overlayTile.transform.position;
-            gameObject.GetComponent<SpriteRenderer>().sortingOrder = overlayTile.GetComponent<SpriteRenderer>().sortingOrder+1;
-
-            if (Input.GetMouse)
-        }
-    }*/
-
-    //Moves an entity along the path setup by the A* pathfinding script, also utilizes the MapManager getInRangeTiles() function to retrieve the positions of tiles near the Unit.
-    public void MoveAlongPath()
-    {
-        var step = speed * Time.deltaTime;
-
-        pUnit.activeTile.isBlocked = false;
-        var zIndex = path[0].transform.position.z;
-        pUnit.transform.position = Vector2.MoveTowards(pUnit.transform.position, path[0].transform.position, step);
-        pUnit.transform.position = new Vector3(pUnit.transform.position.x, pUnit.transform.position.y, zIndex);
-
-        if(Vector2.Distance(pUnit.transform.position, path[0].transform.position) < 0.0001f)
-        {
-            PositionCharacterOnTile(path[0]);
-            path.RemoveAt(0);
-        }
-        if
-        (path.Count == 0)
-        {
-            GetInRangeTiles();
-            pUnit.isMoving = true;
-        }
-    }
-
-    //Meant to work with the player movement scripts to get tiles in range
-    public void GetInRangeTiles()
-    {
-        foreach (var item in inRangeTiles) 
-        {
-            item.HideTile();
-        }
-
-        inRangeTiles = rangeFinder.GetTilesInRange(pUnit.activeTile, pUnit.movementRange);
-
-        foreach (var item in inRangeTiles)
-        {
-            if (item.isBlocked)
+            if (focusedTileHit.HasValue)
             {
-                item.DyeTileBlue();
-            }
-            else 
-            {
-                item.ShowTile();
-            }
-        }
-    }
+                switch (focusedTileHit.Value.collider.gameObject.GetComponent<MonoBehaviour>())
+                {
+                    //if raycast detects an empty tile.
+                    case HideAndShowScript hideAndShowScript:
 
-    //Not used yet, but will be used soon for the state machine of the player.
-    public void ShowInRangetiles()
-    {
-        inRangeTiles = rangeFinder.GetTilesInRange(pUnit.activeTile, pUnit.movementRange);
-        foreach (var item in inRangeTiles)
-        {
-            item.ShowTile();
-        }
-    }
+                        transform.position = hideAndShowScript.transform.position;
+                        gameObject.GetComponent<SpriteRenderer>().sortingOrder = hideAndShowScript.GetComponent<SpriteRenderer>().sortingOrder + 1;
 
-    //Refer to previous comment.
-    public void HideInRangeTiles()
-    {
-        if(pUnit != null) 
-        {
-            inRangeTiles = rangeFinder.GetTilesInRange(pUnit.activeTile, pUnit.movementRange);
-            foreach (var item in inRangeTiles)
-            {
-                item.HideTile();
+
+                        if (Input.GetMouseButtonDown(0))
+                        {
+                            //checks if all units in the array are null or not
+                            if (!deployableUnits.All(GameObject => GameObject == null) && hideAndShowScript.isBlocked == false)
+                            {
+                                if(hideAndShowScript.isDeployTile == true) 
+                                {
+                                    instantiateUnitAtPosition(hideAndShowScript);
+                                    GameEventSystem.current.deployUnit(); //call the deployUnit method
+                                }
+                                else
+                                {
+                                    //play error sound
+                                    Debug.Log("No, stop it. That's enough. Why are you like this.");
+                                }
+                            }
+                            else
+                            {
+                                //play error sound here
+                                Debug.Log("No");
+                            }
+                        }
+                        break;
+
+                    //default case so that it still runs despite detecting something invalid (like something out of bounds, for example)
+                    default:
+                        Debug.Log("Nothing detected");
+                        break;
+                }
             }
         }
+        else
+        {
+
+        }
+        //==DEPLOY PHASE LOGIC==//
     }
 
     public RaycastHit2D? GetFocusedOnTile()
@@ -244,6 +214,75 @@ public class MouseController : MonoBehaviour
             return hits.OrderByDescending(i => i.collider.transform.position.z).First();
         }
         return null;
+    }
+
+    //==Path & Movement Related==//
+    public void ShowInRangetiles()
+    {
+        inRangeTiles = rangeFinder.GetTilesInRange(pUnit.activeTile, pUnit.movementRange);
+        foreach (var item in inRangeTiles)
+        {
+            item.ShowTile();
+        }
+    }
+
+    //Refer to previous comment.
+    public void HideInRangeTiles()
+    {
+        if (pUnit != null)
+        {
+            inRangeTiles = rangeFinder.GetTilesInRange(pUnit.activeTile, pUnit.movementRange);
+            foreach (var item in inRangeTiles)
+            {
+                item.HideTile();
+            }
+        }
+    }
+
+    //Meant to work with the player movement scripts to get tiles in range
+    public void GetInRangeTiles()
+    {
+        foreach (var item in inRangeTiles)
+        {
+            item.HideTile();
+        }
+
+        inRangeTiles = rangeFinder.GetTilesInRange(pUnit.activeTile, pUnit.movementRange);
+
+        foreach (var item in inRangeTiles)
+        {
+            if (item.isBlocked)
+            {
+                item.DyeTileBlue();
+            }
+            else
+            {
+                item.ShowTile();
+            }
+        }
+    }
+
+    //Moves a unit along a path
+    public void MoveAlongPath()
+    {
+        var step = speed * Time.deltaTime;
+
+        pUnit.activeTile.isBlocked = false;
+        var zIndex = path[0].transform.position.z;
+        pUnit.transform.position = Vector2.MoveTowards(pUnit.transform.position, path[0].transform.position, step);
+        pUnit.transform.position = new Vector3(pUnit.transform.position.x, pUnit.transform.position.y, zIndex);
+
+        if (Vector2.Distance(pUnit.transform.position, path[0].transform.position) < 0.0001f)
+        {
+            PositionCharacterOnTile(path[0]);
+            path.RemoveAt(0);
+        }
+        if
+        (path.Count == 0)
+        {
+            GetInRangeTiles();
+            pUnit.isMoving = true;
+        }
     }
 
     public List<HideAndShowScript> generatePath()
@@ -271,5 +310,76 @@ public class MouseController : MonoBehaviour
         pUnit.activeTile = tile;
         pUnit.activeTile.isBlocked = true;
     }
+    //==Path & Movement Related==//
+
+
+    //==Selection Related==//
+    private PlayerUnitScript tileCheckerPlayerUnit(HideAndShowScript tileToCheck)
+    {
+        for(int i = 0; i < GameEventSystem.current.playerUnits.Length; i++)
+        {
+            if (GameEventSystem.current.playerUnits[i].GetComponent<PlayerUnitScript>().activeTile == tileToCheck)
+            {
+                return GameEventSystem.current.playerUnits[i].GetComponent<PlayerUnitScript>();
+            }
+        }
+        //returns null if the value can't be found
+        return null;
+    }
+
+    private EnemyUnitScript tileCheckerEnemyUnit(HideAndShowScript tileToCheck)
+    {
+        foreach(EnemyUnitScript enemyUnit in GameEventSystem.current.enemyUnits)
+        {
+            if(enemyUnit.activeTile == tileToCheck)
+            {
+                return enemyUnit;
+            } 
+        }
+        //returns null if no value can be found.
+        return null;
+    }
+    //==Selection Related==/
+
+    //==Deployment Phase Related==//
+    private void deployUnitSetup()
+    {
+        if (deployableUnits.Length == GameEventSystem.current?.unitsToDeploy.Length)
+        {
+            for (int i = 0; i < deployableUnits.Length; i++)
+            {
+                deployableUnits[i] = GameEventSystem.current?.unitsToDeploy[i];
+            }
+        }
+    }
+    private void deployUnitSetupOnSceneLoad(Scene currentScene, LoadSceneMode mode)
+    {
+        if (deployableUnits.Length == GameEventSystem.current?.unitsToDeploy.Length)
+        {
+            for (int i = 0; i < deployableUnits.Length; i++)
+            {
+                deployableUnits[i] = GameEventSystem.current?.unitsToDeploy[i];
+            }
+        }
+    }
+
+    //Passes the unit from the deployableUnits array (that is not null) then instantiates it.
+    public void instantiateUnitAtPosition(HideAndShowScript tileToSpawnAt)
+    {
+        for(int i = 0; i < deployableUnits.Length; i++)
+        {
+            if (deployableUnits[i] != null) 
+            {
+                GameObject newPlayerUnitGO = Instantiate(deployableUnits[i]);
+                PlayerUnitScript newPlayerUnit = newPlayerUnitGO.GetComponent<PlayerUnitScript>();
+                pUnit = newPlayerUnit;
+                PositionCharacterOnTile(tileToSpawnAt);
+                deployableUnits[i] = null;
+                pUnit = newPlayerUnit;
+                break;
+            }
+        }
+    }
+    //==Deployment Phase Related==//
 
 }

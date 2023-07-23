@@ -34,8 +34,14 @@ public class PlayerUnitSelectedState : PlayerUnitBaseState
 
                 if (Input.GetMouseButtonDown(0) && player.cursor.getPath().Count > 0)
                 {
+                    //add if check to prevent unit from moving if they left click out of bounds or on a tile that does not 
                     player.thisUnit.isMoving = true;
                     player.SwitchState(player.isMovingState);
+                } 
+                else if (Input.GetMouseButtonDown(1))
+                {
+                    player.thisUnit.isSelected = false;
+                    player.thisUnit.attackPrimed = false;
                 }
             }
         } 
