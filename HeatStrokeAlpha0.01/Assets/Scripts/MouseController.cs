@@ -44,7 +44,10 @@ public class MouseController : MonoBehaviour
     //This pUnit variable is the currently selected unit for the mouse.
     public PlayerUnitScript pUnit;
 
+    //self explanatory
     public EnemyUnitScript targetedEnemyUnit;
+
+    public bool mouseOverEntity;
     public float speed;
     public GameObject cursor;
     private AStarPathfinder pathFinder;
@@ -86,6 +89,7 @@ public class MouseController : MonoBehaviour
                         targetedEnemyUnit = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>();
                         transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>().activeTile.transform.position;
                         hoveredPlayerUnit = null;
+                        mouseOverEntity = true;
 
                         //transform.position = targetedEnemyUnit.activeTile;
                         break;
@@ -96,6 +100,7 @@ public class MouseController : MonoBehaviour
 
                         //setting the targeted EnemyUnit to null when NOT hovering over it in the scene.
                         targetedEnemyUnit = null;
+                        mouseOverEntity = true;
                         hoveredPlayerUnit = focusedTileHit.Value.collider.gameObject.GetComponent<PlayerUnitScript>();
                         transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<PlayerUnitScript>().activeTile.transform.position;
 
@@ -117,6 +122,7 @@ public class MouseController : MonoBehaviour
 
                         transform.position = hideAndShowScript.transform.position;
                         gameObject.GetComponent<SpriteRenderer>().sortingOrder = hideAndShowScript.GetComponent<SpriteRenderer>().sortingOrder + 1;
+                        mouseOverEntity = false;
 
 
                         if (Input.GetMouseButtonDown(0))
@@ -314,6 +320,8 @@ public class MouseController : MonoBehaviour
 
 
     //==Selection Related==//
+
+
     private PlayerUnitScript tileCheckerPlayerUnit(HideAndShowScript tileToCheck)
     {
         for(int i = 0; i < GameEventSystem.current.playerUnits.Length; i++)
@@ -339,6 +347,8 @@ public class MouseController : MonoBehaviour
         //returns null if no value can be found.
         return null;
     }
+
+
     //==Selection Related==/
 
     //==Deployment Phase Related==//
