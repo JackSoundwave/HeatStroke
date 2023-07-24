@@ -18,6 +18,13 @@ public class ObjectiveManager : MonoBehaviour
         OMInstance = this;
     }
 
+    private void OnDestroy()
+    {
+        GameEventSystem.current.onEnemyTurnEnd -= OMInstance.reduceTurnTimer;
+        GameEventSystem.current.onExterminateStructureDeath -= OMInstance.reduceHivesToDestroy;
+        GameEventSystem.current.onEnemyDeath -= OMInstance.reduceEnemiesToKill;
+    }
+
     //Initialize objective type and set up subscriptions to game event within the start() function.
     private void Start()
     {
@@ -27,6 +34,7 @@ public class ObjectiveManager : MonoBehaviour
             case Objective.Defense:
                 GameEventSystem.current.onEnemyTurnEnd += OMInstance.reduceTurnTimer;
                 break;
+
             case Objective.Extermination:
                 GameEventSystem.current.onExterminateStructureDeath += OMInstance.reduceHivesToDestroy;
             
@@ -132,13 +140,6 @@ public class ObjectiveManager : MonoBehaviour
         OMInstance.PoCKillCounter = OMInstance.PoCKillCounter - 1;
         evaluateWinCondition();
     }
-
-    //okay real talk, is this method REALLY needed?
-    private void setObjectiveToDefense()
-    {
-        OMInstance.obj = Objective.Defense;
-    }
-
 }
 
 public enum Objective

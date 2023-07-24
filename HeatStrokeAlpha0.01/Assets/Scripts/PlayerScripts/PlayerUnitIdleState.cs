@@ -12,7 +12,13 @@ public class PlayerUnitIdleState : PlayerUnitBaseState
         Debug.Log("Player unit is now idle");
         //Swapping material to "idle" material.
         player.thisUnit.GetComponent<SpriteRenderer>().material = player.thisUnit.normal;
-        player.cursor.HideInRangeTiles();
+        if(player.cursor != null) 
+        {
+            if(CombatStateManager.CSInstance.State != CombatState.DeployPhase)
+            {
+                player.cursor.HideInRangeTiles();
+            }
+        }
     }
 
     public override void UpdateState(PlayerStateManager player)
@@ -20,7 +26,6 @@ public class PlayerUnitIdleState : PlayerUnitBaseState
         if(player.thisUnit.isSelected == true)
         {
            player.SwitchState(player.selectedState);
-        } 
-    }
-    
+        }
+    }    
 }

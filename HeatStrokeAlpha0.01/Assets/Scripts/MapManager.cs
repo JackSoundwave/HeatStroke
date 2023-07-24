@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.WSA;
 
 
 /*This script will handle everything related to map logic using the HideAndShowScript tiles. Just a heads up, the "HideAndShowScript" class or .cs file is essentially the main code for the gridtiles 
@@ -44,6 +45,12 @@ public class MapManager : MonoBehaviour
     private void Start()
     {
         generateGrid();
+        GameEventSystem.current.onConfirmDeployPressed += HideAllTiles;
+    }
+
+    private void OnDestroy()
+    {
+        GameEventSystem.current.onConfirmDeployPressed -= HideAllTiles;
     }
 
     private void generateGrid()
@@ -111,8 +118,6 @@ public class MapManager : MonoBehaviour
         {
             tileToSearch = map;
         }
-
-   
 
         List<HideAndShowScript> neighbours = new List<HideAndShowScript>();
 
@@ -197,4 +202,15 @@ public class MapManager : MonoBehaviour
         return false;
     }
 
+    private void HideAllTiles()
+    {
+        List < KeyValuePair < Vector2Int, HideAndShowScript >> tiles = GetOverLayTiles();
+        UnityEngine.Debug.Log(tiles);
+        foreach (var tile in tiles)
+        {
+            UnityEngine.Debug.Log(tile);
+            HideAndShowScript tileToHide = tile.Value;
+            tileToHide.HideTile();
+        }
+    }
 }

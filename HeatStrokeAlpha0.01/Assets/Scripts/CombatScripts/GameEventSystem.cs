@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class GameEventSystem : MonoBehaviour
 {
@@ -15,9 +16,15 @@ public class GameEventSystem : MonoBehaviour
     //It's so that when a unit dies, it gets removed from the list.
     //Keeps track of em basically.
 
-    public PlayerUnitScript[] playerUnits = new PlayerUnitScript[3];
+    //unitsToDeploy acts as the holder for the player's currently selected team. Hence, they're a GameObject that's stored.
+    public GameObject[] unitsToDeploy = new GameObject[3];
 
-    //public list of enemyUnits to get all the enemyUnits in the scene because reasons or something idfk okay.s
+    //These are the playerUnits currently on the field, resets after every level.
+    public GameObject[] playerUnits = new GameObject[3];
+
+    //public list of enemyUnits to get all the enemyUnits in the scene. We need this so that we can iterate through the list and decide which units act first.
+    //The first unit in this list acts first, then the next unit acts.
+    //Once all units have acted, cycle back to player turn.
     public List<EnemyUnitScript> enemyUnits;
 
 
@@ -25,13 +32,16 @@ public class GameEventSystem : MonoBehaviour
     private void Awake()
     {
         current = this;
+        SceneManager.sceneLoaded += onSceneLoaded; 
     }
 
     //==Player Related Actions==//
+    public event Action onUnitSpawned;
     public event Action onUnitDeployed;
     public event Action onUnitSelected;
     public event Action onPlayerStartTurn;
     public event Action onPlayerEndTurn;
+    public event Action onConfirmDeployPressed;
     public event Action onResetDeployPressed;
     public event Action onPrimeAttackButtonPressed;
     //==Player Related Actions==//
@@ -108,15 +118,19 @@ public class GameEventSystem : MonoBehaviour
 
 
     //==Player Related==//
+    public void spawnUnit()
+    {
+        Debug.Log("Unit spawned");
+        onUnitSpawned?.Invoke();
+    }
     public void deployUnit()
     {
         Debug.Log("Unit Deployed");
         onUnitDeployed?.Invoke();
     }
-
     public void playerTurnStarted()
     {
-        Debug.Log("PlayerTurn started");
+        //Debug.Log("PlayerTurn started");
         onPlayerStartTurn?.Invoke();
     }
     public void unitSelected()
@@ -133,6 +147,13 @@ public class GameEventSystem : MonoBehaviour
     {
         Debug.Log("Player reset deploy");
         onResetDeployPressed?.Invoke();
+        resetDeploy();
+    }
+    public void confirmDeployPressed()
+    {
+        Debug.Log("Player Confirmed Deploy");
+        onConfirmDeployPressed?.Invoke();
+
     }
     public void primeAttackButtonPressed()
     {
@@ -155,4 +176,36 @@ public class GameEventSystem : MonoBehaviour
         onExterminateStructureDeath?.Invoke();
     }
     //==Objective Related==//
+
+    //==Changing Scene Related==//
+    private void resetLists()
+    {
+        //resetting unitList
+        for (int i =0; i < playerUnits.Length; i++)
+        {
+            playerUnits[i] = null;
+        }
+    }
+
+    private void onSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        resetLists();
+    }
+    //==Changing Scene Related==//
+
+    public void resetDeploy()
+    {
+        //Code should execute in this order:
+        //Kill all playerUnits on the grid (Only the PlayerUnits that are part of the players team. This is an important distinction to make.)
+        //Reset the MouseController's deploy unit list
+        foreach (GameObject playerUnit in GameEventSystem.current.playerUnits)
+        {
+            if (playerUnit != null)
+            {
+                playerUnit.gameObject.GetComponent<PlayerUnitScript>()?.removeSelfFromList();
+                playerUnit.gameObject.GetComponent<PlayerUnitScript>()?.activeTile.unBlockSelf();
+                Destroy(playerUnit);
+            }
+        }
+    }
 }

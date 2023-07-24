@@ -25,7 +25,6 @@ public class EnemySpawnerScript : MonoBehaviour
         mapManager = FindObjectOfType<MapManager>();
         Debug.Log("MapManager object: " + mapManager);
         GameEventSystem.current.onGridGenerated += SpawnEnemyOnRandomTile;
-        //GameEventSystem.current.onGridGenerated += SpawnAllyOnRandomTile;
         GameEventSystem.current.onEnemyDeath += SpawnEnemyOnRandomTile;
     }
 
@@ -73,7 +72,7 @@ public class EnemySpawnerScript : MonoBehaviour
         }
     }
 
-    /*
+    
     private void SpawnAllyOnRandomTile()
     {
         Debug.Log("Spawning Enemies");
@@ -83,10 +82,10 @@ public class EnemySpawnerScript : MonoBehaviour
 
         foreach (var tile in overlayTiles)
         {
-            // Increment the counter
+            //increase count
             counter++;
 
-            // Only consider the last 32 tiles
+            //only have the last 32 tiles
             if (!tile.Value.isBlocked && counter > overlayTiles.Count - 32)
             {
                 unblockedTiles.Add(tile.Key);
@@ -116,6 +115,6 @@ public class EnemySpawnerScript : MonoBehaviour
         {
             Debug.LogWarning("No available unblocked tiles. ally cannot be spawned.");
         }
-    }*/
+    }
 
 }

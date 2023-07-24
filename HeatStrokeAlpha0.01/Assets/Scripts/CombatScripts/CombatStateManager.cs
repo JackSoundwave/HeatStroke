@@ -17,13 +17,12 @@ public class CombatStateManager : MonoBehaviour
     private void Awake()
     {
         CSInstance = this;
-        CSInstance.State = CombatState.DeployPhase;
+        //CSInstance.State = CombatState.DeployPhase;
     }
 
     private void Start()
     {
-        //first turn is playerTurn, truthfully it should be the deploy phase, but for now we'll go with PlayerTurn instead.
-        UpdateCombatState(CombatState.PlayerTurn);
+        UpdateCombatState(CombatState.DeployPhase);
     }
 
     public void UpdateCombatState(CombatState newState)
@@ -38,12 +37,17 @@ public class CombatStateManager : MonoBehaviour
             case CombatState.PlayerTurn:
                 HandlePlayerTurn();
                 break;
+            case CombatState.Decide:
+                HandleDecideState();
+                break;
             case CombatState.EnemyTurn:
                 HandleEnemyTurn();
                 break;
             case CombatState.Victory:
                 break;
             case CombatState.Lose:
+                break;
+            case CombatState.OutOfCombat:
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -79,6 +83,11 @@ public class CombatStateManager : MonoBehaviour
         //GameEventSystem.current.playerTurnStarted();
         //CombatStateManager.CSInstance.UpdateCombatState(CombatState.PlayerTurn);
     }
+
+    public void HandleDecideState()
+    {
+
+    }
 }
 
 /*
@@ -95,5 +104,6 @@ public enum CombatState
     EnemyTurn,
     Decide,
     Victory,
-    Lose
+    Lose,
+    OutOfCombat
 }

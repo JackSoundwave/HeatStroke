@@ -12,6 +12,7 @@ public class HideAndShowScript : MonoBehaviour
 
 
     public bool isBlocked;
+    public bool isDeployTile;
     public HideAndShowScript Previous;
 
     //Grid location, in 3d space, so that the Z axis can act as a sorting layer
@@ -37,5 +38,20 @@ public class HideAndShowScript : MonoBehaviour
     public void DyeTileRed()
     {
         gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+    }
+
+    public void DyeTileBlue()
+    {
+        gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+    }
+
+    public void unBlockSelf()
+    {
+        isBlocked = false;
+    }
+
+    public void DyeTileYellow()
+    {
+        gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
     }
 }
