@@ -6,7 +6,6 @@ using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCou
 
 public class DeadCellSpawner : MonoBehaviour
 {
-    public bool markDefaultDeploy;
     public List<int> tileNumbersToMark;
 
     public GameObject deadCellPrefab;

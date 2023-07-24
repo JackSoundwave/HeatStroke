@@ -9,8 +9,6 @@ public class DefenseStructureSpawner : MonoBehaviour
     private MapManager mapManager;
     private List<KeyValuePair<Vector2Int, HideAndShowScript>> overlayTiles;
     private List<Vector2Int> unblockedTiles;
-
-    public bool markDefaultDeploy;
     public List<int> tileNumbersToMark;
 
     public GameObject dsPrefab;
@@ -18,24 +16,18 @@ public class DefenseStructureSpawner : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("DeployMarker script starting");
         mapManager = FindObjectOfType<MapManager>();
-        Debug.Log("MapManager object: " + mapManager);
-
-        // Subscribe to the grid generated event
         GameEventSystem.current.onGridGenerated += MarkTilesWithDefenseStructures;
     }
 
     private void OnDestroy()
     {
         GameEventSystem.current.onGridGenerated -= MarkTilesWithDefenseStructures;
-
     }
+
     private void MarkTilesWithDefenseStructures()
     {
-
         overlayTiles = mapManager.GetOverLayTiles();
-
 
         foreach (int indexToMark in tileNumbersToMark)
         {
@@ -44,8 +36,10 @@ public class DefenseStructureSpawner : MonoBehaviour
                 KeyValuePair<Vector2Int, HideAndShowScript> tileEntry = overlayTiles[indexToMark];
                 HideAndShowScript tile = tileEntry.Value;
                 ds_GO = Instantiate(dsPrefab);
+                ds_GO.GetComponent<DefenceStructure>().activeTile = tile;
                 PositionDefenseStructureOnTile(tile);
                 tile.isBlocked = true;
+                ds_GO = null;
             }
             else
             {
