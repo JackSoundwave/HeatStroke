@@ -17,8 +17,10 @@ public class GameEventSystem : MonoBehaviour
     //Keeps track of em basically.
 
     //unitsToDeploy acts as the holder for the player's currently selected team. Hence, they're a GameObject that's stored.
+    [HideInInspector]
     public GameObject[] unitsToDeploy = new GameObject[3];
 
+    [HideInInspector]
     //These are the playerUnits currently on the field, resets after every level.
     public GameObject[] playerUnits = new GameObject[3];
 
