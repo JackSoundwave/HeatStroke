@@ -10,98 +10,53 @@ public class DefenseStructureSpawner : MonoBehaviour
     private List<KeyValuePair<Vector2Int, HideAndShowScript>> overlayTiles;
     private List<Vector2Int> unblockedTiles;
 
+    public bool markDefaultDeploy;
+    public List<int> tileNumbersToMark;
+
+    public GameObject dsPrefab;
+    private GameObject ds_GO;
+
     private void Start()
     {
-        Debug.Log("DefenseStructureScript starting");
+        Debug.Log("DeployMarker script starting");
         mapManager = FindObjectOfType<MapManager>();
         Debug.Log("MapManager object: " + mapManager);
-        GameEventSystem.current.onGridGenerated += LevelDeclaration;
+
+        // Subscribe to the grid generated event
+        GameEventSystem.current.onGridGenerated += MarkTilesWithDefenseStructures;
     }
 
-    private void LevelDeclaration()
+    private void OnDestroy()
     {
-        // Get the current level or scene name (you may need to implement this based on how your game handles levels/scenes)
-        string currentLevel = SceneManager.GetActiveScene().name;
+        GameEventSystem.current.onGridGenerated -= MarkTilesWithDefenseStructures;
 
-        // Call the appropriate method to spawn DefenseStructures based on the current level
-        switch (currentLevel)
-        {
-            case "Level1":
-                SpawnDefenseStructuresLevel1();
-                break;
-            case "Level2":
-                SpawnDefenseStructuresLevel2();
-                break;
-            // Add more cases for other levels as needed
-            default:
-                // If the current level is not defined in the switch cases, do nothing or handle the situation accordingly.
-                break;
-        }
     }
-
-    private void SpawnDefenseStructuresLevel1()
+    private void MarkTilesWithDefenseStructures()
     {
-        // Define the coordinates for level 1's DefenseStructures
-        Vector2Int desiredTileKey1 = new Vector2Int(-3, -6);
-        Vector2Int desiredTileKey2 = new Vector2Int(-4, -7);
-        Vector2Int desiredTileKey3 = new Vector2Int(-5, -8);
 
-        // Call the SpawnDefenseStructure method for each desired tile key
-        SpawnDefenseStructure(desiredTileKey1);
-        SpawnDefenseStructure(desiredTileKey2);
-        SpawnDefenseStructure(desiredTileKey3);
-    }
-
-    private void SpawnDefenseStructuresLevel2()
-    {
-        // Define the coordinates for level 2's DefenseStructures
-        Vector2Int desiredTileKey1 = new Vector2Int(1, -3);
-        Vector2Int desiredTileKey2 = new Vector2Int(2, -4);
-
-        // Call the SpawnDefenseStructure method for each desired tile key
-        SpawnDefenseStructure(desiredTileKey1);
-        SpawnDefenseStructure(desiredTileKey2);
-    }
-
-    private void SpawnDefenseStructure(Vector2Int desiredTileKey)
-    {
         overlayTiles = mapManager.GetOverLayTiles();
-        unblockedTiles = new List<Vector2Int>();
-        int counter = 0;
 
-        foreach (var tile in overlayTiles)
+
+        foreach (int indexToMark in tileNumbersToMark)
         {
-            counter++;
-            if (!tile.Value.isBlocked && counter <= 16)
+            if (indexToMark >= 0 && indexToMark < overlayTiles.Count)
             {
-                unblockedTiles.Add(tile.Key);
-            }
-        }
-
-        if (unblockedTiles.Count > 0)
-        {
-            desiredTileKey = new Vector2Int(-3, -6); // Set desiredX and desiredY to the desired tile's coordinates
-
-            HideAndShowScript desiredTile = overlayTiles.Find(tile => tile.Key == desiredTileKey).Value;
-
-            if (desiredTile != null && !desiredTile.isBlocked)
-            {
-                Debug.Log("DefenseStructure Spawned");
-                GameObject defenseStructureUnit = Instantiate(DefenseStructureUnitPrefab, desiredTile.transform.position, Quaternion.identity);
-                DefenceStructure defenseStructure = defenseStructureUnit.GetComponent<DefenceStructure>();
-                defenseStructure.activeTile = desiredTile;
-                desiredTile.isBlocked = true;
+                KeyValuePair<Vector2Int, HideAndShowScript> tileEntry = overlayTiles[indexToMark];
+                HideAndShowScript tile = tileEntry.Value;
+                ds_GO = Instantiate(dsPrefab);
+                PositionDefenseStructureOnTile(tile);
+                tile.isBlocked = true;
             }
             else
             {
-                Debug.LogWarning("The desired tile is already blocked or invalid. Defense structure cannot be spawned.");
+                Debug.LogWarning("Invalid index to mark: " + indexToMark);
             }
-
-        }
-        else
-        {
-            Debug.LogWarning("No available unblocked tiles. Enemy cannot be spawned.");
         }
     }
 
+    private void PositionDefenseStructureOnTile(HideAndShowScript tile)
+    {
+        ds_GO.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z + 1);
+        ds_GO.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 2;
+    }
 }
