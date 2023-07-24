@@ -7,7 +7,8 @@ using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCou
 public class DeployMarker : MonoBehaviour
 {
     public bool markDefaultDeploy;
-    public List<int> tileNumbersToMark; // Public list to hold tile numbers to mark as "Deploy Tile"
+    public List<int> tileNumbersToMark; //Public list to hold tile numbers to mark as "Deploy Tile"
+    //The reason it's public is so that our game designers can modify it too
     private List<int> defaultZone;
 
     private MapManager mapManager;
@@ -19,7 +20,7 @@ public class DeployMarker : MonoBehaviour
         mapManager = FindObjectOfType<MapManager>();
         Debug.Log("MapManager object: " + mapManager);
 
-        // Subscribe to the grid generated event
+        //Subscribe to the grid generated event
         GameEventSystem.current.onGridGenerated += MarkTilesAsDeployArea;
         if(markDefaultDeploy == true)
         {
@@ -37,10 +38,10 @@ public class DeployMarker : MonoBehaviour
     }
     private void MarkTilesAsDeployArea()
     {
-        // Get the overlay tiles from the map manager
+        //getting the overlay tiles from the map manager
         overlayTiles = mapManager.GetOverLayTiles();
 
-        // Loop through the overlayTiles and mark tiles as "Deploy Tile" based on the public list
+        //loop through the overlayTiles and mark tiles as "Deploy Tile" based on the public list
         foreach (int indexToMark in tileNumbersToMark)
         {
             if (indexToMark >= 0 && indexToMark < overlayTiles.Count)
