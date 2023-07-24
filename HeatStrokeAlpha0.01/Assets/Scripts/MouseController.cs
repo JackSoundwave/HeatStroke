@@ -322,6 +322,7 @@ public class MouseController : MonoBehaviour
     //==Selection Related==//
 
 
+    /*
     private PlayerUnitScript tileCheckerPlayerUnit(HideAndShowScript tileToCheck)
     {
         for(int i = 0; i < GameEventSystem.current.playerUnits.Length; i++)
@@ -347,7 +348,7 @@ public class MouseController : MonoBehaviour
         //returns null if no value can be found.
         return null;
     }
-
+    */
 
     //==Selection Related==/
 

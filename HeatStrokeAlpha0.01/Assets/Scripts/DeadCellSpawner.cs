@@ -7,7 +7,10 @@ using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCou
 public class DeadCellSpawner : MonoBehaviour
 {
     public bool markDefaultDeploy;
-    public List<int> tileNumbersToMark; 
+    public List<int> tileNumbersToMark;
+
+    public GameObject deadCellPrefab;
+    private GameObject deadCell_GO;
 
     private MapManager mapManager;
     private List<KeyValuePair<Vector2Int, HideAndShowScript>> overlayTiles;
@@ -19,15 +22,15 @@ public class DeadCellSpawner : MonoBehaviour
         Debug.Log("MapManager object: " + mapManager);
 
         // Subscribe to the grid generated event
-        GameEventSystem.current.onGridGenerated += MarkTilesAsDeployArea;
+        GameEventSystem.current.onGridGenerated += MarkTilesWithDeadCells;
     }
 
     private void OnDestroy()
     {
-        GameEventSystem.current.onGridGenerated -= MarkTilesAsDeployArea;
+        GameEventSystem.current.onGridGenerated -= MarkTilesWithDeadCells;
         
     }
-    private void MarkTilesAsDeployArea()
+    private void MarkTilesWithDeadCells()
     {
         
         overlayTiles = mapManager.GetOverLayTiles();
@@ -39,15 +42,20 @@ public class DeadCellSpawner : MonoBehaviour
             {
                 KeyValuePair<Vector2Int, HideAndShowScript> tileEntry = overlayTiles[indexToMark];
                 HideAndShowScript tile = tileEntry.Value;
-
-                tile.isDeployTile = true;
-                tile.ShowTile();
-                tile.DyeTileYellow();
+                deadCell_GO = Instantiate(deadCellPrefab);
+                PositionDeadCellOnTile(tile);
+                tile.isBlocked = true;
             }
             else
             {
                 Debug.LogWarning("Invalid index to mark: " + indexToMark);
             }
         }
+    }
+
+    private void PositionDeadCellOnTile(HideAndShowScript tile)
+    {
+        deadCell_GO.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z + 1);
+        deadCell_GO.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 2;
     }
 }
