@@ -554,10 +554,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2140038341133000133, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
-      propertyPath: tileNumbersToMark.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6223715375987296822, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
       propertyPath: m_Name
       value: DefenseStructureSpawner
@@ -2574,10 +2570,6 @@ PrefabInstance:
     - target: {fileID: 2904447395621420934, guid: c3ee636e884766f49b490fa1d2ef4946, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3906088183711245416, guid: c3ee636e884766f49b490fa1d2ef4946, type: 3}
-      propertyPath: markDefaultDeploy
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4886513730707938267, guid: c3ee636e884766f49b490fa1d2ef4946, type: 3}
       propertyPath: m_Name
