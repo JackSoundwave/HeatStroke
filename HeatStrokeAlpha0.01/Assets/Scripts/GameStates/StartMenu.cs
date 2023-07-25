@@ -13,6 +13,11 @@ public class StartMenu : MonoBehaviour
     {
         SceneManager.LoadScene(level1);
     }
+
+    public void Options()
+    {
+        SceneManager.LoadScene("Option");
+    }
     public void QuitGame()
     {
         Debug.Log("Quitting game...");
