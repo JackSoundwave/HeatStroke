@@ -34,6 +34,7 @@ public class EnemyUnitScript : MonoBehaviour
         if (health <= 0)
         {
             GameEventSystem.current.enemyDeath();
+            activeTile.isBlocked = false;
             Destroy(this.gameObject);
         }
     }

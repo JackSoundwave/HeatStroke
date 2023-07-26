@@ -75,7 +75,7 @@ public class PunchingBagMovement : MonoBehaviour
             //This grabs the neighbourtiles of the player unit, using the instance2 variable declared in the MapManager script
             List<HideAndShowScript> playerNeighbourtiles = MapManager.instance2.getNeighbourTiles(player.activeTile, inRangeTiles);
 
-            //This starts to filter any blocked tiles, currently isBlocked isn't being used so, just keep that in mind.
+            
             playerNeighbourtiles.RemoveAll(tile => tile.isBlocked);
 
             if (playerNeighbourtiles.Count > 0)
@@ -85,6 +85,11 @@ public class PunchingBagMovement : MonoBehaviour
 
                 // Find the path to the chosen destination tile
                 path = pathfinder.FindPath(enemyUnit.activeTile, destinationTile, inRangeTiles);
+
+                foreach(HideAndShowScript tile in path)
+                {
+                    tile.ShowTile();
+                }
 
                 Debug.Log("Path : " + path);
                 hasMoved = true;
