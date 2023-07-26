@@ -188,7 +188,7 @@ public class MapManager : MonoBehaviour
         UnityEngine.Debug.Log(tiles);
         foreach (var tile in tiles)
         {
-            UnityEngine.Debug.Log(tile);
+            //UnityEngine.Debug.Log(tile);
             HideAndShowScript tileToHide = tile.Value;
             tileToHide.HideTile();
         }

@@ -39,7 +39,7 @@ public class DefenseStructureSpawner : MonoBehaviour
                 ds_GO.GetComponent<DefenceStructure>().activeTile = tile;
                 PositionDefenseStructureOnTile(tile);
                 tile.isBlocked = true;
-                ds_GO = null;
+                //ds_GO = null;
             }
             else
             {
