@@ -19,13 +19,13 @@ public class EnemyUnitScript : MonoBehaviour
     private void Start()
     {
         //upon starting, adds THIS unit to the EnemyUnit list in the GameEventSystem.
-        GameEventSystem.current.enemyUnits.Add(this);
+        GameEventSystem.current.enemyUnits.Add(gameObject);
         healthBar.SetMaxHealth(maxHealth);
     }
 
     private void OnDestroy()
     {
-        GameEventSystem.current.enemyUnits.Remove(this);
+        GameEventSystem.current.enemyUnits.Remove(gameObject);
     }
 
     private void Update()
