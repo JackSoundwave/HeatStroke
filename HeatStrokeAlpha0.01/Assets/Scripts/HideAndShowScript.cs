@@ -54,4 +54,9 @@ public class HideAndShowScript : MonoBehaviour
     {
         gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
     }
+
+    public void DyeTileGreen()
+    {
+        gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+    }
 }

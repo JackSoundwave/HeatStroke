@@ -21,18 +21,23 @@ public class EnemySpawnerScript : MonoBehaviour
     public GameObject shooterPrefab;
 
     public bool showSpawnTiles;
+    public bool AddDefaultSpawnTiles;
     private GameObject eu_GO;
 
     private MapManager mapManager;
     private List<KeyValuePair<Vector2Int, HideAndShowScript>> overlayTiles;
 
     public List<int> tileNumbersToMark;
+    public List<int> defaultZone = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
     private List<Vector2Int> unblockedTiles;
     private int maxEnemies = 5;
 
     private void Start()
     {
-        Debug.Log("EnemySpawnerScript starting");
+        if (AddDefaultSpawnTiles)
+        {
+            tileNumbersToMark.AddRange(defaultZone);
+        }
         mapManager = FindObjectOfType<MapManager>();
         Debug.Log("MapManager object: " + mapManager);
         GameEventSystem.current.onGridGenerated += SpawnEnemyOnRandomTile;
@@ -84,7 +89,7 @@ public class EnemySpawnerScript : MonoBehaviour
                 KeyValuePair<Vector2Int, HideAndShowScript> tileEntry = overlayTiles[indexToMark];
                 HideAndShowScript tile = tileEntry.Value;
 
-                tile.isBlocked = true;
+                tile.DyeTileGreen();
             }
             else
             {
