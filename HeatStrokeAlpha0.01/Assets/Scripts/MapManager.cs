@@ -185,7 +185,7 @@ public class MapManager : MonoBehaviour
     private void HideAllTiles()
     {
         List < KeyValuePair < Vector2Int, HideAndShowScript >> tiles = GetOverLayTiles();
-        UnityEngine.Debug.Log(tiles);
+        //UnityEngine.Debug.Log(tiles);
         foreach (var tile in tiles)
         {
             //UnityEngine.Debug.Log(tile);

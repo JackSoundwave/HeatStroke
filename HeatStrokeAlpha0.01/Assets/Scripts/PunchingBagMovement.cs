@@ -95,7 +95,7 @@ public class PunchingBagMovement : MonoBehaviour
                 }
             }
 
-            Debug.Log("Path : " + path);
+            //Debug.Log("Path : " + path);
             hasMoved = true;
         }
     }
@@ -179,6 +179,6 @@ public class PunchingBagMovement : MonoBehaviour
         enemyUnit.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 2;
         enemyUnit.activeTile = tile;
         enemyUnit.activeTile.isBlocked = true;
-        CombatStateManager.CSInstance.UpdateCombatState(CombatState.EnemyTurn);
+        //CombatStateManager.CSInstance.UpdateCombatState(CombatState.EnemyTurn);
     }
 }

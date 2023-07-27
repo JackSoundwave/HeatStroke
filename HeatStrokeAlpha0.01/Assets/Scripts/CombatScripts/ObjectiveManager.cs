@@ -65,13 +65,21 @@ public class ObjectiveManager : MonoBehaviour
                 if(OMInstance.turnTimer <= 0)
                 {
                     CombatStateManager.CSInstance.UpdateCombatState(CombatState.Victory);
+                } 
+                else
+                {
+                    CombatStateManager.CSInstance.UpdateCombatState(CombatState.PlayerTurn);
                 }
                 break;
 
             case Objective.Extermination:
-                if (OMInstance.turnTimer <= 0)
+                if (OMInstance.turnTimer <= 0 || OMInstance.hivesToDestroy <= 0)
                 {
                     CombatStateManager.CSInstance.UpdateCombatState(CombatState.Victory);
+                }
+                else
+                {
+                    CombatStateManager.CSInstance.UpdateCombatState(CombatState.PlayerTurn);
                 }
                 break;
 
@@ -80,12 +88,20 @@ public class ObjectiveManager : MonoBehaviour
                 {
                     CombatStateManager.CSInstance.UpdateCombatState(CombatState.Victory);
                 }
+                else
+                {
+                    CombatStateManager.CSInstance.UpdateCombatState(CombatState.PlayerTurn);
+                }
                 break;
 
             case Objective.PoC_Extermination:
                 if (OMInstance.PoCKillCounter <= 0)
                 {
                     CombatStateManager.CSInstance.UpdateCombatState(CombatState.Victory);
+                }
+                else
+                {
+                    CombatStateManager.CSInstance.UpdateCombatState(CombatState.PlayerTurn);
                 }
                 break;
 

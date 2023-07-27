@@ -44,6 +44,7 @@ public class CombatStateManager : MonoBehaviour
                 HandleEnemyTurn();
                 break;
             case CombatState.Victory:
+                Debug.Log("Victory!");
                 break;
             case CombatState.Lose:
                 break;
@@ -76,9 +77,8 @@ public class CombatStateManager : MonoBehaviour
         
 
         Debug.Log("Enemy Turn Completed");
-        GameEventSystem.current.playerTurnStarted();
         GameEventSystem.current.enemyTurnEnd();
-        CSInstance.UpdateCombatState(CombatState.PlayerTurn);
+        ObjectiveManager.OMInstance.evaluateWinCondition();
     }
 
     public void HandleDecideState()

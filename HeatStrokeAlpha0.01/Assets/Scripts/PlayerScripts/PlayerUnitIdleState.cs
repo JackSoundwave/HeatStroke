@@ -9,7 +9,7 @@ public class PlayerUnitIdleState : PlayerUnitBaseState
 
     public override void EnterState(PlayerStateManager player)
     {
-        Debug.Log("Player unit is now idle");
+        //Debug.Log("Player unit is now idle");
         //Swapping material to "idle" material.
         player.thisUnit.GetComponent<SpriteRenderer>().material = player.thisUnit.normal;
         if(player.cursor != null) 

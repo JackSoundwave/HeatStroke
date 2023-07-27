@@ -170,7 +170,7 @@ MonoBehaviour:
   obj: 1
   hivesToDestroy: 0
   enemiesKilled: 0
-  turnTimer: 0
+  turnTimer: 6
   PoCKillCounter: 0
 --- !u!1 &519420028
 GameObject:
