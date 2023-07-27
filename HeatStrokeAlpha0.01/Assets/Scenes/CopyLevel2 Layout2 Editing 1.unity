@@ -554,6 +554,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2140038341133000133, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
+      propertyPath: tileNumbersToMark.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2140038341133000133, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
+      propertyPath: tileNumbersToMark.Array.data[0]
+      value: 52
+      objectReference: {fileID: 0}
     - target: {fileID: 6223715375987296822, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
       propertyPath: m_Name
       value: DefenseStructureSpawner
@@ -2571,6 +2579,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3906088183711245416, guid: c3ee636e884766f49b490fa1d2ef4946, type: 3}
+      propertyPath: markDefaultDeploy
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3906088183711245416, guid: c3ee636e884766f49b490fa1d2ef4946, type: 3}
+      propertyPath: tileNumbersToMark.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3906088183711245416, guid: c3ee636e884766f49b490fa1d2ef4946, type: 3}
+      propertyPath: tileNumbersToMark.Array.data[0]
+      value: 58
+      objectReference: {fileID: 0}
+    - target: {fileID: 3906088183711245416, guid: c3ee636e884766f49b490fa1d2ef4946, type: 3}
+      propertyPath: tileNumbersToMark.Array.data[1]
+      value: 59
+      objectReference: {fileID: 0}
+    - target: {fileID: 3906088183711245416, guid: c3ee636e884766f49b490fa1d2ef4946, type: 3}
+      propertyPath: tileNumbersToMark.Array.data[2]
+      value: 61
+      objectReference: {fileID: 0}
+    - target: {fileID: 3906088183711245416, guid: c3ee636e884766f49b490fa1d2ef4946, type: 3}
+      propertyPath: tileNumbersToMark.Array.data[3]
+      value: 51
+      objectReference: {fileID: 0}
+    - target: {fileID: 3906088183711245416, guid: c3ee636e884766f49b490fa1d2ef4946, type: 3}
+      propertyPath: tileNumbersToMark.Array.data[4]
+      value: 53
+      objectReference: {fileID: 0}
+    - target: {fileID: 3906088183711245416, guid: c3ee636e884766f49b490fa1d2ef4946, type: 3}
+      propertyPath: tileNumbersToMark.Array.data[5]
+      value: 43
+      objectReference: {fileID: 0}
+    - target: {fileID: 3906088183711245416, guid: c3ee636e884766f49b490fa1d2ef4946, type: 3}
+      propertyPath: tileNumbersToMark.Array.data[6]
+      value: 44
+      objectReference: {fileID: 0}
+    - target: {fileID: 3906088183711245416, guid: c3ee636e884766f49b490fa1d2ef4946, type: 3}
+      propertyPath: tileNumbersToMark.Array.data[7]
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 3906088183711245416, guid: c3ee636e884766f49b490fa1d2ef4946, type: 3}
+      propertyPath: tileNumbersToMark.Array.data[8]
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3906088183711245416, guid: c3ee636e884766f49b490fa1d2ef4946, type: 3}
+      propertyPath: tileNumbersToMark.Array.data[9]
+      value: 37
+      objectReference: {fileID: 0}
     - target: {fileID: 4886513730707938267, guid: c3ee636e884766f49b490fa1d2ef4946, type: 3}
       propertyPath: m_Name
       value: DeployMarker
@@ -2590,7 +2646,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 257684816337638950, guid: 6e8bcc2ccbbc1c14a9e2ea56b5caeb10, type: 3}
       propertyPath: tileNumbersToMark.Array.size
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 257684816337638950, guid: 6e8bcc2ccbbc1c14a9e2ea56b5caeb10, type: 3}
       propertyPath: tileNumbersToMark.Array.data[0]
