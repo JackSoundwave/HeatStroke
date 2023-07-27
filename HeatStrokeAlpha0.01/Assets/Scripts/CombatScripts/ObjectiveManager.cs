@@ -9,8 +9,10 @@ public class ObjectiveManager : MonoBehaviour
     //We could also refactor it later to include side objectives.
     public static ObjectiveManager OMInstance;
 
+    [HideInInspector]
     public Objective obj;
 
+    [HideInInspector]
     public int hivesToDestroy, enemiesKilled, turnTimer, PoCKillCounter;
 
     private void Awake()
