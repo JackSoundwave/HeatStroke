@@ -90,6 +90,7 @@ public class MouseController : MonoBehaviour
 
                         targetedEnemyUnit = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>();
                         transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<EnemyUnitScript>().activeTile.transform.position;
+                        targetedDefenseStructure = null;
                         hoveredPlayerUnit = null;
                         mouseOverEntity = true;
 
@@ -102,6 +103,7 @@ public class MouseController : MonoBehaviour
 
                         //setting the targeted EnemyUnit to null when NOT hovering over it in the scene.
                         targetedEnemyUnit = null;
+                        targetedDefenseStructure = null;
                         mouseOverEntity = true;
                         hoveredPlayerUnit = focusedTileHit.Value.collider.gameObject.GetComponent<PlayerUnitScript>();
                         transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<PlayerUnitScript>().activeTile.transform.position;
@@ -140,6 +142,14 @@ public class MouseController : MonoBehaviour
                         }
                         break;
 
+                    case DefenceStructure defenseStructureScript:
+
+                        transform.position = defenseStructureScript.transform.position;
+                        targetedEnemyUnit = null;
+                        mouseOverEntity = true;
+                        targetedDefenseStructure = defenseStructureScript;
+
+                        break;
                     //default case so that it still runs despite detecting something invalid (like something out of bounds, for example)
                     default:
                         Debug.Log("Nothing detected");

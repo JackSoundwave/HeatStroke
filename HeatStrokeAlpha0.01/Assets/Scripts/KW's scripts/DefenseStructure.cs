@@ -31,6 +31,15 @@ public class DefenceStructure : MonoBehaviour
         {
             DestroyStructure();
         }
+
+        if (MouseController.ActiveInstance?.targetedDefenseStructure == this)
+        {
+            showHealthBar();
+        }
+        else
+        {
+            hideHealthBar();
+        }
     }
 
     void TakeDamage(int damage)
@@ -46,13 +55,12 @@ public class DefenceStructure : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnMouseOver()
+    private void showHealthBar()
     {
         healthBar.gameObject.SetActive(true);
-        Debug.Log("It took me ten years to find");
     }
 
-    private void OnMouseExit()
+    private void hideHealthBar()
     {
         healthBar.gameObject.SetActive(false);
     }

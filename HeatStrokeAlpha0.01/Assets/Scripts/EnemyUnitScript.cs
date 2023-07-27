@@ -37,6 +37,15 @@ public class EnemyUnitScript : MonoBehaviour
             activeTile.isBlocked = false;
             Destroy(this.gameObject);
         }
+
+        if(MouseController.ActiveInstance?.targetedEnemyUnit == this)
+        {
+            showHealthBar();
+        }
+        else
+        {
+            hideHealthBar();
+        }
     }
     public void PrimeWeapon()
     {
@@ -52,5 +61,15 @@ public class EnemyUnitScript : MonoBehaviour
         //resetting attack state for future turns
         isAttacking = false;
         hasAttacked = true;
+    }
+
+    private void showHealthBar()
+    {
+        healthBar.gameObject.SetActive(true);
+    }
+
+    private void hideHealthBar()
+    {
+        healthBar.gameObject.SetActive(false);
     }
 }
