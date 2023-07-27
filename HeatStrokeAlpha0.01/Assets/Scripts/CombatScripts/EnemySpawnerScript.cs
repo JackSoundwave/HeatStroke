@@ -13,11 +13,18 @@ public class EnemySpawnerScript : MonoBehaviour
      * When the enemyAboutToSpawn prefab dies, it spawns an enemyUnit from a random list of pre-determined prefabs.
     */
 
+    [HideInInspector]
     public GameObject enemyUnitPrefab;
+
+    [HideInInspector]
     public GameObject shooterPrefab;
+
     private MapManager mapManager;
     private List<KeyValuePair<Vector2Int, HideAndShowScript>> overlayTiles;
+
+    public List<int> tileNumbersToMark;
     private List<Vector2Int> unblockedTiles;
+    private int maxEnemies = 5;
 
     private void Start()
     {
@@ -72,49 +79,9 @@ public class EnemySpawnerScript : MonoBehaviour
         }
     }
 
-    
-    private void SpawnAllyOnRandomTile()
+    private void markEnemySpawnTiles()
     {
-        Debug.Log("Spawning Enemies");
-        overlayTiles = mapManager.GetOverLayTiles();
-        unblockedTiles = new List<Vector2Int>();
-        int counter = 0;
 
-        foreach (var tile in overlayTiles)
-        {
-            //increase count
-            counter++;
-
-            //only have the last 32 tiles
-            if (!tile.Value.isBlocked && counter > overlayTiles.Count - 32)
-            {
-                unblockedTiles.Add(tile.Key);
-            }
-        }
-
-        if (unblockedTiles.Count > 0)
-        {
-            int randomIndex = Random.Range(0, unblockedTiles.Count);
-            Vector2Int randomTileKey = unblockedTiles[randomIndex];
-            HideAndShowScript randomTile = overlayTiles.Find(tile => tile.Key == randomTileKey).Value;
-
-            if (randomTile != null)
-            {
-                GameObject allyUnit = Instantiate(shooterPrefab, randomTile.transform.position, Quaternion.identity);
-                PlayerUnitScript allyUnitScript = allyUnit.GetComponent<PlayerUnitScript>();
-                allyUnitScript.activeTile = randomTile;
-                randomTile.isBlocked = true;
-            }
-            else
-            {
-                Debug.LogWarning("Selected tile is invalid. Trying again...");
-                SpawnEnemyOnRandomTile();
-            }
-        }
-        else
-        {
-            Debug.LogWarning("No available unblocked tiles. ally cannot be spawned.");
-        }
     }
 
 }
