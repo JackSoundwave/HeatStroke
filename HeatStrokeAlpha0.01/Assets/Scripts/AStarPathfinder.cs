@@ -8,7 +8,7 @@ public class AStarPathfinder
 {
 
     //This function is used to get the block distance so that it creates a movable square.
-    private int GetManhattanDistance(HideAndShowScript start, HideAndShowScript neighbour)
+    public int GetManhattanDistance(HideAndShowScript start, HideAndShowScript neighbour)
     {
         return Mathf.Abs(start.gridLocation.x - neighbour.gridLocation.x) + Mathf.Abs(start.gridLocation.y - neighbour.gridLocation.y);
     }
