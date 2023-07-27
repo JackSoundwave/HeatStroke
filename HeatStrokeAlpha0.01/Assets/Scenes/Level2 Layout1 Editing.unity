@@ -285,6 +285,55 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!1 &640704391
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 640704393}
+  - component: {fileID: 640704392}
+  m_Layer: 0
+  m_Name: ObjectiveSetter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &640704392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640704391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e24755b9bee8034dbb9aa2e85a29298, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obj: 3
+  hivesToDestroy: 0
+  enemiesKilled: 0
+  turnTimer: 5
+  PoCKillCounter: 6
+--- !u!4 &640704393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640704391}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.6055646, y: -1.0468854, z: -0.0023729322}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &721066485
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2364,6 +2413,7 @@ MonoBehaviour:
   hoveredPlayerUnit: {fileID: 0}
   pUnit: {fileID: 0}
   targetedEnemyUnit: {fileID: 0}
+  targetedDefenseStructure: {fileID: 0}
   mouseOverEntity: 0
   speed: 4
   cursor: {fileID: 0}
