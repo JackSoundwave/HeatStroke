@@ -47,6 +47,8 @@ public class MouseController : MonoBehaviour
     //self explanatory
     public EnemyUnitScript targetedEnemyUnit;
 
+    public DefenceStructure targetedDefenseStructure;
+
     public bool mouseOverEntity;
     public float speed;
     public GameObject cursor;

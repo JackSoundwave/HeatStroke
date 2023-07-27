@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1871466800100978724}
   - component: {fileID: 1078744070125372097}
   - component: {fileID: 4566963189749344529}
-  m_Layer: 3
+  m_Layer: 1
   m_Name: DeadCellClump
   m_TagString: Untagged
   m_Icon: {fileID: 0}

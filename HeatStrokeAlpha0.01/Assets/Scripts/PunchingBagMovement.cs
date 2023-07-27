@@ -86,11 +86,6 @@ public class PunchingBagMovement : MonoBehaviour
                 // Find the path to the chosen destination tile
                 path = pathfinder.FindPath(enemyUnit.activeTile, destinationTile, inRangeTiles);
 
-                foreach(HideAndShowScript tile in path)
-                {
-                    tile.ShowTile();
-                }
-
                 Debug.Log("Path : " + path);
                 hasMoved = true;
             }

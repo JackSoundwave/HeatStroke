@@ -48,12 +48,12 @@ public class DefenceStructure : MonoBehaviour
 
     private void OnMouseOver()
     {
-        //so like, code to show the healthbar is supposed to go here, but I'm too lazy to program that shit rn
-        //-Paven
+        healthBar.gameObject.SetActive(true);
+        Debug.Log("It took me ten years to find");
     }
 
     private void OnMouseExit()
     {
-        //lorem ipsum
+        healthBar.gameObject.SetActive(false);
     }
 }
