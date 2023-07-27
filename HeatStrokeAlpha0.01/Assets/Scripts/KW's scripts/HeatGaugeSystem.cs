@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class HeatGaugeSystem : MonoBehaviour
 {
     public static HeatGaugeSystem instance;
-    public static int maxTemperature = 1000;
+    public int maxTemperature = 1000;
     public int currentTemperature = 0;
     public HeatBar heatBar;
 
