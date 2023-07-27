@@ -15,11 +15,6 @@ public class ObjectiveManager : MonoBehaviour
     [HideInInspector]
     public int hivesToDestroy, enemiesKilled, turnTimer, PoCKillCounter;
 
-    private void Awake()
-    {
-        OMInstance = this;
-    }
-
     private void OnDestroy()
     {
         GameEventSystem.current.onEnemyTurnEnd -= OMInstance.reduceTurnTimer;
@@ -30,7 +25,12 @@ public class ObjectiveManager : MonoBehaviour
     //Initialize objective type and set up subscriptions to game event within the start() function.
     private void Start()
     {
+        OMInstance = this;
+    }
 
+    public void setObjective(Objective newObj)
+    {
+        obj = newObj;
         switch (OMInstance.obj)
         {
             case Objective.Defense:
@@ -38,15 +38,13 @@ public class ObjectiveManager : MonoBehaviour
                 break;
 
             case Objective.Extermination:
+                GameEventSystem.current.onEnemyTurnEnd += OMInstance.reduceTurnTimer;
                 GameEventSystem.current.onExterminateStructureDeath += OMInstance.reduceHivesToDestroy;
-            
+
                 break;
+
             case Objective.Escort:
-
-                //tba
-                break;
-            case Objective.Train:
-
+                GameEventSystem.current.onEnemyTurnEnd += OMInstance.reduceTurnTimer;
                 //tba
                 break;
 
@@ -55,7 +53,7 @@ public class ObjectiveManager : MonoBehaviour
                 break;
             default:
                 Debug.Log("ERROR: MORON DID NOT SET PROPER OBJECTIVE TYPE");
-                throw new ArgumentOutOfRangeException(nameof(OMInstance.obj), OMInstance.obj, null); 
+                throw new ArgumentOutOfRangeException(nameof(OMInstance.obj), OMInstance.obj, null);
         }
     }
 
@@ -64,35 +62,28 @@ public class ObjectiveManager : MonoBehaviour
         switch (OMInstance.obj)
         {
             case Objective.Defense:
-                if(OMInstance.turnTimer == 0)
+                if(OMInstance.turnTimer <= 0)
                 {
                     CombatStateManager.CSInstance.UpdateCombatState(CombatState.Victory);
                 }
                 break;
 
             case Objective.Extermination:
-                if (OMInstance.turnTimer == 0)
+                if (OMInstance.turnTimer <= 0)
                 {
                     CombatStateManager.CSInstance.UpdateCombatState(CombatState.Victory);
                 }
                 break;
 
             case Objective.Escort:
-                if (OMInstance.turnTimer == 0)
-                {
-                    CombatStateManager.CSInstance.UpdateCombatState(CombatState.Victory);
-                }
-                break;
-
-            case Objective.Train:
-                if (OMInstance.turnTimer == 0)
+                if (OMInstance.turnTimer <= 0)
                 {
                     CombatStateManager.CSInstance.UpdateCombatState(CombatState.Victory);
                 }
                 break;
 
             case Objective.PoC_Extermination:
-                if (OMInstance.PoCKillCounter == 0)
+                if (OMInstance.PoCKillCounter <= 0)
                 {
                     CombatStateManager.CSInstance.UpdateCombatState(CombatState.Victory);
                 }
@@ -113,7 +104,7 @@ public class ObjectiveManager : MonoBehaviour
 
     //TurnTimer related (basically we need this for objectives that rely on the amount of turns going down to 0 for a win condition.
     //Creating this set method just in case we need it later.
-    private void setTurnTimer(int turnTimer)
+    public void setTurnTimer(int turnTimer)
     {
         OMInstance.turnTimer = turnTimer;
     }
@@ -131,6 +122,10 @@ public class ObjectiveManager : MonoBehaviour
         evaluateWinCondition();
     }
 
+    public void setHivesToDestroy(int hives)
+    {
+        OMInstance.hivesToDestroy = hives;
+    }
     public void reduceHivesToDestroy()
     {
         OMInstance.hivesToDestroy = OMInstance.hivesToDestroy - 1;
@@ -148,7 +143,6 @@ public enum Objective
 {
     Extermination,
     Defense,
-    Train,
     Escort,
     PoC_Extermination
 }

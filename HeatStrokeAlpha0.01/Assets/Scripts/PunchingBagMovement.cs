@@ -22,7 +22,6 @@ public class PunchingBagMovement : MonoBehaviour
     
     private PlayerUnitScript targetPlayer;
 
-    // Start is called before the first frame update
     void Start()
     {
         pathfinder = new AStarPathfinder();
@@ -40,7 +39,7 @@ public class PunchingBagMovement : MonoBehaviour
 
         if (CombatStateManager.CSInstance.State == CombatState.EnemyTurn && turnOver == false)
         {
-            if (!hasMoved /*&& Communicator.Instance.AttackingPlayer*/)
+            if (!hasMoved)
             {
                 FindPathToPlayer();
                 //Debug.Log("Path value: " + path);
