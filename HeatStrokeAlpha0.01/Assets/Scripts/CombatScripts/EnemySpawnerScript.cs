@@ -28,6 +28,7 @@ public class EnemySpawnerScript : MonoBehaviour
     private List<KeyValuePair<Vector2Int, HideAndShowScript>> overlayTiles;
 
     public List<int> tileNumbersToMark;
+    [HideInInspector]
     public List<int> defaultZone = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
     private List<Vector2Int> unblockedTiles;
     private int maxEnemies = 5;
