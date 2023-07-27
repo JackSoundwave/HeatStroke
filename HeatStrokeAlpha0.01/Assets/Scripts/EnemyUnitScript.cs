@@ -13,7 +13,9 @@ public class EnemyUnitScript : MonoBehaviour
     //booleans to dictate whether or not the player has moved or has attacked already. canMove is set to true and hasAttacked is set to false.
     //If true, then the event manager tells the MouseController script that the unit can move after being selected.
     //isAttacking is to determine the current pUnit state. If the unit is attacking, the selected tile afterwards gets an attack on it
-    public bool canMove, hasAttacked, isAttacking;
+
+    //Note: when an enemy first spawns, it's default state will always be "isIdle", it will then move to the player, and prime an attack against it if it detects a targetable entity.
+    public bool canMove, hasAttacked, isAttacking, attackPrimed;
     public bool isSelected;
     public HealthBar healthBar;
     private void Start()

@@ -10,7 +10,8 @@ public class EnemySpawnerScript : MonoBehaviour
      * enemyAboutToSpawn is a prefab that selects it's own activeTile, sets that tile to "enemyAboutToSpawn = true", which prevents the spawner from creating a new prefab
      * on that specific tile.
      * 
-     * When the enemyAboutToSpawn prefab dies, it spawns an enemyUnit from a random list of pre-determined prefabs.
+     * When the enemyAboutToSpawn prefab dies, it spawns an enemyUnit from a random list of pre-determined prefabs. Depending on things like difficulty, current level, etc.
+     * But for now
     */
 
     [HideInInspector]
@@ -18,6 +19,9 @@ public class EnemySpawnerScript : MonoBehaviour
 
     [HideInInspector]
     public GameObject shooterPrefab;
+
+    public bool showSpawnTiles;
+    private GameObject eu_GO;
 
     private MapManager mapManager;
     private List<KeyValuePair<Vector2Int, HideAndShowScript>> overlayTiles;
@@ -32,56 +36,88 @@ public class EnemySpawnerScript : MonoBehaviour
         mapManager = FindObjectOfType<MapManager>();
         Debug.Log("MapManager object: " + mapManager);
         GameEventSystem.current.onGridGenerated += SpawnEnemyOnRandomTile;
-        GameEventSystem.current.onEnemyDeath += SpawnEnemyOnRandomTile;
+        GameEventSystem.current.onEnemyTurnEnd += SpawnEnemyOnRandomTile;
+        if(showSpawnTiles == true)
+        {
+            GameEventSystem.current.onGridGenerated += ShowMarkedTiles;
+        }
     }
 
+    /*This updated version of "spawn enemy on random tile" requires additional factors, 
+     * like considering how many enemies are currently on the grid for examps, 
+     * and whether or not 3 enemies are already about to spawn.
+    */
     private void SpawnEnemyOnRandomTile()
     {
-        Debug.Log("Spawning Enemies");
         overlayTiles = mapManager.GetOverLayTiles();
-        unblockedTiles = new List<Vector2Int>();
-        int counter = 0;
 
-        foreach (var tile in overlayTiles)
+        // Shuffle the tileNumbersToMark list
+        ShuffleList(tileNumbersToMark);
+
+        foreach (int indexToMark in tileNumbersToMark)
         {
-            //the counter variable is here so that it only counts the first 16 tiles. Meaning, the first two rows from the right hand side.
-            //I hate living
-
-            counter++;
-            if (!tile.Value.isBlocked && counter <= 16)
+            if (indexToMark >= 0 && indexToMark < overlayTiles.Count)
             {
-                unblockedTiles.Add(tile.Key);
-            }
-        }
-
-        if (unblockedTiles.Count > 0)
-        {
-            int randomIndex = Random.Range(0, unblockedTiles.Count);
-            Vector2Int randomTileKey = unblockedTiles[randomIndex];
-            HideAndShowScript randomTile = overlayTiles.Find(tile => tile.Key == randomTileKey).Value;
-
-            if (randomTile != null)
-            {
-                GameObject enemyUnit = Instantiate(enemyUnitPrefab, randomTile.transform.position, Quaternion.identity);
-                EnemyUnitScript enemyUnitScript = enemyUnit.GetComponent<EnemyUnitScript>();
-                enemyUnitScript.activeTile = randomTile;
-                randomTile.isBlocked = true;
+                KeyValuePair<Vector2Int, HideAndShowScript> tileEntry = overlayTiles[indexToMark];
+                HideAndShowScript tile = tileEntry.Value;
+                eu_GO = Instantiate(enemyUnitPrefab);
+                eu_GO.GetComponent<DefenceStructure>().activeTile = tile;
+                PositionEnemyOnTile(tile);
+                tile.isBlocked = true;
+                eu_GO = null;
             }
             else
             {
-                Debug.LogWarning("Selected tile is invalid. Trying again...");
-                SpawnEnemyOnRandomTile();
+                Debug.LogWarning("Invalid index to mark: " + indexToMark);
             }
         }
-        else
+    }
+
+    private void ShowMarkedTiles()
+    {
+        overlayTiles = mapManager.GetOverLayTiles();
+
+        foreach (int indexToMark in tileNumbersToMark)
         {
-            Debug.LogWarning("No available unblocked tiles. Enemy cannot be spawned.");
+            if (indexToMark >= 0 && indexToMark < overlayTiles.Count)
+            {
+                KeyValuePair<Vector2Int, HideAndShowScript> tileEntry = overlayTiles[indexToMark];
+                HideAndShowScript tile = tileEntry.Value;
+
+                tile.isBlocked = true;
+            }
+            else
+            {
+                Debug.LogWarning("Invalid index to mark: " + indexToMark);
+            }
         }
     }
 
-    private void markEnemySpawnTiles()
+    private void PositionEnemyOnTile(HideAndShowScript tile)
     {
-
+        eu_GO.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z + 1);
+        eu_GO.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 2;
     }
 
+    /* Randomization function I found online, I'm gonna keep it real, I literally have no clue how it works.
+     * It's apparently called the "Fisher-yates" shuffle
+     * You can read about it on wikipedia here
+     * https://en.wikipedia.org/wiki/Fisher–Yates_shuffle
+     * and I got the implementation from here https://stackoverflow.com/questions/273313/randomize-a-listt
+     * Pretty cool
+     * Also instead of using "Rng.next" which, I'm not sure what the hell is that, instead we're using Random.Range, derived from Unity's built in classes.
+     * I hope unreal has something like this TT
+     */
+    private void ShuffleList<T>(List<T> list)
+    {
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = Random.Range(0, n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+    }
 }
