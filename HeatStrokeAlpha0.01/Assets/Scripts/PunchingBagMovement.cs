@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -18,7 +19,9 @@ public class PunchingBagMovement : MonoBehaviour
     private bool hasMoved;
     public bool turnOver;
 
-    // Start is called before the first frame update
+    
+    private PlayerUnitScript targetPlayer;
+
     void Start()
     {
         pathfinder = new AStarPathfinder();
@@ -36,7 +39,7 @@ public class PunchingBagMovement : MonoBehaviour
 
         if (CombatStateManager.CSInstance.State == CombatState.EnemyTurn && turnOver == false)
         {
-            if (!hasMoved /*&& Communicator.Instance.AttackingPlayer*/)
+            if (!hasMoved)
             {
                 FindPathToPlayer();
                 //Debug.Log("Path value: " + path);
@@ -64,37 +67,37 @@ public class PunchingBagMovement : MonoBehaviour
     private void FindPathToPlayer()
     {
         PlayerUnitScript player = FindObjectOfType<PlayerUnitScript>();
-        //Debug.Log("Player value: " + player);
 
         if (player != null)
         {
             path.Clear(); //This removes the previous path
-            //Debug.Log("Generating Enemy path value");
 
-            pathfinder.FindPath(enemyUnit.activeTile, player.activeTile, inRangeTiles);
-            //This grabs the neighbourtiles of the player unit, using the instance2 variable declared in the MapManager script
-            List<HideAndShowScript> playerNeighbourtiles = MapManager.instance2.getNeighbourTiles(player.activeTile, inRangeTiles);
+            
+            List<HideAndShowScript> inRangeTiles = rangeFinder.GetTilesInRange(enemyUnit.activeTile, enemyUnit.movementRange);
 
-            //This starts to filter any blocked tiles, currently isBlocked isn't being used so, just keep that in mind.
-            playerNeighbourtiles.RemoveAll(tile => tile.isBlocked);
+            //finds path to the player if it's within it's movement range
+            path = pathfinder.FindPath(enemyUnit.activeTile, player.activeTile, inRangeTiles);
 
-            if (playerNeighbourtiles.Count > 0)
+            //this block executes if it cannot detect a player in it's movement range
+            if (path.Count == 0)
             {
-                //This chooses one of the random tiles near the playerneighbourtiles list to move to. Pretty sure this causes the enemy unit to constantly circle around the player in an erratic way
-                HideAndShowScript destinationTile = playerNeighbourtiles[Random.Range(0, playerNeighbourtiles.Count)];
+                
+                List<HideAndShowScript> closestPath = FindClosestAdjacentTilePath(inRangeTiles, player.activeTile);
 
-                // Find the path to the chosen destination tile
-                path = pathfinder.FindPath(enemyUnit.activeTile, destinationTile, inRangeTiles);
+                if (closestPath.Count > 0)
+                {
+                    
+                    path = pathfinder.FindPath(enemyUnit.activeTile, closestPath[0], inRangeTiles);
+                }
+                else
+                {
+                    //requires additional handling here.
+                }
+            }
 
-                Debug.Log("Path : " + path);
-                hasMoved = true;
-            }
-            else
-            {
-                //Debug.LogWarning("No valid path to player neighbourtiles");
-            }
+            //Debug.Log("Path : " + path);
+            hasMoved = true;
         }
-
     }
 
     private void MoveAlongPath()
@@ -109,7 +112,7 @@ public class PunchingBagMovement : MonoBehaviour
         enemyUnit.transform.position = Vector2.MoveTowards(enemyUnit.transform.position, path[0].transform.position, step);
         enemyUnit.transform.position = new Vector3(enemyUnit.transform.position.x, enemyUnit.transform.position.y, zIndex);
         if (Vector2.Distance(enemyUnit.transform.position, path[0].transform.position) < 0.0001f)
-        {   
+        {
             PositionCharacterOnTile(path[0]);
             path.RemoveAt(0);
         }
@@ -118,6 +121,30 @@ public class PunchingBagMovement : MonoBehaviour
         {
             GetInRangeTiles();
         }
+    }
+
+    private List<HideAndShowScript> FindClosestAdjacentTilePath(List<HideAndShowScript> tiles, HideAndShowScript playerTile)
+    {
+        int closestDistance = int.MaxValue;
+        List<HideAndShowScript> closestPath = new List<HideAndShowScript>();
+
+        // Find the closest tile in the list to the player tile
+        foreach (var tile in tiles)
+        {
+            int distance = pathfinder.GetManhattanDistance(tile, playerTile);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestPath.Clear();
+                closestPath.Add(tile);
+            }
+            else if (distance == closestDistance)
+            {
+                closestPath.Add(tile);
+            }
+        }
+
+        return closestPath;
     }
 
     private void GetInRangeTiles()
@@ -152,6 +179,6 @@ public class PunchingBagMovement : MonoBehaviour
         enemyUnit.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 2;
         enemyUnit.activeTile = tile;
         enemyUnit.activeTile.isBlocked = true;
-        CombatStateManager.CSInstance.UpdateCombatState(CombatState.EnemyTurn);
+        //CombatStateManager.CSInstance.UpdateCombatState(CombatState.EnemyTurn);
     }
 }

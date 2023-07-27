@@ -15,6 +15,7 @@ public class CombatUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _unitsLeftText;
     [SerializeField] private TextMeshProUGUI _unitsLeftNumber;
     [SerializeField] private TextMeshProUGUI _enemyUnitsRemainingNumber;
+    [SerializeField] private TextMeshProUGUI _TurnsRemaining;
 
     private bool allUnitsDeployed;
 
@@ -44,7 +45,7 @@ public class CombatUIManager : MonoBehaviour
 
     private string GetCombatStateText(CombatState state)
     {
-        Debug.Log("Changing text");
+        //Debug.Log("Changing text");
         switch (state)
         {
             case CombatState.DeployPhase:

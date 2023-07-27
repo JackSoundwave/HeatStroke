@@ -60,7 +60,7 @@ public class MapManager : MonoBehaviour
         map = new Dictionary<Vector2Int, HideAndShowScript>();
         BoundsInt bounds = tileMap.cellBounds;
 
-        int idCounter = 1; // Counter for generating unique IDs
+        int idCounter = 1; //Counter for generating unique IDs
 
         for (int z = bounds.max.z; z >= bounds.min.z; z--)
         {
@@ -76,9 +76,6 @@ public class MapManager : MonoBehaviour
                         var overlayTile = Instantiate(overlayTilePrefab, overlayContainer.transform);
                         var cellWorldPosition = tileMap.GetCellCenterWorld(tileLocation);
 
-                        // Check if the tile is blocked by a defense structure
-                        bool isBlockedByStructure = CheckIfBlockedByStructure(cellWorldPosition);
-                        overlayTile.isBlocked = isBlockedByStructure;
 
                         overlayTile.transform.position = new Vector3(cellWorldPosition.x, cellWorldPosition.y, cellWorldPosition.z + 0.0001f);
                         //we plus the sortingOrder by 1 at the end to make the "overlayTiles" visible.
@@ -114,7 +111,8 @@ public class MapManager : MonoBehaviour
             {
                 tileToSearch.Add(item.grid2DLocation, item);
             }
-        } else
+        } 
+        else
         {
             tileToSearch = map;
         }
@@ -184,31 +182,13 @@ public class MapManager : MonoBehaviour
         return overlayTiles;
     }
 
-    private bool CheckIfBlockedByStructure(Vector2 cellWorldPosition)
-    {
-        Collider2D[] colliders = Physics2D.OverlapPointAll(cellWorldPosition);
-
-        foreach (Collider2D collider in colliders)
-        {
-            DefenceStructure defenseStructure = collider.GetComponent<DefenceStructure>();
-            if (defenseStructure != null)
-            {
-                // The tile is blocked by a defense structure
-                return true;
-            }
-        }
-
-        // The tile is not blocked by a defense structure
-        return false;
-    }
-
     private void HideAllTiles()
     {
         List < KeyValuePair < Vector2Int, HideAndShowScript >> tiles = GetOverLayTiles();
-        UnityEngine.Debug.Log(tiles);
+        //UnityEngine.Debug.Log(tiles);
         foreach (var tile in tiles)
         {
-            UnityEngine.Debug.Log(tile);
+            //UnityEngine.Debug.Log(tile);
             HideAndShowScript tileToHide = tile.Value;
             tileToHide.HideTile();
         }
