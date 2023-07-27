@@ -6,31 +6,35 @@ using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class ObjectiveSetter : MonoBehaviour
 {
+    public Objective obj;
+
+
     [SerializeField]
     private int hivesToDestroy, enemiesKilled, turnTimer, PoCKillCounter;
-
-    public Objective obj;
 
     private void Start()
     {
         switch (obj)
         {
             case Objective.Defense:
+                ObjectiveManager.OMInstance.setObjective(obj);
                 ObjectiveManager.OMInstance.setTurnTimer(turnTimer);
                 break;
 
             case Objective.Extermination:
+                ObjectiveManager.OMInstance.setObjective(obj);
                 ObjectiveManager.OMInstance.setTurnTimer(turnTimer);
                 ObjectiveManager.OMInstance.setHivesToDestroy(hivesToDestroy);
                 break;
 
             case Objective.Escort:
+                ObjectiveManager.OMInstance.setObjective(obj);
                 ObjectiveManager.OMInstance.setTurnTimer(turnTimer);
                 //tba
                 break;
 
             case Objective.PoC_Extermination:
-                //nothing
+                //tba
                 break;
 
             default:

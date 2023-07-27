@@ -95,13 +95,6 @@ public class ObjectiveManager : MonoBehaviour
         }
     }
 
-    //forgot how this method is supposed to work, give me 5 minutes to think of it.
-    //I totally forgot how this method is supposed to work, just give me like a week to remember it
-    public void UpdateObjectiveDetails()
-    {
-        
-    }
-
     //TurnTimer related (basically we need this for objectives that rely on the amount of turns going down to 0 for a win condition.
     //Creating this set method just in case we need it later.
     public void setTurnTimer(int turnTimer)
