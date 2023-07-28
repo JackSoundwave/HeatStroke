@@ -576,6 +576,7 @@ MonoBehaviour:
   canMove: 1
   hasAttacked: 0
   isAttacking: 0
+  attackPrimed: 0
   isSelected: 0
   healthBar: {fileID: 2705971493567216933}
 --- !u!114 &4738890112154793485

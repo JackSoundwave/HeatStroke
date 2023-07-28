@@ -50,7 +50,8 @@ public class EnemySpawnerScript : MonoBehaviour
         mapManager = FindObjectOfType<MapManager>();
         Debug.Log("MapManager object: " + mapManager);
         GameEventSystem.current.onGridGenerated += SpawnEnemyOnRandomTile;
-        GameEventSystem.current.onEnemyTurnEnd += SpawnEnemyOnRandomTile;
+        GameEventSystem.current.onEnemyTurnEnd += OnEnemyTurnEnd;
+
         if(showSpawnTiles == true)
         {
             GameEventSystem.current.onGridGenerated += ShowMarkedTiles;

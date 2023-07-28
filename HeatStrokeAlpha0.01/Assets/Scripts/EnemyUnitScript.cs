@@ -20,6 +20,7 @@ public class EnemyUnitScript : MonoBehaviour
     public HealthBar healthBar;
     private void Awake()
     {
+        hideHealthBar();
         GameEventSystem.current.enemyUnits.Add(gameObject);
     }
     private void Start()
