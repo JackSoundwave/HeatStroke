@@ -63,39 +63,39 @@ public class EnemySpawnerScript : MonoBehaviour
         Debug.Log("Executing SpawnEnemyOnRandomTile");
         overlayTiles = mapManager.GetOverLayTiles();
 
-        // Shuffle the tileNumbersToMark list
-        ShuffleList(tileNumbersToMark);
         List<int> filteredList = FilterOutBlockedTiles(tileNumbersToMark);
 
-        if (GameEventSystem.current.enemyUnits.Count <= maxEnemies)
+        ShuffleList(filteredList);
+        Debug.Log(GameEventSystem.current.enemyUnits.Count);
+        int randomNo = Random.Range(0, 2);
+        for (int i = 0; i <= randomNo; i++)
         {
-            Debug.Log(GameEventSystem.current.enemyUnits.Count);
-            int randomNo = Random.Range(1, 3);
-            for(int i = 0; i <= randomNo; i++)
+            filteredList = FilterOutBlockedTiles(tileNumbersToMark); //overwrite the filteredlist once more
+            ShuffleList(filteredList); //shuffle list again
+
+            foreach (int indexToMark in filteredList)
             {
-                foreach (int indexToMark in filteredList)
+                if (indexToMark >= 0 && indexToMark < overlayTiles.Count)
                 {
-                    if (indexToMark >= 0 && indexToMark < overlayTiles.Count)
+                    if (GameEventSystem.current.enemyUnits.Count < maxEnemies)
                     {
                         KeyValuePair<Vector2Int, HideAndShowScript> tileEntry = overlayTiles[indexToMark];
                         HideAndShowScript tile = tileEntry.Value;
-                        eu_GO = Instantiate(enemyUnitPrefab);
-                        eu_GO.GetComponent<EnemyUnitScript>().activeTile = tile;
-                        PositionEnemyOnTile(tile);
-                        tile.isBlocked = true;
-                        eu_GO = null;
+                        SpawnEnemy(tile);
+
                         break;
                     }
                     else
                     {
-                        Debug.LogWarning("Invalid index to mark: " + indexToMark);
+                        Debug.LogWarning("Too many enemies");
+                        break;
                     }
                 }
+                else
+                {
+                    Debug.LogWarning("Invalid index to mark: " + indexToMark);
+                }
             }
-        }
-        else
-        {
-            Debug.LogWarning("Too many enemies, not spawning");
         }
     }
 
@@ -162,9 +162,6 @@ public class EnemySpawnerScript : MonoBehaviour
                 if (!tile.isBlocked)
                 {
                     filteredZone.Add(indexToMark); //Adding integer of unblocked tiles into the list
-                    tile.isDeployTile = true;
-                    tile.ShowTile();
-                    tile.DyeTileYellow();
                 }
             }
             else
@@ -174,5 +171,31 @@ public class EnemySpawnerScript : MonoBehaviour
         }
 
         return filteredZone;
+    }
+
+    private IEnumerator SpawnEnemyWithDelay(HideAndShowScript tileToSpawn)
+    {
+        eu_GO = Instantiate(enemyUnitPrefab);
+        eu_GO.GetComponent<EnemyUnitScript>().activeTile = tileToSpawn;
+        PositionEnemyOnTile(tileToSpawn);
+        tileToSpawn.isBlocked = true;
+        eu_GO = null;
+        yield return new WaitForSeconds(0.25f);
+    }
+
+    private void SpawnEnemy(HideAndShowScript tileToSpawn)
+    {
+        if(GameEventSystem.current.enemyUnits.Count < maxEnemies)
+        {
+            eu_GO = Instantiate(enemyUnitPrefab);
+            eu_GO.GetComponent<EnemyUnitScript>().activeTile = tileToSpawn;
+            PositionEnemyOnTile(tileToSpawn);
+            tileToSpawn.isBlocked = true;
+            eu_GO = null;
+        }
+        else
+        {
+            Debug.Log("No Enemies spawned");
+        }
     }
 }
