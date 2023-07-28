@@ -9,7 +9,7 @@ public class PunchingBagMovement : MonoBehaviour
     private AStarPathfinder pathfinder;
     private List<HideAndShowScript> path;
 
-    public float speed;
+    public float speed = 3;
 
     private RangefinderMovement rangeFinder;
     private List<HideAndShowScript> inRangeTiles = new List<HideAndShowScript>();
@@ -92,7 +92,6 @@ public class PunchingBagMovement : MonoBehaviour
                     //requires additional handling here.
                 }
             }
-
             //Debug.Log("Path : " + path);
             hasMoved = true;
         }
