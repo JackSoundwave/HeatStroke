@@ -705,7 +705,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyUnitPrefab: {fileID: 7852278502412264825, guid: fe24566cf33caae46bfa9f33a431ee4f, type: 3}
-  shooterPrefab: {fileID: 1550875582688529655, guid: b855a5bf63f574a4fa82ee12f0b0a87e, type: 3}
+  showSpawnTiles: 0
+  AddDefaultSpawnTiles: 1
+  tileNumbersToMark: 
+  defaultZone: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000
+  maxEnemies: 5
+  spawnDelay: 0.28
 --- !u!4 &1156735740
 Transform:
   m_ObjectHideFlags: 0

@@ -19,24 +19,27 @@ public class EnemySpawnerScript : MonoBehaviour
     [HideInInspector]
     public GameObject enemyUnitPrefab;
 
-    [HideInInspector]
-    public GameObject shooterPrefab;
 
-    public bool showSpawnTiles;
-    public bool AddDefaultSpawnTiles;
+    public bool showSpawnTiles, AddDefaultSpawnTiles;
+
+
     private GameObject eu_GO;
-
-    private MapManager mapManager;
-    private List<KeyValuePair<Vector2Int, HideAndShowScript>> overlayTiles;
 
     public List<int> tileNumbersToMark;
 
     [HideInInspector]
     public List<int> defaultZone = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
-    private List<Vector2Int> unblockedTiles;
 
     [SerializeField]
     private int maxEnemies;
+
+    
+    [Range(0f, 5f)]
+    public float spawnDelay;
+
+    private List<Vector2Int> unblockedTiles;
+    private MapManager mapManager;
+    private List<KeyValuePair<Vector2Int, HideAndShowScript>> overlayTiles;
 
     private void Start()
     {
@@ -82,12 +85,60 @@ public class EnemySpawnerScript : MonoBehaviour
                         KeyValuePair<Vector2Int, HideAndShowScript> tileEntry = overlayTiles[indexToMark];
                         HideAndShowScript tile = tileEntry.Value;
                         SpawnEnemy(tile);
-
+                        
                         break;
                     }
                     else
                     {
                         Debug.LogWarning("Too many enemies");
+                        break;
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("Invalid index to mark: " + indexToMark);
+                }
+            }
+        }
+    }
+
+    private void OnEnemyTurnEnd()
+    {
+        StartCoroutine(SpawnEnemiesWithDelay());
+    }
+    private IEnumerator SpawnEnemiesWithDelay()
+    {
+        Debug.Log("Executing SpawnEnemyOnRandomTile");
+        overlayTiles = mapManager.GetOverLayTiles();
+
+        List<int> filteredList = FilterOutBlockedTiles(tileNumbersToMark);
+
+        ShuffleList(filteredList);
+        Debug.Log(GameEventSystem.current.enemyUnits.Count);
+        int randomNo = Random.Range(0, 2);
+
+        for (int i = 0; i <= randomNo; i++)
+        {
+            filteredList = FilterOutBlockedTiles(tileNumbersToMark); //overwrite the filteredlist once more
+            ShuffleList(filteredList); //shuffle list again
+
+            foreach (int indexToMark in filteredList)
+            {
+                if (indexToMark >= 0 && indexToMark < overlayTiles.Count)
+                {
+                    if (GameEventSystem.current.enemyUnits.Count < maxEnemies)
+                    {
+                        KeyValuePair<Vector2Int, HideAndShowScript> tileEntry = overlayTiles[indexToMark];
+                        HideAndShowScript tile = tileEntry.Value;
+                        SpawnEnemy(tile);
+
+                        yield return new WaitForSeconds(spawnDelay); //Introduce a delay before the next iteration
+                        break;
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Too many enemies");
+                        yield return new WaitForSeconds(spawnDelay); //Introduce a delay before the next iteration
                         break;
                     }
                 }
@@ -175,12 +226,22 @@ public class EnemySpawnerScript : MonoBehaviour
 
     private IEnumerator SpawnEnemyWithDelay(HideAndShowScript tileToSpawn)
     {
-        eu_GO = Instantiate(enemyUnitPrefab);
-        eu_GO.GetComponent<EnemyUnitScript>().activeTile = tileToSpawn;
-        PositionEnemyOnTile(tileToSpawn);
-        tileToSpawn.isBlocked = true;
-        eu_GO = null;
-        yield return new WaitForSeconds(0.25f);
+        Debug.Log("Enemyspawned");   
+        if (GameEventSystem.current.enemyUnits.Count < maxEnemies)
+        {
+            yield return new WaitForSeconds(spawnDelay);
+            eu_GO = Instantiate(enemyUnitPrefab);
+            eu_GO.GetComponent<EnemyUnitScript>().activeTile = tileToSpawn;
+            PositionEnemyOnTile(tileToSpawn);
+            tileToSpawn.isBlocked = true;
+            eu_GO = null;
+            yield return new WaitForSeconds(spawnDelay);
+        }
+        else
+        {
+            Debug.Log("No Enemies spawned");
+            yield return new WaitForSeconds(spawnDelay);
+        }
     }
 
     private void SpawnEnemy(HideAndShowScript tileToSpawn)
