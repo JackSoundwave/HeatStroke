@@ -1,5 +1,7 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemySpawnerScript : MonoBehaviour
@@ -32,7 +34,9 @@ public class EnemySpawnerScript : MonoBehaviour
     [HideInInspector]
     public List<int> defaultZone = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
     private List<Vector2Int> unblockedTiles;
-    private int maxEnemies = 5;
+
+    [SerializeField]
+    private int maxEnemies;
 
     private void Start()
     {
@@ -56,36 +60,42 @@ public class EnemySpawnerScript : MonoBehaviour
     */
     private void SpawnEnemyOnRandomTile()
     {
+        Debug.Log("Executing SpawnEnemyOnRandomTile");
         overlayTiles = mapManager.GetOverLayTiles();
 
         // Shuffle the tileNumbersToMark list
         ShuffleList(tileNumbersToMark);
+        List<int> filteredList = FilterOutBlockedTiles(tileNumbersToMark);
 
-        foreach (int indexToMark in tileNumbersToMark)
+        if (GameEventSystem.current.enemyUnits.Count <= maxEnemies)
         {
-            if (indexToMark >= 0 && indexToMark < overlayTiles.Count)
+            Debug.Log(GameEventSystem.current.enemyUnits.Count);
+            int randomNo = Random.Range(1, 3);
+            for(int i = 0; i <= randomNo; i++)
             {
-                KeyValuePair<Vector2Int, HideAndShowScript> tileEntry = overlayTiles[indexToMark];
-                HideAndShowScript tile = tileEntry.Value;
-                if (tile.isBlocked)
+                foreach (int indexToMark in filteredList)
                 {
-                    Debug.Log("Tile is blocked, unable to spawn enemy");
-                    break;
-                }
-                else
-                {
-                    eu_GO = Instantiate(enemyUnitPrefab);
-                    eu_GO.GetComponent<EnemyUnitScript>().activeTile = tile;
-                    PositionEnemyOnTile(tile);
-                    tile.isBlocked = true;
-                    eu_GO = null;
-                    break;
+                    if (indexToMark >= 0 && indexToMark < overlayTiles.Count)
+                    {
+                        KeyValuePair<Vector2Int, HideAndShowScript> tileEntry = overlayTiles[indexToMark];
+                        HideAndShowScript tile = tileEntry.Value;
+                        eu_GO = Instantiate(enemyUnitPrefab);
+                        eu_GO.GetComponent<EnemyUnitScript>().activeTile = tile;
+                        PositionEnemyOnTile(tile);
+                        tile.isBlocked = true;
+                        eu_GO = null;
+                        break;
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Invalid index to mark: " + indexToMark);
+                    }
                 }
             }
-            else
-            {
-                Debug.LogWarning("Invalid index to mark: " + indexToMark);
-            }
+        }
+        else
+        {
+            Debug.LogWarning("Too many enemies, not spawning");
         }
     }
 
@@ -135,5 +145,34 @@ public class EnemySpawnerScript : MonoBehaviour
             list[k] = list[n];
             list[n] = value;
         }
+    }
+
+    private List<int> FilterOutBlockedTiles(List<int> zoneToMark)
+    {
+        List<int> filteredZone = new List<int>();
+        overlayTiles = mapManager.GetOverLayTiles();
+
+        foreach (int indexToMark in zoneToMark)
+        {
+            if (indexToMark >= 0 && indexToMark < overlayTiles.Count)
+            {
+                KeyValuePair<Vector2Int, HideAndShowScript> tileEntry = overlayTiles[indexToMark];
+                HideAndShowScript tile = tileEntry.Value;
+
+                if (!tile.isBlocked)
+                {
+                    filteredZone.Add(indexToMark); //Adding integer of unblocked tiles into the list
+                    tile.isDeployTile = true;
+                    tile.ShowTile();
+                    tile.DyeTileYellow();
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Default Zone could not be resolved");
+            }
+        }
+
+        return filteredZone;
     }
 }
