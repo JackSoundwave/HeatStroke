@@ -163,6 +163,7 @@ GameObject:
   - component: {fileID: 4041574087360524873}
   - component: {fileID: 7589653369344866762}
   - component: {fileID: 2796939462522672183}
+  - component: {fileID: 7238015252057080620}
   m_Layer: 0
   m_Name: defenseStructure
   m_TagString: Untagged
@@ -184,7 +185,7 @@ Transform:
   m_Children:
   - {fileID: 6126011351626402727}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7589653369344866762
 SpriteRenderer:
@@ -250,10 +251,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f26bc59513b1a5439498fb5d89b6cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeTile: {fileID: 0}
   maxHealth: 100
   currentHealth: 0
   heatgaugeSystem: {fileID: 0}
+  heatBar: {fileID: 0}
   healthBar: {fileID: 8141838977666536782}
+--- !u!114 &7238015252057080620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3290574489773074726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29102a0bc8f936409f48ea72e37cf1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NameText: {fileID: 0}
+  Movement_Range_Text: {fileID: 0}
+  Attack_Damage_Text: {fileID: 0}
+  Name: Defense Structure
+  Movement_Range: 0
+  Attack_Damage: 0
 --- !u!1 &3405203382394505682
 GameObject:
   m_ObjectHideFlags: 0
