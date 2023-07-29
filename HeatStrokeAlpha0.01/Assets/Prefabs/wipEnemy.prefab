@@ -575,6 +575,10 @@ MonoBehaviour:
   attackRange: 1
   maxHealth: 3
   speed: 3
+  upAttackVFX: {fileID: 154912132622061174, guid: 660a70adafb9e944daf3bf0ce24e98d3, type: 3}
+  downAttackVFX: {fileID: 154912132622061174, guid: 7e2169bf15dcb3a4e852030880cd46a9, type: 3}
+  rightAttackVFX: {fileID: 154912132622061174, guid: 3e1710d545b76d54f8a52cc74b0a3f9f, type: 3}
+  leftAttackVFX: {fileID: 154912132622061174, guid: d3bf2857ccfb0cc45bae32c51d2624bc, type: 3}
   hasMoved: 0
   hasAttacked: 0
   isAttacking: 0

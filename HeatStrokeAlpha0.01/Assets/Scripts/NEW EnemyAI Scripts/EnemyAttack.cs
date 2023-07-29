@@ -70,19 +70,19 @@ public class EnemyAttack
     {
         if(tileToAttack == attackRangeFinder.getAdjacentUpTile(thisUnit.activeTile))
         {
-            //spawn up attack vfx
+            thisUnit.SpawnUpAttackVFX(tileToAttack);
         }
         else if (tileToAttack == attackRangeFinder.getAdjacentDownTile(thisUnit.activeTile))
         {
-            //spawn down attack vfx
+            thisUnit.SpawnDownAttackVFX(tileToAttack);
         } 
         else if (tileToAttack == attackRangeFinder.getAdjacentRightTile(thisUnit.activeTile))
         {
-            //spawn right attack vfx
+            thisUnit.SpawnRightAttackVFX(tileToAttack);
         }
         else if(tileToAttack == attackRangeFinder.getAdjacentLeftTile(thisUnit.activeTile))
         {
-            //spawn left attack vfx
+            thisUnit.SpawnLeftAttackVFX(tileToAttack);
         }
         else
         {

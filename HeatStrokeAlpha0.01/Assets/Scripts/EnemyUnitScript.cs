@@ -47,7 +47,7 @@ public class EnemyUnitScript : MonoBehaviour
         {
             GameEventSystem.current.enemyDeath();
             activeTile.isBlocked = false;
-            Destroy(this.gameObject);
+            Death();
         }
 
         if(MouseController.ActiveInstance?.targetedEnemyUnit == this)
@@ -58,6 +58,17 @@ public class EnemyUnitScript : MonoBehaviour
         {
             hideHealthBar();
         }
+    }
+
+    private void Death()
+    {
+        GameEventSystem.current.enemyDeath();
+        activeTile.isBlocked = false;
+        if(currentVFX != null)
+        {
+            Destroy(currentVFX);
+        }
+        Destroy(this.gameObject);
     }
 
     public void Attack(HideAndShowScript targetTile)
@@ -93,21 +104,29 @@ public class EnemyUnitScript : MonoBehaviour
 
     public void SpawnUpAttackVFX(HideAndShowScript tileToSpawn)
     {
+        Destroy(currentVFX);
         currentVFX = Instantiate(upAttackVFX);
+        currentVFX.transform.position = tileToSpawn.transform.position;
     }
 
     public void SpawnDownAttackVFX(HideAndShowScript tileToSpawn)
     {
+        Destroy(currentVFX);
         currentVFX = Instantiate(downAttackVFX);
+        currentVFX.transform.position = tileToSpawn.transform.position;
     }
 
     public void SpawnRightAttackVFX(HideAndShowScript tileToSpawn)
     {
+        Destroy(currentVFX);
         currentVFX = Instantiate(rightAttackVFX);
+        currentVFX.transform.position = tileToSpawn.transform.position;
     }
 
     public void SpawnLeftAttackVFX(HideAndShowScript tileToSpawn)
     {
-        currentVFX = Instantiate(rightAttackVFX);
+        Destroy(currentVFX);
+        currentVFX = Instantiate(leftAttackVFX);
+        currentVFX.transform.position = tileToSpawn.transform.position;
     }
 }
