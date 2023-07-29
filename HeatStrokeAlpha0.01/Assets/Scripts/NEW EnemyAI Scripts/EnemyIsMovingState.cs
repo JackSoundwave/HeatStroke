@@ -5,11 +5,10 @@ using UnityEngine;
 
 public class EnemyIsMovingState : EnemyAIBaseScript
 {
-    private List<HideAndShowScript> path;
     public override void EnterState(EnemyAIStateManager enemy)
     {
         Debug.Log("Enemy is moving");
-        
+        enemy.movement.FindPathToPlayer();
     }
 
     public override void UpdateState(EnemyAIStateManager enemy)
@@ -17,16 +16,17 @@ public class EnemyIsMovingState : EnemyAIBaseScript
         //add enemy movement code here
         // yes the code NEEDS to be in the update function.
         //after that mark self as "hasMoved = true", go back  to idle state
-        /*
-        if (hasMoved && path.Count > 0)
+        
+        if (!enemy.thisUnit.hasMoved && enemy.movement.path.Count > 0)
         {
-            MoveAlongPath();
+            enemy.movement.MoveAlongPath();
         }
-        else if (enemy.thisUnit.hasMoved == true && path.Count <= 0)
+        else if (enemy.thisUnit.hasMoved == true && enemy.movement.path.Count <= 0)
         {
             Debug.Log("Turn Over");
             enemy.thisUnit.turnOver = true;
+            enemy.SwitchState(enemy.idleState);
             //CombatStateManager.CSInstance.UpdateCombatState(CombatState.PlayerTurn);
-        }*/
+        }
     }
 }

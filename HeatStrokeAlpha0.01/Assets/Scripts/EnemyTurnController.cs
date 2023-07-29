@@ -13,9 +13,11 @@ public class EnemyTurnController : MonoBehaviour
      * Yippee
      */
 
-    private void Start()
+    private EnemyAIStateManager selectedEnemy;
+
+    private void Awake()
     {
-        
+        //GameEventSystem.current.onEnemyTurnStart += OnEnemyTurnStart;
     }
 
     void Update()
@@ -27,7 +29,18 @@ public class EnemyTurnController : MonoBehaviour
     {
         foreach(GameObject enemy in GameEventSystem.current.enemyUnits)
         {
-            
+            selectedEnemy = enemy.GetComponent<EnemyAIStateManager>();
+            if(selectedEnemy.thisUnit.attackPrimed == true)
+            {
+                //executeAttack
+                //cycle to next selectedEnemy
+            }
+        }
+
+        foreach(GameObject enemy in GameEventSystem.current.enemyUnits)
+        {
+            selectedEnemy = enemy.GetComponent<EnemyAIStateManager>();
+            //if(selectedEnemy.thisUnit.isIdle)
         }
     }
 }

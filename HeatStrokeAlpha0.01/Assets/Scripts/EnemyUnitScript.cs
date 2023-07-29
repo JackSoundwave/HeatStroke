@@ -8,7 +8,7 @@ public class EnemyUnitScript : MonoBehaviour
     public HideAndShowScript activeTile;
 
     //pretty sure I don't have to explain this
-    public int health, movementRange, attackDmg, attackRange, maxHealth;
+    public int health, movementRange, attackDmg, attackRange, maxHealth, speed;
 
     //booleans to dictate whether or not the player has moved or has attacked already. canMove is set to true and hasAttacked is set to false.
     //If true, then the event manager tells the MouseController script that the unit can move after being selected.
@@ -27,6 +27,7 @@ public class EnemyUnitScript : MonoBehaviour
     {
         //upon starting, adds THIS unit to the EnemyUnit list in the GameEventSystem.
         healthBar.SetMaxHealth(maxHealth);
+        GameEventSystem.current.onPlayerStartTurn += refreshActions;
     }
 
     private void OnDestroy()
@@ -53,11 +54,6 @@ public class EnemyUnitScript : MonoBehaviour
             hideHealthBar();
         }
     }
-    public void PrimeWeapon()
-    {
-        isAttacking = true;
-        Debug.Log("Weapon of" + gameObject.name + "is primed");
-    }
 
     public void Attack(HideAndShowScript targetTile)
     {
@@ -77,5 +73,16 @@ public class EnemyUnitScript : MonoBehaviour
     private void hideHealthBar()
     {
         healthBar.gameObject.SetActive(false);
+    }
+
+    private void refreshActions()
+    {
+        hasMoved = false;
+        turnOver = false;
+    }
+
+    private void enemyUnitFadeOut()
+    {
+
     }
 }

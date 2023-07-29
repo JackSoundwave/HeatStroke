@@ -6,28 +6,23 @@ using UnityEngine.Tilemaps;
 public class PunchingBagMovement : MonoBehaviour
 {
     private EnemyUnitScript enemyUnit;
-    private AStarPathfinder pathfinder;
-    private List<HideAndShowScript> path;
+    private AStarPathfinder pathfinder = new AStarPathfinder();
+    public List<HideAndShowScript> path = new List<HideAndShowScript>();
+    private RangefinderMovement rangeFinder = new RangefinderMovement();
 
     public float speed = 3;
-
-    private RangefinderMovement rangeFinder;
     private List<HideAndShowScript> inRangeTiles = new List<HideAndShowScript>();
-
-    private bool hasMoved;
-    public bool turnOver;
 
     
     private PlayerUnitScript targetPlayer;
 
+    private void Awake()
+    {
+        enemyUnit = GetComponent<EnemyUnitScript>();
+    }
     void Start()
     {
-        pathfinder = new AStarPathfinder();
-        path = new List<HideAndShowScript>();
-        rangeFinder = new RangefinderMovement();
-
-        enemyUnit = GetComponent<EnemyUnitScript>();
-        GameEventSystem.current.onPlayerStartTurn += refreshActions;
+        
     }
 
     void Update()
@@ -35,22 +30,21 @@ public class PunchingBagMovement : MonoBehaviour
         //This update function constantly checks if the enemyUnit has a playerUnit in range to move to
         inRangeTiles = rangeFinder.GetTilesInRange(enemyUnit.activeTile, enemyUnit.movementRange);
 
-        if (CombatStateManager.CSInstance.State == CombatState.EnemyTurn && turnOver == false)
+        if (CombatStateManager.CSInstance.State == CombatState.EnemyTurn && enemyUnit.turnOver == false)
         {
-            if (!hasMoved)
+            if (!enemyUnit.hasMoved)
             {
                 FindPathToPlayer();
                 //Debug.Log("Path value: " + path);
             }
-
-            if (hasMoved && path.Count > 0)
+            if (!enemyUnit.hasMoved && path.Count > 0)
             {
                 MoveAlongPath();
             }
-            else if (hasMoved == true && path.Count <= 0)
+            else if (enemyUnit.hasMoved == true && path.Count <= 0)
             {
                 Debug.Log("Turn Over");
-                turnOver = true;
+                enemyUnit.turnOver = true;
                 //CombatStateManager.CSInstance.UpdateCombatState(CombatState.PlayerTurn);
             }
         }
@@ -59,18 +53,16 @@ public class PunchingBagMovement : MonoBehaviour
     //This is used for debugging purposes, should be removed in the final build of the game
     public void TriggerEnemyMovement()
     {
-        hasMoved = false;
+        enemyUnit.hasMoved = false;
     }
 
-    private void FindPathToPlayer()
+    public void FindPathToPlayer()
     {
         PlayerUnitScript player = FindObjectOfType<PlayerUnitScript>();
 
         if (player != null)
         {
             path.Clear(); //This removes the previous path
-
-            
             List<HideAndShowScript> inRangeTiles = rangeFinder.GetTilesInRange(enemyUnit.activeTile, enemyUnit.movementRange);
 
             //finds path to the player if it's within it's movement range
@@ -93,13 +85,13 @@ public class PunchingBagMovement : MonoBehaviour
                 }
             }
             //Debug.Log("Path : " + path);
-            hasMoved = true;
+            //enemyUnit.hasMoved = true;
         }
     }
 
-    private void MoveAlongPath()
+    public void MoveAlongPath()
     {
-        if (!hasMoved)
+        if (!enemyUnit.hasMoved)
         {
             return;
         }
@@ -120,7 +112,7 @@ public class PunchingBagMovement : MonoBehaviour
         }
     }
 
-    private List<HideAndShowScript> FindClosestAdjacentTilePath(List<HideAndShowScript> tiles, HideAndShowScript playerTile)
+    public List<HideAndShowScript> FindClosestAdjacentTilePath(List<HideAndShowScript> tiles, HideAndShowScript playerTile)
     {
         int closestDistance = int.MaxValue;
         List<HideAndShowScript> closestPath = new List<HideAndShowScript>();
@@ -144,33 +136,13 @@ public class PunchingBagMovement : MonoBehaviour
         return closestPath;
     }
 
-    private void GetInRangeTiles()
+    public void GetInRangeTiles()
     {
-        //This line below shows the in range tiles for movement of the Enemy Unit, causes issues UI wise, with the player movement, so I disabled it for now
-
-        /*foreach (var item in inRangeTiles)
-        {
-            item.HideTile();
-        }*/
-
-        inRangeTiles = rangeFinder.GetTilesInRange(enemyUnit.activeTile, 3);
-
-        //This line below shows the in range tiles for movement of the Enemy Unit, causes issues UI wise, with the player movement, so I disabled it for now
-
-        /*foreach (var item in inRangeTiles)
-        {
-           item.ShowTile();
-        }*/
-    }
-
-    private void refreshActions()
-    {
-        hasMoved = false;
-        turnOver = false;
+        inRangeTiles = rangeFinder.GetTilesInRange(enemyUnit.activeTile, enemyUnit.movementRange);
     }
 
     //This function adjusts the position of the character/unit on the gameplay tile
-    private void PositionCharacterOnTile(HideAndShowScript tile)
+    public void PositionCharacterOnTile(HideAndShowScript tile)
     {
         enemyUnit.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z + 1);
         enemyUnit.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 2;

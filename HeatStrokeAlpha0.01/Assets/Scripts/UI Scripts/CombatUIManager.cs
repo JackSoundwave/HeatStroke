@@ -65,7 +65,7 @@ public class CombatUIManager : MonoBehaviour
 
     private void CombatStateManagerOnOnCombatStateChanged(CombatState state)
     {
-        Debug.Log("Updating button interactivity");
+        //Debug.Log("Updating button interactivity");
 
         //these booleans stop the buttons from being interactable post-deploy phase, given that it's the first phase in the game, naturally, it just gets disabled immediately.
 
