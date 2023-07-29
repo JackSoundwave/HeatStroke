@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -12,18 +13,23 @@ public class EnemyAIidleState : EnemyAIBaseScript
     }
     public override void UpdateState(EnemyAIStateManager enemy)
     {
-        if (!enemy.thisUnit.turnOver)
+        if (CombatStateManager.CSInstance.State == CombatState.EnemyTurn && enemy.thisUnit.turnOver == false)
         {
-            if (enemy.thisUnit.attackPrimed && !enemy.thisUnit.hasAttacked)
+            if (!enemy.thisUnit.isMoving)
             {
-                Debug.Log("Enemy executing attack");
-                //executeAttack()
-                //attackPrimed = false
-                enemy.SwitchState(enemy.idleState);
+                enemy.movement.FindPathToPlayer();
+                //Debug.Log("Path value: " + path);
             }
-            else if (!enemy.thisUnit.hasMoved)
+
+            if (enemy.thisUnit.isMoving && enemy.movement.path.Count > 0)
             {
-                enemy.SwitchState(enemy.isMovingState);
+                enemy.movement.MoveAlongPath();
+            }
+            else if (enemy.thisUnit.isMoving == true && enemy.movement.path.Count <= 0)
+            {
+                Debug.Log("Turn Over");
+                enemy.thisUnit.isMoving = true;
+                //CombatStateManager.CSInstance.UpdateCombatState(CombatState.PlayerTurn);
             }
         }
     }

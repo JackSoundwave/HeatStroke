@@ -478,10 +478,11 @@ GameObject:
   - component: {fileID: 1117493882133833143}
   - component: {fileID: 1756787338916807039}
   - component: {fileID: 3124435805313069330}
-  - component: {fileID: 4738890112154793485}
+  - component: {fileID: 5128193373332903607}
+  - component: {fileID: 334789067655336312}
   - component: {fileID: -7501060350636653097}
   m_Layer: 0
-  m_Name: enemyUnit
+  m_Name: wipEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -582,7 +583,21 @@ MonoBehaviour:
   turnOver: 0
   isSelected: 0
   healthBar: {fileID: 2705971493567216933}
---- !u!114 &4738890112154793485
+--- !u!114 &5128193373332903607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7852278502412264825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08c1e1294b4e8c943b98b9d6d0ae81b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisUnit: {fileID: 0}
+  movement: {fileID: 0}
+--- !u!114 &334789067655336312
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -595,7 +610,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path: []
-  speed: 3
 --- !u!61 &-7501060350636653097
 BoxCollider2D:
   m_ObjectHideFlags: 0

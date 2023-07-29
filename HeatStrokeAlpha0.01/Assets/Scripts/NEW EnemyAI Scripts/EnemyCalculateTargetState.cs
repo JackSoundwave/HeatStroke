@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyCalculateTargetState : EnemyAIBaseScript
 {
+    
     public override void EnterState(EnemyAIStateManager enemy)
     {
         Debug.Log("Enemy is calculating optimal move");

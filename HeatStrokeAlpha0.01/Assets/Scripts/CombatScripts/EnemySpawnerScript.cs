@@ -16,7 +16,7 @@ public class EnemySpawnerScript : MonoBehaviour
      * But for now
     */
 
-    [HideInInspector]
+    
     public GameObject enemyUnitPrefab;
 
 
@@ -109,7 +109,7 @@ public class EnemySpawnerScript : MonoBehaviour
     }
     private IEnumerator SpawnEnemiesWithDelay()
     {
-        Debug.Log("Executing SpawnEnemyOnRandomTile");
+        //Debug.Log("Executing SpawnEnemyOnRandomTile");
         overlayTiles = mapManager.GetOverLayTiles();
 
         List<int> filteredList = FilterOutBlockedTiles(tileNumbersToMark);

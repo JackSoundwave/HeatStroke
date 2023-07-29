@@ -704,7 +704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16bb008b8aea51d48bf68e99573c3a3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyUnitPrefab: {fileID: 7852278502412264825, guid: fe24566cf33caae46bfa9f33a431ee4f, type: 3}
+  enemyUnitPrefab: {fileID: 7852278502412264825, guid: d09a40887b6698c499269d029b48d571, type: 3}
   showSpawnTiles: 0
   AddDefaultSpawnTiles: 1
   tileNumbersToMark: 

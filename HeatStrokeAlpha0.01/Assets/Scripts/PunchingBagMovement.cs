@@ -6,12 +6,12 @@ using UnityEngine.Tilemaps;
 public class PunchingBagMovement : MonoBehaviour
 {
     private EnemyUnitScript enemyUnit;
-    private AStarPathfinder pathfinder = new AStarPathfinder();
-    public List<HideAndShowScript> path = new List<HideAndShowScript>();
-    private RangefinderMovement rangeFinder = new RangefinderMovement();
+    private AStarPathfinder pathfinder;
+    public List<HideAndShowScript> path;
+    public RangefinderMovement rangeFinder;
 
-    public float speed = 3;
-    private List<HideAndShowScript> inRangeTiles = new List<HideAndShowScript>();
+    //public float speed = 3;
+    public List<HideAndShowScript> inRangeTiles;
 
     
     private PlayerUnitScript targetPlayer;
@@ -19,12 +19,15 @@ public class PunchingBagMovement : MonoBehaviour
     private void Awake()
     {
         enemyUnit = GetComponent<EnemyUnitScript>();
-    }
-    void Start()
-    {
-        
+        pathfinder = new AStarPathfinder();
+        rangeFinder = new RangefinderMovement();
     }
 
+   
+    
+    //This is used for debugging purposes, should be removed in the final build of the game
+    
+    /*
     void Update()
     {
         //This update function constantly checks if the enemyUnit has a playerUnit in range to move to
@@ -32,28 +35,31 @@ public class PunchingBagMovement : MonoBehaviour
 
         if (CombatStateManager.CSInstance.State == CombatState.EnemyTurn && enemyUnit.turnOver == false)
         {
-            if (!enemyUnit.hasMoved)
+            if (!enemyUnit.isMoving)
             {
                 FindPathToPlayer();
                 //Debug.Log("Path value: " + path);
             }
-            if (!enemyUnit.hasMoved && path.Count > 0)
+
+            if (enemyUnit.isMoving && path.Count > 0)
             {
                 MoveAlongPath();
             }
-            else if (enemyUnit.hasMoved == true && path.Count <= 0)
+            else if (enemyUnit.isMoving == true && path.Count <= 0)
             {
                 Debug.Log("Turn Over");
                 enemyUnit.turnOver = true;
+                enemyUnit.isMoving = false;
                 //CombatStateManager.CSInstance.UpdateCombatState(CombatState.PlayerTurn);
             }
         }
     }
+    */
 
     //This is used for debugging purposes, should be removed in the final build of the game
     public void TriggerEnemyMovement()
     {
-        enemyUnit.hasMoved = false;
+        enemyUnit.isMoving = false;
     }
 
     public void FindPathToPlayer()
@@ -63,6 +69,8 @@ public class PunchingBagMovement : MonoBehaviour
         if (player != null)
         {
             path.Clear(); //This removes the previous path
+
+
             List<HideAndShowScript> inRangeTiles = rangeFinder.GetTilesInRange(enemyUnit.activeTile, enemyUnit.movementRange);
 
             //finds path to the player if it's within it's movement range
@@ -71,12 +79,12 @@ public class PunchingBagMovement : MonoBehaviour
             //this block executes if it cannot detect a player in it's movement range
             if (path.Count == 0)
             {
-                
+
                 List<HideAndShowScript> closestPath = FindClosestAdjacentTilePath(inRangeTiles, player.activeTile);
 
                 if (closestPath.Count > 0)
                 {
-                    
+
                     path = pathfinder.FindPath(enemyUnit.activeTile, closestPath[0], inRangeTiles);
                 }
                 else
@@ -84,19 +92,21 @@ public class PunchingBagMovement : MonoBehaviour
                     //requires additional handling here.
                 }
             }
+
             //Debug.Log("Path : " + path);
-            //enemyUnit.hasMoved = true;
+            enemyUnit.isMoving = true;
         }
     }
 
     public void MoveAlongPath()
     {
-        if (!enemyUnit.hasMoved)
+        Debug.Log("Moving along path");
+        if (!enemyUnit.isMoving)
         {
             return;
         }
         enemyUnit.activeTile.isBlocked = false;
-        var step = speed * Time.deltaTime;
+        var step = enemyUnit.speed * Time.deltaTime;
         var zIndex = path[0].transform.position.z;
         enemyUnit.transform.position = Vector2.MoveTowards(enemyUnit.transform.position, path[0].transform.position, step);
         enemyUnit.transform.position = new Vector3(enemyUnit.transform.position.x, enemyUnit.transform.position.y, zIndex);
@@ -112,7 +122,7 @@ public class PunchingBagMovement : MonoBehaviour
         }
     }
 
-    public List<HideAndShowScript> FindClosestAdjacentTilePath(List<HideAndShowScript> tiles, HideAndShowScript playerTile)
+    private List<HideAndShowScript> FindClosestAdjacentTilePath(List<HideAndShowScript> tiles, HideAndShowScript playerTile)
     {
         int closestDistance = int.MaxValue;
         List<HideAndShowScript> closestPath = new List<HideAndShowScript>();
@@ -136,13 +146,27 @@ public class PunchingBagMovement : MonoBehaviour
         return closestPath;
     }
 
-    public void GetInRangeTiles()
+    private void GetInRangeTiles()
     {
-        inRangeTiles = rangeFinder.GetTilesInRange(enemyUnit.activeTile, enemyUnit.movementRange);
+        //This line below shows the in range tiles for movement of the Enemy Unit, causes issues UI wise, with the player movement, so I disabled it for now
+
+        /*foreach (var item in inRangeTiles)
+        {
+            item.HideTile();
+        }*/
+
+        inRangeTiles = rangeFinder.GetTilesInRange(enemyUnit.activeTile, 3);
+
+        //This line below shows the in range tiles for movement of the Enemy Unit, causes issues UI wise, with the player movement, so I disabled it for now
+
+        /*foreach (var item in inRangeTiles)
+        {
+           item.ShowTile();
+        }*/
     }
 
     //This function adjusts the position of the character/unit on the gameplay tile
-    public void PositionCharacterOnTile(HideAndShowScript tile)
+    private void PositionCharacterOnTile(HideAndShowScript tile)
     {
         enemyUnit.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z + 1);
         enemyUnit.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 2;

@@ -27,7 +27,7 @@ public class EnemyUnitScript : MonoBehaviour
     {
         //upon starting, adds THIS unit to the EnemyUnit list in the GameEventSystem.
         healthBar.SetMaxHealth(maxHealth);
-        GameEventSystem.current.onPlayerStartTurn += refreshActions;
+        GameEventSystem.current.onEnemyTurnStart += refreshActions;
     }
 
     private void OnDestroy()

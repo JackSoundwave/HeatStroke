@@ -7,7 +7,7 @@ public class EnemyIsMovingState : EnemyAIBaseScript
 {
     public override void EnterState(EnemyAIStateManager enemy)
     {
-        Debug.Log("Enemy is moving");
+        enemy.movement.inRangeTiles = enemy.movement.rangeFinder.GetTilesInRange(enemy.thisUnit.activeTile, enemy.thisUnit.movementRange);
         enemy.movement.FindPathToPlayer();
     }
 
@@ -16,17 +16,29 @@ public class EnemyIsMovingState : EnemyAIBaseScript
         //add enemy movement code here
         // yes the code NEEDS to be in the update function.
         //after that mark self as "hasMoved = true", go back  to idle state
-        
-        if (!enemy.thisUnit.hasMoved && enemy.movement.path.Count > 0)
+        enemy.movement.inRangeTiles = enemy.movement.rangeFinder.GetTilesInRange(enemy.thisUnit.activeTile, enemy.thisUnit.movementRange);
+
+        if (CombatStateManager.CSInstance.State == CombatState.EnemyTurn && enemy.thisUnit.turnOver == false)
         {
-            enemy.movement.MoveAlongPath();
-        }
-        else if (enemy.thisUnit.hasMoved == true && enemy.movement.path.Count <= 0)
-        {
-            Debug.Log("Turn Over");
-            enemy.thisUnit.turnOver = true;
-            enemy.SwitchState(enemy.idleState);
-            //CombatStateManager.CSInstance.UpdateCombatState(CombatState.PlayerTurn);
+            if (!enemy.thisUnit.isMoving)
+            {
+                Debug.Log("Unit not moving, finding path");
+                enemy.movement.FindPathToPlayer();
+                //Debug.Log("Path value: " + path);
+            }
+
+            if (enemy.thisUnit.isMoving && enemy.movement.path.Count > 0)
+            {
+                Debug.Log("Moving along path");
+                enemy.movement.MoveAlongPath();
+            }
+            else if (enemy.thisUnit.isMoving == true && enemy.movement.path.Count <= 0)
+            {
+                Debug.Log("Turn Over");
+                enemy.thisUnit.turnOver = true;
+                enemy.thisUnit.isMoving = false;
+                //CombatStateManager.CSInstance.UpdateCombatState(CombatState.PlayerTurn);
+            }
         }
     }
 }

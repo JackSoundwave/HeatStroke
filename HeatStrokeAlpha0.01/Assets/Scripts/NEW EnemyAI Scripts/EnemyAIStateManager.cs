@@ -13,16 +13,22 @@ public class EnemyAIStateManager : MonoBehaviour
     //==EnemyAI States==//
 
     //==RangeFinders and pathfinder==//
-    public AStarPathfinder pathfinder = new AStarPathfinder();
-    public RangefinderMovement rangefinderMove = new RangefinderMovement();
+    //we're supposed to use these, but leaving them in the PunchingBagMovement script for now due to time constraints
+    //public AStarPathfinder pathfinder = new AStarPathfinder();
+    //public RangefinderMovement rangefinderMove = new RangefinderMovement();
     //==RangeFinders and pathfinder==//
 
     //==Enemy Movement stuff==//
     private List<HideAndShowScript> path;
     private List<HideAndShowScript> inRangeTiles = new List<HideAndShowScript>();
-    public PunchingBagMovement movement = new PunchingBagMovement();
+    public PunchingBagMovement movement;
     //==Enemy Movement stuff==//
 
+    private void Awake()
+    {
+        movement = GetComponent<PunchingBagMovement>();
+        thisUnit = GetComponent<EnemyUnitScript>();
+    }
     void Start()
     {
         //Starting state for the enemy !!DO NOT CHANGE THIS LINE!!
@@ -30,6 +36,8 @@ public class EnemyAIStateManager : MonoBehaviour
 
         //Referencing "THIS" state.
         currentState.EnterState(this);
+
+        GameEventSystem.current.onEnemyTurnStart += Test;
     }
 
     // Update is called once per frame
@@ -39,5 +47,9 @@ public class EnemyAIStateManager : MonoBehaviour
         state.EnterState(this);
     }
 
+    private void Test()
+    {
+        SwitchState(isMovingState);
+    }
     /*Attempting to move all the movement code from PunchingBagMovement into the stateManager for the enemyAI instead.*/
 }
