@@ -64,9 +64,13 @@ public class PunchingBagMovement : MonoBehaviour
         enemyUnit.isMoving = false;
     }
 
+    private void RandomlySelectPlayer()
+    {
+        
+    }
     public void FindPathToPlayer()
     {
-        PlayerUnitScript player = FindObjectOfType<PlayerUnitScript>();
+        PlayerUnitScript player = targetPlayer;
 
         if (player != null)
         {
@@ -96,7 +100,7 @@ public class PunchingBagMovement : MonoBehaviour
             }
 
             //Debug.Log("Path : " + path);
-            enemyUnit.isMoving = true;
+            //enemyUnit.isMoving = true;
         }
     }
 

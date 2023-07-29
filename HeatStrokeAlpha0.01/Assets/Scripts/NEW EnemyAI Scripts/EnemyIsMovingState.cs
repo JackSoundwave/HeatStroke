@@ -9,6 +9,7 @@ public class EnemyIsMovingState : EnemyAIBaseScript
     {
         enemy.movement.inRangeTiles = enemy.movement.rangeFinder.GetTilesInRange(enemy.thisUnit.activeTile, enemy.thisUnit.movementRange);
         enemy.movement.FindPathToPlayer();
+        enemy.thisUnit.isMoving = true;
     }
 
     public override void UpdateState(EnemyAIStateManager enemy)
@@ -16,7 +17,7 @@ public class EnemyIsMovingState : EnemyAIBaseScript
         //add enemy movement code here
         // yes the code NEEDS to be in the update function.
         //after that mark self as "hasMoved = true", go back  to idle state
-        enemy.movement.inRangeTiles = enemy.movement.rangeFinder.GetTilesInRange(enemy.thisUnit.activeTile, enemy.thisUnit.movementRange);
+        //enemy.movement.inRangeTiles = enemy.movement.rangeFinder.GetTilesInRange(enemy.thisUnit.activeTile, enemy.thisUnit.movementRange);
 
         if (CombatStateManager.CSInstance.State == CombatState.EnemyTurn && enemy.thisUnit.turnOver == false)
         {
