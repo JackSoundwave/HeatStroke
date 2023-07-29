@@ -40,6 +40,11 @@ public class EnemyAIStateManager : MonoBehaviour
         GameEventSystem.current.onEnemyTurnStart += Test;
     }
 
+    private void Update()
+    {
+        currentState.UpdateState(this);
+    }
+
     // Update is called once per frame
     public void SwitchState(EnemyAIBaseScript state)
     {

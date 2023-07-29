@@ -25,7 +25,9 @@ public class PunchingBagMovement : MonoBehaviour
 
    
     
-    //This is used for debugging purposes, should be removed in the final build of the game
+    //Commented out this update function as the EnemyAI now incorporates the StateMachine design pattern for update handling.
+    //This is to make sure that all the crazy amount of if() statements are kept relative to whatever state the enemy is currently in.
+    //I'm not sure why I'm typing this as I already know that myself, but if anyone else bothers to read it, here you are! :)
     
     /*
     void Update()

@@ -26,8 +26,7 @@ public class EnemyIsMovingState : EnemyAIBaseScript
                 enemy.movement.FindPathToPlayer();
                 //Debug.Log("Path value: " + path);
             }
-
-            if (enemy.thisUnit.isMoving && enemy.movement.path.Count > 0)
+            else if (enemy.thisUnit.isMoving && enemy.movement.path.Count > 0)
             {
                 Debug.Log("Moving along path");
                 enemy.movement.MoveAlongPath();
