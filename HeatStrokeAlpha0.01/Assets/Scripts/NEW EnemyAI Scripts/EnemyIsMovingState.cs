@@ -38,7 +38,7 @@ public class EnemyIsMovingState : EnemyAIBaseScript
                 enemy.thisUnit.isMoving = false;
 
                 enemy.attack.victim_P = enemy.attack.findPlayerInAttackRange(enemy.attack.inRangeTiles);
-                enemy.attack.getAttackRange();
+                //enemy.attack.getAttackRange();
                 if(enemy.attack.victim_P != null)
                 {
                     enemy.attack.primeAttackOnTile(enemy.attack.victim_P.activeTile);

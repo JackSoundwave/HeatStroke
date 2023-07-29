@@ -10,6 +10,11 @@ public class EnemyUnitScript : MonoBehaviour
     //pretty sure I don't have to explain this
     public int health, movementRange, attackDmg, attackRange, maxHealth, speed;
 
+
+    public GameObject upAttackVFX, downAttackVFX, rightAttackVFX, leftAttackVFX;
+
+    private GameObject currentVFX;
+
     //booleans to dictate whether or not the player has moved or has attacked already. canMove is set to true and hasAttacked is set to false.
     //If true, then the event manager tells the MouseController script that the unit can move after being selected.
     //isAttacking is to determine the current pUnit state. If the unit is attacking, the selected tile afterwards gets an attack on it
@@ -81,8 +86,28 @@ public class EnemyUnitScript : MonoBehaviour
         turnOver = false;
     }
 
-    private void enemyUnitFadeOut()
+    public void enemyUnitFadeOut()
     {
 
+    }
+
+    public void SpawnUpAttackVFX(HideAndShowScript tileToSpawn)
+    {
+        currentVFX = Instantiate(upAttackVFX);
+    }
+
+    public void SpawnDownAttackVFX(HideAndShowScript tileToSpawn)
+    {
+        currentVFX = Instantiate(downAttackVFX);
+    }
+
+    public void SpawnRightAttackVFX(HideAndShowScript tileToSpawn)
+    {
+        currentVFX = Instantiate(rightAttackVFX);
+    }
+
+    public void SpawnLeftAttackVFX(HideAndShowScript tileToSpawn)
+    {
+        currentVFX = Instantiate(rightAttackVFX);
     }
 }

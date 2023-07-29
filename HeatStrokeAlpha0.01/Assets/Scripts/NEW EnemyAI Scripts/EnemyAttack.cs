@@ -68,7 +68,26 @@ public class EnemyAttack
 
     public void primeAttackOnTile(HideAndShowScript tileToAttack)
     {
-        tileToAttack.DyeTileRed();
+        if(tileToAttack == attackRangeFinder.getAdjacentUpTile(thisUnit.activeTile))
+        {
+            //spawn up attack vfx
+        }
+        else if (tileToAttack == attackRangeFinder.getAdjacentDownTile(thisUnit.activeTile))
+        {
+            //spawn down attack vfx
+        } 
+        else if (tileToAttack == attackRangeFinder.getAdjacentRightTile(thisUnit.activeTile))
+        {
+            //spawn right attack vfx
+        }
+        else if(tileToAttack == attackRangeFinder.getAdjacentLeftTile(thisUnit.activeTile))
+        {
+            //spawn left attack vfx
+        }
+        else
+        {
+            Debug.Log("Attack out of bounds? Look at EnemyAttack.cs");
+        }
     }
 
     //returns true if the victim's tile is found in the list, returns false if otherwise.
@@ -77,13 +96,15 @@ public class EnemyAttack
         return inRangeTiles.Contains(victimTile);
     }
 
-    public PlayerUnitScript findPlayerInAttackRange (List<HideAndShowScript> inRangetiles)
+    public PlayerUnitScript findPlayerInAttackRange (List<HideAndShowScript> inRangeTiles)
     {
+        inRangeTiles = returnAttackRange();
         foreach (HideAndShowScript tile in inRangeTiles)
         {
             if(tile.entity != null)
             {
                 PlayerUnitScript victim = tile.entity.GetComponent<PlayerUnitScript>();
+                Debug.Log("Victim found : " + victim);
                 return victim;
             }
         }
@@ -92,7 +113,8 @@ public class EnemyAttack
 
     public DefenceStructure findDefenseStructureInRange(List<HideAndShowScript> inRangeTiles)
     {
-        foreach(HideAndShowScript tile in inRangeTiles)
+        inRangeTiles = returnAttackRange();
+        foreach (HideAndShowScript tile in inRangeTiles)
         {
             if(tile.entity != null)
             {
