@@ -2791,7 +2791,7 @@ PrefabInstance:
     - target: {fileID: 2983254206159050779, guid: ec36f6a112cbdf543ae4d9f492114d3b, type: 3}
       propertyPath: unitsToDeploy.Array.data[0]
       value: 
-      objectReference: {fileID: 1550875582688529655, guid: 8e76a90a0e9c9d5468daf47198d8b3f4, type: 3}
+      objectReference: {fileID: 1550875582688529655, guid: d8961262a30b9e445bb3576ce11b3ac6, type: 3}
     - target: {fileID: 2983254206159050779, guid: ec36f6a112cbdf543ae4d9f492114d3b, type: 3}
       propertyPath: unitsToDeploy.Array.data[1]
       value: 

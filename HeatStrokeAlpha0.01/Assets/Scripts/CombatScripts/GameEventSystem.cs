@@ -17,7 +17,7 @@ public class GameEventSystem : MonoBehaviour
     //Keeps track of em basically.
 
     //unitsToDeploy acts as the holder for the player's currently selected team. Hence, they're a GameObject that's stored.
-    [HideInInspector]
+    //[HideInInspector]
     public GameObject[] unitsToDeploy = new GameObject[3];
 
     [HideInInspector]
@@ -27,6 +27,7 @@ public class GameEventSystem : MonoBehaviour
     //public list of enemyUnits to get all the enemyUnits in the scene. We need this so that we can iterate through the list and decide which units act first.
     //The first unit in this list acts first, then the next unit acts.
     //Once all units have acted, cycle back to player turn.
+    [HideInInspector]
     public List<GameObject> enemyUnits;
 
 
