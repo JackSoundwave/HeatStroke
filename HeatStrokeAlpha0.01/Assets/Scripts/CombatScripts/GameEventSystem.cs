@@ -95,19 +95,19 @@ public class GameEventSystem : MonoBehaviour
     //==Enemy Related==//
     public void spawnEnemies()
     {
-        Debug.Log("SpawnEnemies triggered");
+        //Debug.Log("SpawnEnemies triggered");
         onSpawnEnemies?.Invoke();
     }
 
     public void enemyTurnStart()
     {
-        Debug.Log("enemyTurnStart triggered");
+        //Debug.Log("enemyTurnStart triggered");
         onEnemyTurnStart?.Invoke();
     }
 
     public void enemyTurnEnd()
     {
-        Debug.Log("enemyTurnEnd triggered");
+        //Debug.Log("enemyTurnEnd triggered");
         onEnemyTurnEnd?.Invoke();
     }
     public void enemyDeath()
