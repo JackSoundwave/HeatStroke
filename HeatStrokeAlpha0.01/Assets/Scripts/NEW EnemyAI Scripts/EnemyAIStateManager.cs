@@ -16,19 +16,24 @@ public class EnemyAIStateManager : MonoBehaviour
     //we're supposed to use these, but leaving them in the PunchingBagMovement script for now due to time constraints
     //public AStarPathfinder pathfinder = new AStarPathfinder();
     //public RangefinderMovement rangefinderMove = new RangefinderMovement();
+    public AttackRangeFinder attackRangeFinder = new AttackRangeFinder();
     //==RangeFinders and pathfinder==//
 
     //==Enemy Movement stuff==//
     private List<HideAndShowScript> path;
     private List<HideAndShowScript> inRangeTiles = new List<HideAndShowScript>();
     public PunchingBagMovement movement;
+    public EnemyAttack attack = new EnemyAttack();
     //==Enemy Movement stuff==//
 
     private void Awake()
     {
         movement = GetComponent<PunchingBagMovement>();
         thisUnit = GetComponent<EnemyUnitScript>();
+        attack.thisUnit = thisUnit;
+        attack.attackRangeFinder = attackRangeFinder;
     }
+
     void Start()
     {
         //Starting state for the enemy !!DO NOT CHANGE THIS LINE!!

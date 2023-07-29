@@ -22,20 +22,28 @@ public class EnemyIsMovingState : EnemyAIBaseScript
         {
             if (!enemy.thisUnit.isMoving)
             {
-                Debug.Log("Unit not moving, finding path");
+                //Debug.Log("Unit not moving, finding path");
                 enemy.movement.FindPathToPlayer();
                 //Debug.Log("Path value: " + path);
             }
             else if (enemy.thisUnit.isMoving && enemy.movement.path.Count > 0)
             {
-                Debug.Log("Moving along path");
+                //Debug.Log("Moving along path");
                 enemy.movement.MoveAlongPath();
             }
             else if (enemy.thisUnit.isMoving == true && enemy.movement.path.Count <= 0)
             {
-                Debug.Log("Turn Over");
+                //Debug.Log("Turn Over");
                 enemy.thisUnit.turnOver = true;
                 enemy.thisUnit.isMoving = false;
+
+                enemy.attack.victim_P = enemy.attack.findPlayerInAttackRange(enemy.attack.inRangeTiles);
+                enemy.attack.getAttackRange();
+                if(enemy.attack.victim_P != null)
+                {
+                    enemy.attack.primeAttackOnTile(enemy.attack.victim_P.activeTile);
+                }
+                //enemy.SwitchState(AttackPrimed)
                 //CombatStateManager.CSInstance.UpdateCombatState(CombatState.PlayerTurn);
             }
         }

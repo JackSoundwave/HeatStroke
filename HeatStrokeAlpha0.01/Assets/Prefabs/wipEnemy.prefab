@@ -572,7 +572,7 @@ MonoBehaviour:
   health: 3
   movementRange: 3
   attackDmg: 0
-  attackRange: 0
+  attackRange: 1
   maxHealth: 3
   speed: 3
   hasMoved: 0
@@ -610,6 +610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path: []
+  inRangeTiles: []
 --- !u!61 &-7501060350636653097
 BoxCollider2D:
   m_ObjectHideFlags: 0

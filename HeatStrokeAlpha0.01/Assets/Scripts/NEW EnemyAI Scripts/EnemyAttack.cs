@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class EnemyAttackMelee
+public class EnemyAttack
 {
     public EnemyUnitScript thisUnit, victim_E;
     public PlayerUnitScript victim_P;
@@ -14,19 +14,11 @@ public class EnemyAttackMelee
     public List<HideAndShowScript> inRangeTiles = new List<HideAndShowScript>();
     public HideAndShowScript targetTile;
 
-    public void Start()
-    {
-        /*
-        inRangeTiles = new List<HideAndShowScript>();
-        attackRangeFinder = new AttackRangeFinder();
-        */
-    }
-
     //Inherently the same to the "getInRangeTiles" for the movement, although this time, it's being used to get the attack range.
     public void getAttackRange()
     {
         inRangeTiles = attackRangeFinder.GetTilesInAttackRange(thisUnit.activeTile, thisUnit.attackRange);
-
+        Debug.Log("Showing attack range");
         foreach (var item in inRangeTiles)
         {
             ShowInRangetiles();
@@ -113,20 +105,28 @@ public class EnemyAttackMelee
 
     public void executeAttackOnTile(HideAndShowScript targetTile)
     {
+        Debug.Log("Executing attack");
         if (targetTile.entity != null)
         {
             if (victim_D == targetTile.entity.GetComponent<DefenceStructure>())
             {
+                Debug.Log("Attacking structure");
                 DamageDefenseStructure(victim_D);
             }
             else if (victim_P == targetTile.entity.GetComponent<PlayerUnitScript>())
             {
+                Debug.Log("Attacking player");
                 DamageEnemy(victim_P);
             }
             else if (targetTile.entity.GetComponent<EnemyUnitScript>() != null)
             {
+                Debug.Log("Attacking enemy?");
                 victim_E = targetTile.entity.GetComponent<EnemyUnitScript>();
                 DamageAlly(victim_E);
+            }
+            else
+            {
+                Debug.Log("Unknown entity, not attacking");
             }
         }
     }
