@@ -15,6 +15,9 @@ public class HideAndShowScript : MonoBehaviour
     public bool isDeployTile;
     public HideAndShowScript Previous;
 
+    //this Entity field dictates WHAT is currently on top of the tile. It's a gameObject as every entity would be a gameObject.
+    public GameObject entity;
+
     //Grid location, in 3d space, so that the Z axis can act as a sorting layer
     public Vector3Int gridLocation;
 

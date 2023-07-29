@@ -175,6 +175,7 @@ public class EnemySpawnerScript : MonoBehaviour
     {
         eu_GO.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z + 1);
         eu_GO.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 2;
+        tile.entity = eu_GO;
     }
 
     /* Randomization function I found online, I'm gonna keep it real, I literally have no clue how it works.

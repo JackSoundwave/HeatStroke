@@ -52,6 +52,7 @@ public class DefenceStructure : MonoBehaviour
     {
         heatgaugeSystem.IncreaseTemperature(100); // Increase the temperature by 100
         activeTile.isBlocked = false;
+        activeTile.entity = null;
         Destroy(gameObject);
     }
 

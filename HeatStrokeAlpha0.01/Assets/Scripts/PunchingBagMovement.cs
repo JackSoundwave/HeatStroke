@@ -108,6 +108,7 @@ public class PunchingBagMovement : MonoBehaviour
             return;
         }
         enemyUnit.activeTile.isBlocked = false;
+        enemyUnit.activeTile.entity = null;
         var step = enemyUnit.speed * Time.deltaTime;
         var zIndex = path[0].transform.position.z;
         enemyUnit.transform.position = Vector2.MoveTowards(enemyUnit.transform.position, path[0].transform.position, step);
@@ -174,6 +175,7 @@ public class PunchingBagMovement : MonoBehaviour
         enemyUnit.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 2;
         enemyUnit.activeTile = tile;
         enemyUnit.activeTile.isBlocked = true;
+        enemyUnit.activeTile.entity = enemyUnit.gameObject;
         //CombatStateManager.CSInstance.UpdateCombatState(CombatState.EnemyTurn);
     }
 }
