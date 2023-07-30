@@ -8,7 +8,7 @@ public class EnemyIsMovingState : EnemyAIBaseScript
     public override void EnterState(EnemyAIStateManager enemy)
     {
         enemy.movement.inRangeTiles = enemy.movement.rangeFinder.GetTilesInRange(enemy.thisUnit.activeTile, enemy.thisUnit.movementRange);
-        enemy.movement.FindPathToPlayer();
+        enemy.movement.FindPathToRandomPlayer();
         enemy.thisUnit.isMoving = true;
     }
 
@@ -21,13 +21,13 @@ public class EnemyIsMovingState : EnemyAIBaseScript
 
         if (CombatStateManager.CSInstance.State == CombatState.EnemyTurn && enemy.thisUnit.turnOver == false)
         {
-            if (!enemy.thisUnit.isMoving)
+            /*if (!enemy.thisUnit.isMoving)
             {
                 //Debug.Log("Unit not moving, finding path");
                 enemy.movement.FindPathToPlayer();
                 //Debug.Log("Path value: " + path);
-            }
-            else if (enemy.thisUnit.isMoving && enemy.movement.path.Count > 0)
+            }*/
+            if (enemy.thisUnit.isMoving && enemy.movement.path.Count > 0)
             {
                 //Debug.Log("Moving along path");
                 enemy.movement.MoveAlongPath();

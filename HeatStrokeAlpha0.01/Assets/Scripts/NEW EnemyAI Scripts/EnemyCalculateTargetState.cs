@@ -7,7 +7,7 @@ public class EnemyCalculateTargetState : EnemyAIBaseScript
     
     public override void EnterState(EnemyAIStateManager enemy)
     {
-        Debug.Log("Enemy is calculating optimal move");
+        Debug.Log("Enemy is calculating best move :o");
     }
 
     public override void UpdateState(EnemyAIStateManager enemy)
@@ -32,11 +32,11 @@ public class EnemyCalculateTargetState : EnemyAIBaseScript
 
     }
 
-    public void selectOptimalMove()
+    public void selectOptimalTile()
     {
         /*
-         * When attempting to choose a move from the sorted list, what should be passed into here is both the target for the movement script
-         * And also the targetTile to move to (which should be an adjacent tile).
+         * When attempting to choose a tile move from the sorted list, what should be passed into here is both the target for the movement script
+         * And also the targetTile to move to (which should be an adjsacent tile).
          * Based on some sort of difficulty factor, we also want to sometimes choose the "worse" option. Just to make it easier for players down the line.
          * But let's be real it's too late into development to add that. No seriously. it really is.
          * For now we'll just make it pick randomly from the top 3 options, with a bias towards the 2nd option.
