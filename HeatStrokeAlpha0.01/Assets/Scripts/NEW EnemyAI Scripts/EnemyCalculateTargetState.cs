@@ -12,7 +12,23 @@ public class EnemyCalculateTargetState : EnemyAIBaseScript
 
     public override void EnterState(EnemyAIStateManager enemy)
     {
-        Debug.Log("Enemy is calculating best move :o");
+        Debug.Log("Enemy is calculating best move, what a smart boi :o");
+        if(enemy.thisUnit.hasMoved == false)
+        {
+            calculateMovementTileScores(enemy);
+            sortTileScores();
+            getFirstFive();
+            bestTile = selectTile(enemy);
+            enemy.SwitchState(enemy.isMovingState);
+        } 
+        else if (enemy.thisUnit.attackPrimed == false)
+        {
+            calculateAttackTileScores(enemy);
+            sortTileScores();
+            filterZeroTiles();
+            bestTile = selectTile(enemy);
+            //enemy.SwitchState(enemy.primingAttackState);
+        }
     }
 
     public override void UpdateState(EnemyAIStateManager enemy)
@@ -48,6 +64,7 @@ public class EnemyCalculateTargetState : EnemyAIBaseScript
 
             float tempScore = 0;
 
+            //second foreach loop to get the range of the attack IF the enemy were to be standing there (since they can move there in a given turn anyways)
             foreach(HideAndShowScript atkTile in tileAttack)
             {
                 if (atkTile.entity != null)
@@ -75,12 +92,46 @@ public class EnemyCalculateTargetState : EnemyAIBaseScript
 
     public void calculateAttackTileScores(EnemyAIStateManager enemy)
     {
+        tileScores.Clear();
+        sortedDictionary.Clear();
+
         enemy.attack.getAttackRange();
+        foreach(HideAndShowScript tile in enemy.attack.inRangeTiles)
+        {
+            float tempScore = 0;
+
+            if(tile.entity != null)
+            {
+                PlayerUnitScript tempPlayer = tile.entity.GetComponent<PlayerUnitScript>();
+                DefenceStructure tempStruct = tile.entity.GetComponent<DefenceStructure>();
+
+                if(tempPlayer != null)
+                {
+                    tempScore = tempScore + enemy.playerBias;
+                } 
+                else if (tempStruct != null)
+                {
+                    tempScore = tempScore + enemy.structureBias;
+                }
+                else
+                {
+                    Debug.Log("Unknown entity, what the hell is that?");
+                }
+            }
+
+            tileScores[tile] = tempScore;
+        }
     }
 
     public void filterZeroTiles()
     {
-        
+        foreach(KeyValuePair<HideAndShowScript, float> kvp in sortedDictionary)
+        {
+            if(kvp.Value <= 0f)
+            {
+                sortedDictionary.Remove(kvp);
+            }
+        }
     }
 
     public void sortTileScores() 
@@ -95,7 +146,7 @@ public class EnemyCalculateTargetState : EnemyAIBaseScript
         return sortedDictionary;
     }
 
-    public HideAndShowScript selectTile()
+    public HideAndShowScript selectTile(EnemyAIStateManager enemy)
     {
         /*
          * When attempting to choose a tile move from the sorted list, what should be passed into here is both the target for the movement script
@@ -104,10 +155,25 @@ public class EnemyCalculateTargetState : EnemyAIBaseScript
          * But let's be real it's too late into development to add that. No seriously. it really is.
          * For now we'll just make it pick randomly from the top 5 options, with a bias towards the 2nd and 3rd option.
          */
+        int minRandomRange = enemy.getRandomMin();
+        int maxRandomRange = enemy.getRandomMax();
+        int chosenIndex = Random.Range(minRandomRange, maxRandomRange);
 
-        int chosenIndex = Random.Range(0, 3);
+        if(chosenIndex >= sortedDictionary.Count)
+        {
+            chosenIndex = 0;
+            HideAndShowScript randomTile = sortedDictionary[chosenIndex].Key;
+            return randomTile;
+        }
+        else
+        {
+            HideAndShowScript randomTile = sortedDictionary[chosenIndex].Key;
+            return randomTile;
+        }
+    }
 
-        HideAndShowScript randomTile = sortedDictionary[chosenIndex].Key;
-        return randomTile;
+    public HideAndShowScript getBestTile()
+    {
+        return bestTile;
     }
 }

@@ -5,10 +5,13 @@ using UnityEngine;
 
 public class EnemyIsMovingState : EnemyAIBaseScript
 {
+    private HideAndShowScript targetTile;
     public override void EnterState(EnemyAIStateManager enemy)
     {
+        Debug.Log("Entering move state");
+        targetTile = enemy.calculate.getBestTile();
         enemy.movement.inRangeTiles = enemy.movement.rangeFinder.GetTilesInRange(enemy.thisUnit.activeTile, enemy.thisUnit.movementRange);
-        enemy.movement.FindPathToRandomPlayer();
+        enemy.movement.FindPathToTargetTile(targetTile);
         enemy.thisUnit.isMoving = true;
     }
 

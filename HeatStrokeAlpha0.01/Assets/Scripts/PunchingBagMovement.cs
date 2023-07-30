@@ -174,7 +174,21 @@ public class PunchingBagMovement : MonoBehaviour
             FindPathToStructure();
         }
     }
+    public void FindPathToTargetTile(HideAndShowScript tile)
+    {
 
+            path.Clear(); //This removes the previous path
+
+
+            List<HideAndShowScript> inRangeTiles = rangeFinder.GetTilesInRange(enemyUnit.activeTile, enemyUnit.movementRange);
+
+            //finds path to the player if it's within it's movement range
+            path = pathfinder.FindPath(enemyUnit.activeTile, tile, inRangeTiles);
+
+            //Debug.Log("Path : " + path);
+            //enemyUnit.isMoving = true;
+        
+    }
     public void FindPathToPlayer()
     {
         PlayerUnitScript player = targetPlayer;

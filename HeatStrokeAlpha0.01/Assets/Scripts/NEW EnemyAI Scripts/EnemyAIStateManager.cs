@@ -10,6 +10,7 @@ public class EnemyAIStateManager : MonoBehaviour
     public EnemyUnitScript thisUnit;
     public EnemyAIidleState idleState = new EnemyAIidleState();
     public EnemyIsMovingState isMovingState = new EnemyIsMovingState();
+    public EnemyCalculateTargetState calculate = new EnemyCalculateTargetState();
     //==EnemyAI States==//
 
     //==RangeFinders and pathfinder==//
@@ -28,6 +29,14 @@ public class EnemyAIStateManager : MonoBehaviour
 
     //==Calculation Variables==//
     public float playerBias, structureBias;
+
+    [SerializeField]
+    [Range(0, 5)]
+    private int randomMin;
+
+    [SerializeField]
+    [Range(0, 5)]
+    private int randomMax;
     //public bool rangedUnit;
 
     private void Awake()
@@ -63,7 +72,17 @@ public class EnemyAIStateManager : MonoBehaviour
 
     private void Test()
     {
-        SwitchState(isMovingState);
+        SwitchState(calculate);
+    }
+    
+    public int getRandomMin()
+    {
+        return randomMin;
+    }
+
+    public int getRandomMax()
+    {
+        return randomMax;
     }
     /*Attempting to move all the movement code from PunchingBagMovement into the stateManager for the enemyAI instead.*/
 }
