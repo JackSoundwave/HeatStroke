@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class EnemyAttack
 {
-    public EnemyUnitScript thisUnit, victim_E;
+    private EnemyUnitScript thisUnit, victim_E;
     public PlayerUnitScript victim_P;
     public DefenceStructure victim_D;
 
@@ -151,5 +150,15 @@ public class EnemyAttack
                 Debug.Log("Unknown entity, not attacking");
             }
         }
+    }
+
+    public void setThisUnit(EnemyUnitScript unit)
+    {
+        thisUnit = unit;
+    }
+
+    public EnemyUnitScript getThisUnit()
+    {
+        return thisUnit;
     }
 }

@@ -26,11 +26,15 @@ public class EnemyAIStateManager : MonoBehaviour
     public EnemyAttack attack = new EnemyAttack();
     //==Enemy Movement stuff==//
 
+    //==Calculation Variables==//
+    public float playerBias, structureBias;
+    //public bool rangedUnit;
+
     private void Awake()
     {
         movement = GetComponent<PunchingBagMovement>();
         thisUnit = GetComponent<EnemyUnitScript>();
-        attack.thisUnit = thisUnit;
+        attack.setThisUnit(thisUnit);
         attack.attackRangeFinder = attackRangeFinder;
     }
 

@@ -297,7 +297,7 @@ public class PunchingBagMovement : MonoBehaviour
         return closestPath;
     }
 
-    private void GetInRangeTiles()
+    public void GetInRangeTiles()
     {
         //This line below shows the in range tiles for movement of the Enemy Unit, causes issues UI wise, with the player movement, so I disabled it for now
 

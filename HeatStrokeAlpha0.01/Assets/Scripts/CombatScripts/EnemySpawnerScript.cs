@@ -228,7 +228,7 @@ public class EnemySpawnerScript : MonoBehaviour
 
     private IEnumerator SpawnEnemyWithDelay(HideAndShowScript tileToSpawn)
     {
-        Debug.Log("Enemyspawned");   
+        Debug.Log("Enemyspawned");
         if (GameEventSystem.current.enemyUnits.Count < maxEnemies)
         {
             yield return new WaitForSeconds(spawnDelay);
