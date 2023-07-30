@@ -170,7 +170,7 @@ public class PunchingBagMovement : MonoBehaviour
             ShuffleTargetStructuresList();
 
             //Assign target 
-            targetPlayer = targetPlayers[0];
+            targetStructure = targetStructures[0];
             FindPathToStructure();
         }
     }

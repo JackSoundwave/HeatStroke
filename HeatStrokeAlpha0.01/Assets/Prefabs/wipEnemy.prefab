@@ -571,7 +571,7 @@ MonoBehaviour:
   activeTile: {fileID: 0}
   health: 3
   movementRange: 3
-  attackDmg: 0
+  attackDmg: 2
   attackRange: 1
   maxHealth: 3
   speed: 3
@@ -601,6 +601,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisUnit: {fileID: 0}
   movement: {fileID: 0}
+  playerBias: 3
+  structureBias: 5
+  randomMin: 0
+  randomMax: 0
 --- !u!114 &334789067655336312
 MonoBehaviour:
   m_ObjectHideFlags: 0

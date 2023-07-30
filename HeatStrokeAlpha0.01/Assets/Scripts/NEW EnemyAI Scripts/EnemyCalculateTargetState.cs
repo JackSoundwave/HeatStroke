@@ -18,6 +18,7 @@ public class EnemyCalculateTargetState : EnemyAIBaseScript
             calculateMovementTileScores(enemy);
             sortTileScores();
             getFirstFive();
+            filterZeroTiles();
             bestTile = selectTile(enemy);
             enemy.SwitchState(enemy.isMovingState);
         } 
@@ -25,6 +26,7 @@ public class EnemyCalculateTargetState : EnemyAIBaseScript
         {
             calculateAttackTileScores(enemy);
             sortTileScores();
+            getFirstFive();
             filterZeroTiles();
             bestTile = selectTile(enemy);
             //enemy.SwitchState(enemy.primingAttackState);
@@ -86,7 +88,17 @@ public class EnemyCalculateTargetState : EnemyAIBaseScript
                     }
                 }
             }
-            tileScores[tile] = tempScore;
+            if(tile.isBlocked == true)
+            {
+                //tempScore is set to 0 if the tile is blocked. This is meant for flying units, as they cannot stand on top of a tile that is already blocked, but they can still move THROUGH tiles that are blocked.
+                tempScore = 0;
+                tileScores[tile] = tempScore;
+            }
+            else
+            {
+                tileScores[tile] = tempScore;
+            }
+  
         }
     }
 
@@ -123,14 +135,16 @@ public class EnemyCalculateTargetState : EnemyAIBaseScript
         }
     }
 
+    //Filters out worthless tiles.
     public void filterZeroTiles()
     {
-        foreach(KeyValuePair<HideAndShowScript, float> kvp in sortedDictionary)
+
+        var filteredList = sortedDictionary.Where(kvp => kvp.Value > 0f).ToList();
+        sortedDictionary = filteredList;
+
+        if (sortedDictionary.Count == 0)
         {
-            if(kvp.Value <= 0f)
-            {
-                sortedDictionary.Remove(kvp);
-            }
+           //needs error handling or smtg;
         }
     }
 
@@ -158,16 +172,29 @@ public class EnemyCalculateTargetState : EnemyAIBaseScript
         int minRandomRange = enemy.getRandomMin();
         int maxRandomRange = enemy.getRandomMax();
         int chosenIndex = Random.Range(minRandomRange, maxRandomRange);
+        HideAndShowScript randomTile;
 
-        if(chosenIndex >= sortedDictionary.Count)
+        //Just in case if there are less than 5 favorable tiles to move towards.
+        if (chosenIndex >= sortedDictionary.Count)
         {
-            chosenIndex = 0;
-            HideAndShowScript randomTile = sortedDictionary[chosenIndex].Key;
+            chosenIndex = sortedDictionary.Count - 1;
+            if(chosenIndex == -1)
+            {
+                randomTile = null;
+                return randomTile;
+            }
+            randomTile = sortedDictionary[chosenIndex].Key;
             return randomTile;
         }
         else
         {
-            HideAndShowScript randomTile = sortedDictionary[chosenIndex].Key;
+            chosenIndex = sortedDictionary.Count - 1;
+            if (chosenIndex == -1)
+            {
+                randomTile = null;
+                return randomTile;
+            }
+            randomTile = sortedDictionary[chosenIndex].Key;
             return randomTile;
         }
     }

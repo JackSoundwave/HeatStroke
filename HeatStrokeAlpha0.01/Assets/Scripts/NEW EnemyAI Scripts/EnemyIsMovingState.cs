@@ -11,8 +11,28 @@ public class EnemyIsMovingState : EnemyAIBaseScript
         Debug.Log("Entering move state");
         targetTile = enemy.calculate.getBestTile();
         enemy.movement.inRangeTiles = enemy.movement.rangeFinder.GetTilesInRange(enemy.thisUnit.activeTile, enemy.thisUnit.movementRange);
-        enemy.movement.FindPathToTargetTile(targetTile);
-        enemy.thisUnit.isMoving = true;
+        if(targetTile != null)
+        {
+            enemy.movement.FindPathToTargetTile(targetTile);
+            enemy.thisUnit.isMoving = true;
+            
+        }
+        else
+        {
+            int index = Random.Range(0, 2);
+            if (index == 0)
+            {
+                enemy.movement.getAllPlayers();
+                enemy.movement.FindPathToRandomPlayer();
+                enemy.thisUnit.isMoving = true;
+            }
+            else if (index == 1)
+            {
+                enemy.movement.getAllStructures();
+                enemy.movement.FindPathToRandomStructure();
+                enemy.thisUnit.isMoving = true;
+            }
+        }
     }
 
     public override void UpdateState(EnemyAIStateManager enemy)
