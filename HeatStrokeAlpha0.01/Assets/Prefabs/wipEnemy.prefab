@@ -604,7 +604,7 @@ MonoBehaviour:
   playerBias: 3
   structureBias: 5
   randomMin: 0
-  randomMax: 0
+  randomMax: 3
 --- !u!114 &334789067655336312
 MonoBehaviour:
   m_ObjectHideFlags: 0
