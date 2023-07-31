@@ -107,7 +107,7 @@ public class EnemyCalculateTargetState : EnemyAIBaseScript
         tileScores.Clear();
         sortedDictionary.Clear();
 
-        enemy.attack.getAttackRange();
+        enemy.attack.returnAttackRange();
         foreach(HideAndShowScript tile in enemy.attack.inRangeTiles)
         {
             float tempScore = 0;

@@ -49,11 +49,13 @@ public class EnemyAttack
     public void ShowInRangetiles()
     {
         inRangeTiles = attackRangeFinder.GetTilesInAttackRange(thisUnit.activeTile, thisUnit.attackRange);
+        
         foreach (var item in inRangeTiles)
         {
             item.ShowTile();
             item.DyeTileRed();
         }
+        
     }
 
     public void HideInRangeTiles()

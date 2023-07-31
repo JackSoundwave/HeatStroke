@@ -601,10 +601,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisUnit: {fileID: 0}
   movement: {fileID: 0}
-  playerBias: 3
+  playerBias: 1
   structureBias: 5
   randomMin: 0
-  randomMax: 3
+  randomMax: 2
 --- !u!114 &334789067655336312
 MonoBehaviour:
   m_ObjectHideFlags: 0

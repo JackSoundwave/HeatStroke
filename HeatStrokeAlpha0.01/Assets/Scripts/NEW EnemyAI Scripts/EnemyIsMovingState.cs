@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 public class EnemyIsMovingState : EnemyAIBaseScript
@@ -8,9 +7,10 @@ public class EnemyIsMovingState : EnemyAIBaseScript
     private HideAndShowScript targetTile;
     public override void EnterState(EnemyAIStateManager enemy)
     {
+        enemy.movement.inRangeTiles = enemy.movement.rangeFinder.GetTilesInRange(enemy.thisUnit.activeTile, enemy.thisUnit.movementRange);
         Debug.Log("Entering move state");
         targetTile = enemy.calculate.getBestTile();
-        enemy.movement.inRangeTiles = enemy.movement.rangeFinder.GetTilesInRange(enemy.thisUnit.activeTile, enemy.thisUnit.movementRange);
+        Debug.Log(targetTile);
         if(targetTile != null)
         {
             enemy.movement.FindPathToTargetTile(targetTile);
