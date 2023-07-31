@@ -31,6 +31,10 @@ public class EnemyCalculateTargetState : EnemyAIBaseScript
             bestTile = selectTile(enemy);
             enemy.SwitchState(enemy.primingAttack);
         }
+        else
+        {
+            Debug.LogWarning("Error, bad pathing.");
+        }
     }
 
     public override void UpdateState(EnemyAIStateManager enemy)

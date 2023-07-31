@@ -8,9 +8,9 @@ public class EnemyIsMovingState : EnemyAIBaseScript
     public override void EnterState(EnemyAIStateManager enemy)
     {
         enemy.movement.inRangeTiles = enemy.movement.rangeFinder.GetTilesInRange(enemy.thisUnit.activeTile, enemy.thisUnit.movementRange);
-        Debug.Log("Entering move state");
+        //Debug.Log("Entering move state");
         targetTile = enemy.calculate.getBestTile();
-        Debug.Log(targetTile);
+       // Debug.Log(targetTile);
         if(targetTile != null)
         {
             enemy.movement.FindPathToTargetTile(targetTile);

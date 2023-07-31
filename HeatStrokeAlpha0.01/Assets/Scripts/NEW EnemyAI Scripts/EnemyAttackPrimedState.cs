@@ -12,13 +12,12 @@ public class EnemyAttackPrimedState : EnemyAIBaseScript
         if (targetTile != null) 
         {
             enemy.attack.primeAttackOnTile(targetTile);
+            enemy.thisUnit.attackPrimed = true;
             enemy.thisUnit.turnOver = true;
-            enemy.SwitchState(enemy.idleState);
         }
         else
         {
             enemy.thisUnit.turnOver = true;
-            enemy.SwitchState(enemy.idleState);
         }
     }
 
