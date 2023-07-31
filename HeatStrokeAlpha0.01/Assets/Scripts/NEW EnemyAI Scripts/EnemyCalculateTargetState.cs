@@ -29,7 +29,7 @@ public class EnemyCalculateTargetState : EnemyAIBaseScript
             getFirstFive();
             filterZeroTiles();
             bestTile = selectTile(enemy);
-            //enemy.SwitchState(enemy.primingAttackState);
+            enemy.SwitchState(enemy.primingAttack);
         }
     }
 

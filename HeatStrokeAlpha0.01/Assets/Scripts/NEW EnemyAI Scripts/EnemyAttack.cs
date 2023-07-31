@@ -127,29 +127,35 @@ public class EnemyAttack
     public void executeAttackOnTile(HideAndShowScript targetTile)
     {
         Debug.Log("Executing attack");
-        if (targetTile.entity != null)
-        {
-            if (victim_D == targetTile.entity.GetComponent<DefenceStructure>())
+
+            victim_D = targetTile.entity.GetComponent<DefenceStructure>();
+            victim_E = targetTile.entity.GetComponent<EnemyUnitScript>();
+            victim_P = targetTile.entity.GetComponent<PlayerUnitScript>();
+
+            if (victim_D != null)
             {
+                //play attack vfx
                 Debug.Log("Attacking structure");
                 DamageDefenseStructure(victim_D);
             }
-            else if (victim_P == targetTile.entity.GetComponent<PlayerUnitScript>())
+            else if (victim_P != null)
             {
+                //play attack vfx
                 Debug.Log("Attacking player");
                 DamageEnemy(victim_P);
             }
-            else if (targetTile.entity.GetComponent<EnemyUnitScript>() != null)
+            else if (victim_E != null)
             {
+                //just read up okay
                 Debug.Log("Attacking enemy?");
-                victim_E = targetTile.entity.GetComponent<EnemyUnitScript>();
                 DamageAlly(victim_E);
             }
             else
             {
-                Debug.Log("Unknown entity, not attacking");
+            // play attack vfx, same as usual
+                Debug.Log("Unknown entity");
             }
-        }
+        
     }
 
     public void setThisUnit(EnemyUnitScript unit)

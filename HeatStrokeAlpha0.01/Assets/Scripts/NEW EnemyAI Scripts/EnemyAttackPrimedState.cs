@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttackPrimedState : MonoBehaviour
+public class EnemyAttackPrimedState : EnemyAIBaseScript
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void EnterState(EnemyAIStateManager enemy)
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void UpdateState(EnemyAIStateManager enemy)
     {
-        
+
     }
 }

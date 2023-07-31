@@ -11,6 +11,7 @@ public class EnemyAIStateManager : MonoBehaviour
     public EnemyAIidleState idleState = new EnemyAIidleState();
     public EnemyIsMovingState isMovingState = new EnemyIsMovingState();
     public EnemyCalculateTargetState calculate = new EnemyCalculateTargetState();
+    public EnemyAttackPrimedState primingAttack = new EnemyAttackPrimedState();
     //==EnemyAI States==//
 
     //==RangeFinders and pathfinder==//
