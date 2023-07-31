@@ -47,7 +47,6 @@ public class EnemyUnitScript : MonoBehaviour
         healthBar.SetHealth(health);
         if (health <= 0)
         {
-            GameEventSystem.current.enemyDeath();
             activeTile.isBlocked = false;
             GameEventSystem.current.enemyUnitsToRemove.Add(gameObject);
             Death();
@@ -136,6 +135,9 @@ public class EnemyUnitScript : MonoBehaviour
 
     public void destroyCurrentVFX()
     {
-        Destroy(currentVFX);
+        if(currentVFX != null)
+        {
+            Destroy(currentVFX);
+        }
     }
 }

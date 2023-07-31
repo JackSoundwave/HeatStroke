@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class DefenseStructureSpawner : MonoBehaviour
 {
-    public GameObject DefenseStructureUnitPrefab;
     private MapManager mapManager;
     private List<KeyValuePair<Vector2Int, HideAndShowScript>> overlayTiles;
     private List<Vector2Int> unblockedTiles;

@@ -11,6 +11,7 @@ public class EnemyExecuteAttack : EnemyAIBaseScript
 
         if(targetTile != null)
         {
+            enemy.thisUnit.destroyCurrentVFX();
             enemy.attack.executeAttackOnTile(targetTile);
             enemy.thisUnit.hasAttacked = true;
             enemy.thisUnit.attackPrimed = false;

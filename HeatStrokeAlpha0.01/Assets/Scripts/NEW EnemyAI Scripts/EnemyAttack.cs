@@ -91,45 +91,11 @@ public class EnemyAttack
         }
     }
 
-    //returns true if the victim's tile is found in the list, returns false if otherwise.
-    public bool checkVictim(List<HideAndShowScript> inRangeTiles, HideAndShowScript victimTile)
-    {
-        return inRangeTiles.Contains(victimTile);
-    }
-
-    public PlayerUnitScript findPlayerInAttackRange (List<HideAndShowScript> inRangeTiles)
-    {
-        inRangeTiles = returnAttackRange();
-        foreach (HideAndShowScript tile in inRangeTiles)
-        {
-            if(tile.entity != null)
-            {
-                PlayerUnitScript victim = tile.entity.GetComponent<PlayerUnitScript>();
-                Debug.Log("Victim found : " + victim);
-                return victim;
-            }
-        }
-        return null;
-    }
-
-    public DefenceStructure findDefenseStructureInRange(List<HideAndShowScript> inRangeTiles)
-    {
-        inRangeTiles = returnAttackRange();
-        foreach (HideAndShowScript tile in inRangeTiles)
-        {
-            if(tile.entity != null)
-            {
-                DefenceStructure victim = tile.entity.GetComponent<DefenceStructure>();
-                return victim;
-            }
-        }
-        return null;
-    }
-
     public void executeAttackOnTile(HideAndShowScript targetTile)
     {
         Debug.Log("Executing attack");
-
+        if(targetTile.entity != null) 
+        {
             victim_D = targetTile.entity.GetComponent<DefenceStructure>();
             victim_E = targetTile.entity.GetComponent<EnemyUnitScript>();
             victim_P = targetTile.entity.GetComponent<PlayerUnitScript>();
@@ -154,10 +120,10 @@ public class EnemyAttack
             }
             else
             {
-            // play attack vfx, same as usual
+                // play attack vfx, same as usual
                 Debug.Log("Unknown entity");
             }
-        
+        }        
     }
 
     public void setThisUnit(EnemyUnitScript unit)

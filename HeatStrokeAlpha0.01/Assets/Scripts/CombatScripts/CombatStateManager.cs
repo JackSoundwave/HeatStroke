@@ -70,14 +70,16 @@ public class CombatStateManager : MonoBehaviour
     //remove async tag later in development, it's here for testing purposes to test the "end turn" button.
     public async void HandleEnemyTurn()
     {
-        //Debug.Log("Enemy Turn Started");
+        Debug.Log("Enemy Turn Started");
+        GameEventSystem.current.spawnEnemies();
         GameEventSystem.current.enemyTurnStart();
         
-        await Task.Delay(1000);
+        await Task.Delay(1500);
         
 
         Debug.Log("Enemy Turn Completed");
         GameEventSystem.current.enemyTurnEnd();
+        GameEventSystem.current.createSpawnTiles();
         ObjectiveManager.OMInstance.evaluateWinCondition();
     }
 

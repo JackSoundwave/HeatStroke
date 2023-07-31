@@ -649,11 +649,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2140038341133000133, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
       propertyPath: tileNumbersToMark.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2140038341133000133, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
       propertyPath: tileNumbersToMark.Array.data[0]
       value: 54
+      objectReference: {fileID: 0}
+    - target: {fileID: 2140038341133000133, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
+      propertyPath: tileNumbersToMark.Array.data[1]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2140038341133000133, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
+      propertyPath: tileNumbersToMark.Array.data[2]
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6223715375987296822, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
       propertyPath: m_Name
@@ -709,7 +717,7 @@ MonoBehaviour:
   AddDefaultSpawnTiles: 1
   tileNumbersToMark: 
   defaultZone: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000
-  maxEnemies: 1
+  maxEnemies: 5
   spawnDelay: 0.28
 --- !u!4 &1156735740
 Transform:

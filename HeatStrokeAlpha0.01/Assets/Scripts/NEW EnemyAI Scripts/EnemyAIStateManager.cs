@@ -54,8 +54,6 @@ public class EnemyAIStateManager : MonoBehaviour
 
         //Referencing "THIS" state.
         currentState.EnterState(this);
-
-        GameEventSystem.current.onEnemyTurnStart += Test;
     }
 
     private void Update()
@@ -70,11 +68,11 @@ public class EnemyAIStateManager : MonoBehaviour
         state.EnterState(this);
     }
 
-    private void Test()
+    /*private void Test()
     {
         
         SwitchState(calculate);
-    }
+    }*/
     
     public int getRandomMin()
     {

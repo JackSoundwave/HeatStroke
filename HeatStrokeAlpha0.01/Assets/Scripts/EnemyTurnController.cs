@@ -13,7 +13,6 @@ public class EnemyTurnController : MonoBehaviour
      * Yippee
      * 
      */
-
     private EnemyAIStateManager selectedEnemy;
 
     private void Awake()
@@ -70,14 +69,12 @@ public class EnemyTurnController : MonoBehaviour
             if (GameEventSystem.current.enemyUnits[i] != null)
             {
                 selectedEnemy = GameEventSystem.current.enemyUnits[i].GetComponent<EnemyAIStateManager>();
-                if (selectedEnemy.thisUnit.attackPrimed)
-                {
                     selectedEnemy.SwitchState(selectedEnemy.calculate);
                     while (!selectedEnemy.thisUnit.turnOver)
                     {
                         yield return null;
                     }
-                }
+                
             }
         }
     }

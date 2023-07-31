@@ -111,10 +111,7 @@ public class PunchingBagMovement : MonoBehaviour
     //GetAllPlayers is simply used when no players can be found within the movement range of the enemyUnit.
     public void getAllPlayers()
     {
-        if(targetPlayers != null)
-        {
-            targetPlayers.Clear();
-        }
+        targetPlayers?.Clear();
         PlayerUnitScript[] temparray = FindObjectsOfType<PlayerUnitScript>();
 
         foreach(PlayerUnitScript target in temparray)
@@ -129,10 +126,7 @@ public class PunchingBagMovement : MonoBehaviour
     //Same thing as GetAllPlayers, but for 
     public void getAllStructures()
     {
-        if (targetStructures != null)
-        {
-            targetStructures.Clear();
-        }
+        targetStructures?.Clear();
         DefenceStructure[] temparray = FindObjectsOfType<DefenceStructure>();
 
         foreach(DefenceStructure target in temparray)
@@ -154,9 +148,17 @@ public class PunchingBagMovement : MonoBehaviour
             //Shuffle list before attempting to find path
             ShuffleTargetPlayersList();
 
-            //Assign target 
-            targetPlayer = targetPlayers[0];
-            FindPathToPlayer();
+             
+            if(targetPlayers.Count <= 0)
+            {
+                return;
+            }
+            else
+            {
+                //Assign target 
+                targetPlayer = targetPlayers[0];
+                FindPathToPlayer();
+            }
         }
     }
 
@@ -169,9 +171,16 @@ public class PunchingBagMovement : MonoBehaviour
             //Shuffle list before attempting to find path
             ShuffleTargetStructuresList();
 
-            //Assign target 
-            targetStructure = targetStructures[0];
-            FindPathToStructure();
+            if(targetStructures.Count <= 0)
+            {
+                return;
+            }
+            else
+            {
+                //Assign target 
+                targetStructure = targetStructures[0];
+                FindPathToStructure();
+            }
         }
     }
     public void FindPathToTargetTile(HideAndShowScript tile)

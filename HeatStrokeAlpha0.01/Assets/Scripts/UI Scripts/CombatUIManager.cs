@@ -17,7 +17,7 @@ public class CombatUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _enemyUnitsRemainingNumber;
     [SerializeField] private TextMeshProUGUI _TurnsRemaining;
 
-    private bool allUnitsDeployed;
+    //private bool allUnitsDeployed;
 
     void Awake()
     {

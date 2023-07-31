@@ -56,6 +56,7 @@ public class GameEventSystem : MonoBehaviour
     public event Action onEnemyTurnStart;
     public event Action onEnemyTurnEnd;
     public event Action onEnemyDeath;
+    public event Action onSpawnTilesCreated;
     //==Enemy Related Actions==//
 
     //==Map Related actions==//
@@ -98,7 +99,7 @@ public class GameEventSystem : MonoBehaviour
     //==Enemy Related==//
     public void spawnEnemies()
     {
-        //Debug.Log("SpawnEnemies triggered");
+        Debug.Log("SpawnEnemies triggered");
         onSpawnEnemies?.Invoke();
     }
 
@@ -117,6 +118,11 @@ public class GameEventSystem : MonoBehaviour
     {
         Debug.Log("Enemy died");
         onEnemyDeath?.Invoke(); //tysm Jon
+    }
+    public void createSpawnTiles()
+    {
+        Debug.Log("Spawn tiles created");
+        onSpawnTilesCreated?.Invoke();
     }
     //==Enemy Related==//
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class DefenceStructure : MonoBehaviour
 {
     public HideAndShowScript activeTile;
-    public int maxHealth = 2;
+    public int maxHealth;
     public int currentHealth;
 
     public HeatGaugeSystem heatgaugeSystem;
