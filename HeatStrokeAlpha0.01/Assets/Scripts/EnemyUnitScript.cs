@@ -129,4 +129,9 @@ public class EnemyUnitScript : MonoBehaviour
         currentVFX = Instantiate(leftAttackVFX);
         currentVFX.transform.position = tileToSpawn.transform.position;
     }
+
+    public void destroyCurrentVFX()
+    {
+        Destroy(currentVFX);
+    }
 }

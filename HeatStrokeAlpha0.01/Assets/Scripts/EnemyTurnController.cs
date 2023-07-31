@@ -15,6 +15,8 @@ public class EnemyTurnController : MonoBehaviour
 
     private EnemyAIStateManager selectedEnemy;
 
+    private List<EnemyAIStateManager> enemies = new List<EnemyAIStateManager>();
+
     private void Awake()
     {
         //GameEventSystem.current.onEnemyTurnStart += OnEnemyTurnStart;
@@ -27,6 +29,11 @@ public class EnemyTurnController : MonoBehaviour
 
     void OnEnemyTurnStart()
     {
+        foreach(GameObject enemy in GameEventSystem.current.enemyUnits)
+        {
+            
+        }
+
         foreach(GameObject enemy in GameEventSystem.current.enemyUnits)
         {
             selectedEnemy = enemy.GetComponent<EnemyAIStateManager>();

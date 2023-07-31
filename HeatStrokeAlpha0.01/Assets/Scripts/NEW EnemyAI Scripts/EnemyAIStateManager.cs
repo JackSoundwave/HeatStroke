@@ -23,8 +23,6 @@ public class EnemyAIStateManager : MonoBehaviour
     //==RangeFinders and pathfinder==//
 
     //==Enemy Movement stuff==//
-    private List<HideAndShowScript> path;
-    private List<HideAndShowScript> inRangeTiles = new List<HideAndShowScript>();
     public PunchingBagMovement movement;
     public EnemyAttack attack = new EnemyAttack();
     //==Enemy Movement stuff==//
@@ -74,6 +72,7 @@ public class EnemyAIStateManager : MonoBehaviour
 
     private void Test()
     {
+        
         SwitchState(calculate);
     }
     

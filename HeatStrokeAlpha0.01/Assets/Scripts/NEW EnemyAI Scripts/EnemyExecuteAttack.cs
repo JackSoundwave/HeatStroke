@@ -8,9 +8,14 @@ public class EnemyExecuteAttack : EnemyAIBaseScript
     public override void EnterState(EnemyAIStateManager enemy)
     {
         targetTile = enemy.calculate.getBestTile();
+
         if(targetTile != null)
         {
             enemy.attack.executeAttackOnTile(targetTile);
+            enemy.SwitchState(enemy.idleState);
+        }
+        else
+        {
             enemy.SwitchState(enemy.idleState);
         }
     }
