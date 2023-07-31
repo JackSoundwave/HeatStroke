@@ -23,11 +23,13 @@ public class EnemyUnitScript : MonoBehaviour
     public bool hasMoved, hasAttacked, isAttacking, attackPrimed, isMoving, turnOver;
     public bool isSelected;
     public HealthBar healthBar;
+
     private void Awake()
     {
         hideHealthBar();
         GameEventSystem.current.enemyUnits.Add(gameObject);
     }
+
     private void Start()
     {
         //upon starting, adds THIS unit to the EnemyUnit list in the GameEventSystem.
@@ -37,7 +39,7 @@ public class EnemyUnitScript : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameEventSystem.current.enemyUnits.Remove(gameObject);
+        
     }
 
     private void Update()
@@ -47,6 +49,7 @@ public class EnemyUnitScript : MonoBehaviour
         {
             GameEventSystem.current.enemyDeath();
             activeTile.isBlocked = false;
+            GameEventSystem.current.enemyUnitsToRemove.Add(gameObject);
             Death();
         }
 
@@ -93,6 +96,7 @@ public class EnemyUnitScript : MonoBehaviour
 
     private void refreshActions()
     {
+        hasAttacked = false;
         hasMoved = false;
         turnOver = false;
     }

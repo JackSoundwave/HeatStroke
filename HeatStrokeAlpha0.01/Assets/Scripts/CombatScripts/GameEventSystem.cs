@@ -30,6 +30,8 @@ public class GameEventSystem : MonoBehaviour
     [HideInInspector]
     public List<GameObject> enemyUnits;
 
+    public List<GameObject> enemyUnitsToRemove;
+
 
 
     private void Awake()

@@ -11,43 +11,54 @@ public class EnemyTurnController : MonoBehaviour
      * 
      * We need to pass the list from the GameEventSystem into here. We can also use that list to create things like the UI element to display the AttackOrder.
      * Yippee
+     * 
      */
 
     private EnemyAIStateManager selectedEnemy;
 
-    private List<EnemyAIStateManager> enemies = new List<EnemyAIStateManager>();
-
     private void Awake()
     {
-        //GameEventSystem.current.onEnemyTurnStart += OnEnemyTurnStart;
+        GameEventSystem.current.onEnemyTurnStart += OnEnemyTurnStart;
+        GameEventSystem.current.onEnemyTurnEnd += cleanUpEnemyList;
     }
 
-    void Update()
+    private void OnDestroy()
     {
-        
+        GameEventSystem.current.onEnemyTurnStart -= OnEnemyTurnStart;
+        GameEventSystem.current.onEnemyTurnEnd -= cleanUpEnemyList;
     }
 
-    void OnEnemyTurnStart()
-    {
-        foreach(GameObject enemy in GameEventSystem.current.enemyUnits)
-        {
-            
-        }
 
-        foreach(GameObject enemy in GameEventSystem.current.enemyUnits)
+    private void OnEnemyTurnStart()
+    {
+        StartCoroutine(ExecuteTurnsSequentially());
+    }
+    private IEnumerator ExecuteTurnsSequentially()
+    {
+        for (int i = 0; i < GameEventSystem.current.enemyUnits.Count; i++)
         {
-            selectedEnemy = enemy.GetComponent<EnemyAIStateManager>();
-            if(selectedEnemy.thisUnit.attackPrimed == true)
+            if (GameEventSystem.current.enemyUnits[i] != null)
             {
-                //executeAttack
-                //cycle to next selectedEnemy
+                selectedEnemy = GameEventSystem.current.enemyUnits[i].GetComponent<EnemyAIStateManager>();
+                if (selectedEnemy.thisUnit.attackPrimed)
+                {
+                    
+                    while (!selectedEnemy.thisUnit.turnOver)
+                    {
+                        yield return null;
+                    }
+                }
             }
         }
+    }
 
-        foreach(GameObject enemy in GameEventSystem.current.enemyUnits)
+    private void cleanUpEnemyList()
+    {
+        foreach(GameObject enemy in GameEventSystem.current.enemyUnitsToRemove)
         {
-            selectedEnemy = enemy.GetComponent<EnemyAIStateManager>();
-            //if(selectedEnemy.thisUnit.isIdle)
+            GameEventSystem.current.enemyUnits.Remove(enemy);
         }
+
+        GameEventSystem.current.enemyUnitsToRemove.Clear();
     }
 }
