@@ -31,9 +31,39 @@ public class EnemyTurnController : MonoBehaviour
 
     private void OnEnemyTurnStart()
     {
-        StartCoroutine(ExecuteTurnsSequentially());
+        StartCoroutine(ExecuteAttacksThenMovement());
     }
-    private IEnumerator ExecuteTurnsSequentially()
+    private IEnumerator ExecuteAttacksThenMovement()
+    {
+        List<EnemyAIStateManager> attackingEnemies = new List<EnemyAIStateManager>();
+
+        //Execute attacks for all enemies with attackPrimed == true
+        for (int i = 0; i < GameEventSystem.current.enemyUnits.Count; i++)
+        {
+            if (GameEventSystem.current.enemyUnits[i] != null)
+            {
+                selectedEnemy = GameEventSystem.current.enemyUnits[i].GetComponent<EnemyAIStateManager>();
+                if (selectedEnemy.thisUnit.attackPrimed)
+                {
+                    attackingEnemies.Add(selectedEnemy);
+                }
+            }
+        }
+
+        //Execute attacks for all the enemies collected in the list
+        foreach (EnemyAIStateManager enemy in attackingEnemies)
+        {
+            enemy.SwitchState(enemy.executeAttackState);
+            while (!enemy.thisUnit.hasAttacked)
+            {
+                yield return null;
+            }
+        }
+
+        StartCoroutine(ExecuteMovementSequentially());
+    }
+
+    private IEnumerator ExecuteMovementSequentially()
     {
         for (int i = 0; i < GameEventSystem.current.enemyUnits.Count; i++)
         {
@@ -42,7 +72,7 @@ public class EnemyTurnController : MonoBehaviour
                 selectedEnemy = GameEventSystem.current.enemyUnits[i].GetComponent<EnemyAIStateManager>();
                 if (selectedEnemy.thisUnit.attackPrimed)
                 {
-                    
+                    selectedEnemy.SwitchState(selectedEnemy.calculate);
                     while (!selectedEnemy.thisUnit.turnOver)
                     {
                         yield return null;
