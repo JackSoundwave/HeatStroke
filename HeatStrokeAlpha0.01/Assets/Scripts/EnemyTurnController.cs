@@ -25,9 +25,6 @@ public class EnemyTurnController : MonoBehaviour
 
     void OnEnemyTurnStart()
     {
-        foreach(GameObject enemy in GameEventSystem.current.enemyUnits)
-        {
-            
-        }
+        
     }
 }
