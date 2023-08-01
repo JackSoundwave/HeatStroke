@@ -11,23 +11,90 @@ public class EnemyTurnController : MonoBehaviour
      * 
      * We need to pass the list from the GameEventSystem into here. We can also use that list to create things like the UI element to display the AttackOrder.
      * Yippee
+     * 
      */
+    private EnemyAIStateManager selectedEnemy;
 
-    private void Start()
+    private void Awake()
     {
-        
+        GameEventSystem.current.onEnemyTurnStart += OnEnemyTurnStart;
+        GameEventSystem.current.onEnemyTurnEnd += cleanUpEnemyList;
     }
 
-    void Update()
+    private void OnDestroy()
     {
-        
+        GameEventSystem.current.onEnemyTurnStart -= OnEnemyTurnStart;
+        GameEventSystem.current.onEnemyTurnEnd -= cleanUpEnemyList;
     }
 
-    void OnEnemyTurnStart()
+
+    private void OnEnemyTurnStart()
     {
-        foreach(GameObject enemy in GameEventSystem.current.enemyUnits)
+        StartCoroutine(ExecuteAttacksThenMovement());
+    }
+    private IEnumerator ExecuteAttacksThenMovement()
+    {
+        cleanUpEnemyList();
+        List<EnemyAIStateManager> attackingEnemies = new List<EnemyAIStateManager>();
+
+        //Execute attacks for all enemies with attackPrimed == true
+        for (int i = 0; i < GameEventSystem.current.enemyUnits.Count; i++)
         {
+            if (GameEventSystem.current.enemyUnits[i] != null)
+            {
+                selectedEnemy = GameEventSystem.current.enemyUnits[i].GetComponent<EnemyAIStateManager>();
+                if (selectedEnemy.thisUnit.attackPrimed)
+                {
+                    attackingEnemies.Add(selectedEnemy);
+                }
+            }
+        }
+
+        //Execute attacks for all the enemies collected in the list
+        foreach (EnemyAIStateManager enemy in attackingEnemies)
+        {
+            if(enemy != null) 
+            {
+                enemy.SwitchState(enemy.executeAttackState);
+                while (!enemy.thisUnit.hasAttacked)
+                {
+                    yield return null;
+                }
+            }
+            else
+            {
+                yield return null;
+            }
             
         }
+
+        StartCoroutine(ExecuteMovementSequentially());
+    }
+
+    private IEnumerator ExecuteMovementSequentially()
+    {
+        for (int i = 0; i < GameEventSystem.current.enemyUnits.Count; i++)
+        {
+            if (GameEventSystem.current.enemyUnits[i] != null)
+            {
+                selectedEnemy = GameEventSystem.current.enemyUnits[i].GetComponent<EnemyAIStateManager>();
+                    selectedEnemy.SwitchState(selectedEnemy.calculate);
+                    while (!selectedEnemy.thisUnit.turnOver)
+                    {
+                        yield return null;
+                    }
+                
+            }
+        }
+    }
+
+    private void cleanUpEnemyList()
+    {
+        foreach(GameObject enemy in GameEventSystem.current.enemyUnitsToRemove)
+        {
+            GameEventSystem.current.enemyUnits.Remove(enemy);
+        }
+
+        GameEventSystem.current.enemyUnitsToRemove.Clear();
     }
 }

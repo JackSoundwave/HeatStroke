@@ -573,9 +573,13 @@ MonoBehaviour:
   attackDmg: 0
   attackRange: 0
   maxHealth: 3
-  canMove: 1
+  speed: 3
+  hasMoved: 0
   hasAttacked: 0
   isAttacking: 0
+  attackPrimed: 0
+  isMoving: 0
+  turnOver: 0
   isSelected: 0
   healthBar: {fileID: 2705971493567216933}
 --- !u!114 &4738890112154793485
@@ -590,8 +594,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aecb818b000a81448d9555f257d6a5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  path: []
   speed: 3
-  turnOver: 0
 --- !u!61 &-7501060350636653097
 BoxCollider2D:
   m_ObjectHideFlags: 0

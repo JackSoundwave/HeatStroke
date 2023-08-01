@@ -44,7 +44,7 @@ public class PlayerUnitScript : MonoBehaviour
     private void Update()
     {
         //just checking every frame to see if the health of this specific unit is 0, if so, kill the gameObject.
-        if (health == 0)
+        if (health <= 0)
         {
             killSelf();
         }
@@ -53,7 +53,9 @@ public class PlayerUnitScript : MonoBehaviour
     private void killSelf()
     {
         //we'll add like, animations and stuff inside this script later
-        Destroy(this);
+        activeTile.isBlocked = false;
+        activeTile.entity = null;
+        Destroy(gameObject);
     }
 
     private void refreshActions()

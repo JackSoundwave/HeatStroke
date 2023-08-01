@@ -36,7 +36,7 @@ public class ObjectiveSetter : MonoBehaviour
             case Objective.PoC_Extermination:
                 ObjectiveManager.OMInstance.setObjective(obj);
                 ObjectiveManager.OMInstance.setTurnTimer(turnTimer);
-                ObjectiveManager.OMInstance.setPoCKillCount(turnTimer);
+                ObjectiveManager.OMInstance.setPoCKillCount(PoCKillCounter);
                 break;
 
             default:

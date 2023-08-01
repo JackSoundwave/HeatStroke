@@ -135,6 +135,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         OMInstance.hivesToDestroy = hives;
     }
+
     public void setPoCKillCount(int kills)
     {
         PoCKillCounter = kills;
