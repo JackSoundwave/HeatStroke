@@ -15,8 +15,9 @@ public class CombatUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _unitsLeftText;
     [SerializeField] private TextMeshProUGUI _unitsLeftNumber;
     [SerializeField] private TextMeshProUGUI _enemyUnitsRemainingNumber;
+    [SerializeField] private TextMeshProUGUI _TurnsRemaining;
 
-    private bool allUnitsDeployed;
+    //private bool allUnitsDeployed;
 
     void Awake()
     {
@@ -44,7 +45,7 @@ public class CombatUIManager : MonoBehaviour
 
     private string GetCombatStateText(CombatState state)
     {
-        Debug.Log("Changing text");
+        //Debug.Log("Changing text");
         switch (state)
         {
             case CombatState.DeployPhase:
@@ -64,7 +65,7 @@ public class CombatUIManager : MonoBehaviour
 
     private void CombatStateManagerOnOnCombatStateChanged(CombatState state)
     {
-        Debug.Log("Updating button interactivity");
+        //Debug.Log("Updating button interactivity");
 
         //these booleans stop the buttons from being interactable post-deploy phase, given that it's the first phase in the game, naturally, it just gets disabled immediately.
 

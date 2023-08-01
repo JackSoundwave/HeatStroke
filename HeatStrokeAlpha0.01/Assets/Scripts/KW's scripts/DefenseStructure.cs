@@ -5,7 +5,7 @@ using UnityEngine;
 public class DefenceStructure : MonoBehaviour
 {
     public HideAndShowScript activeTile;
-    public int maxHealth = 2;
+    public int maxHealth;
     public int currentHealth;
 
     public HeatGaugeSystem heatgaugeSystem;
@@ -31,6 +31,15 @@ public class DefenceStructure : MonoBehaviour
         {
             DestroyStructure();
         }
+
+        if (MouseController.ActiveInstance?.targetedDefenseStructure == this)
+        {
+            showHealthBar();
+        }
+        else
+        {
+            hideHealthBar();
+        }
     }
 
     void TakeDamage(int damage)
@@ -43,17 +52,17 @@ public class DefenceStructure : MonoBehaviour
     {
         heatgaugeSystem.IncreaseTemperature(100); // Increase the temperature by 100
         activeTile.isBlocked = false;
+        activeTile.entity = null;
         Destroy(gameObject);
     }
 
-    private void OnMouseOver()
+    private void showHealthBar()
     {
-        //so like, code to show the healthbar is supposed to go here, but I'm too lazy to program that shit rn
-        //-Paven
+        healthBar.gameObject.SetActive(true);
     }
 
-    private void OnMouseExit()
+    private void hideHealthBar()
     {
-        //lorem ipsum
+        healthBar.gameObject.SetActive(false);
     }
 }

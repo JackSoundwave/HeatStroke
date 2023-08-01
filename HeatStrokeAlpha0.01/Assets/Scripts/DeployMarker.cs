@@ -16,9 +16,8 @@ public class DeployMarker : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("DeployMarker script starting");
+        
         mapManager = FindObjectOfType<MapManager>();
-        Debug.Log("MapManager object: " + mapManager);
 
         //Subscribe to the grid generated event
         GameEventSystem.current.onGridGenerated += MarkTilesAsDeployArea;

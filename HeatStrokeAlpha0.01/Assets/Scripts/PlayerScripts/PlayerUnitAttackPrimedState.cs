@@ -26,8 +26,8 @@ public class PlayerUnitAttackPrimedState : PlayerUnitBaseState
             player.thisUnit.isSelected = false;
             player.playerAttack.HideInRangeTiles();
             player.SwitchState(player.idleState);
-        } 
-        
+        }
+
         else if (Input.GetMouseButtonDown(0))
         {
             try
@@ -47,19 +47,11 @@ public class PlayerUnitAttackPrimedState : PlayerUnitBaseState
                 {
                     Debug.Log("invalid target");
                 }
-            } catch (NullReferenceException e)
+            }
+            catch (NullReferenceException e)
             {
                 Debug.Log(e);
             }
         }
-
-        /*if(player.thisUnit.isSelected == true)
-        {
-            Debug.Log("We're still selected bois");
-        } else if(player.thisUnit.isSelected == false)
-        {
-            player.SwitchState(player.idleState);
-        }*/
-
     }
 }
