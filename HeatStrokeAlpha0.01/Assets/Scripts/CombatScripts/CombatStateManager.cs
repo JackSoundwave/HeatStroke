@@ -71,6 +71,7 @@ public class CombatStateManager : MonoBehaviour
     public async void HandleEnemyTurn()
     {
         Debug.Log("Enemy Turn Started");
+        
         GameEventSystem.current.spawnEnemies();
         GameEventSystem.current.enemyTurnStart();
         
@@ -78,8 +79,8 @@ public class CombatStateManager : MonoBehaviour
         
 
         Debug.Log("Enemy Turn Completed");
-        GameEventSystem.current.enemyTurnEnd();
         GameEventSystem.current.createSpawnTiles();
+        GameEventSystem.current.enemyTurnEnd();
         ObjectiveManager.OMInstance.evaluateWinCondition();
     }
 

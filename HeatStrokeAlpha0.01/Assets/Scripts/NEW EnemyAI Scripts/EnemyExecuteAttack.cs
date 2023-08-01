@@ -15,6 +15,7 @@ public class EnemyExecuteAttack : EnemyAIBaseScript
             enemy.attack.executeAttackOnTile(targetTile);
             enemy.thisUnit.hasAttacked = true;
             enemy.thisUnit.attackPrimed = false;
+            enemy.thisUnit.hasMoved = false;
             enemy.SwitchState(enemy.idleState);
         }
         else

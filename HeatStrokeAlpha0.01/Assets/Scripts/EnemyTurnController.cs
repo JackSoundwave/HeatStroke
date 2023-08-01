@@ -31,9 +31,11 @@ public class EnemyTurnController : MonoBehaviour
     private void OnEnemyTurnStart()
     {
         StartCoroutine(ExecuteAttacksThenMovement());
+        StartCoroutine(ExecuteMovementSequentially());
     }
     private IEnumerator ExecuteAttacksThenMovement()
     {
+        cleanUpEnemyList();
         List<EnemyAIStateManager> attackingEnemies = new List<EnemyAIStateManager>();
 
         //Execute attacks for all enemies with attackPrimed == true
@@ -52,11 +54,19 @@ public class EnemyTurnController : MonoBehaviour
         //Execute attacks for all the enemies collected in the list
         foreach (EnemyAIStateManager enemy in attackingEnemies)
         {
-            enemy.SwitchState(enemy.executeAttackState);
-            while (!enemy.thisUnit.hasAttacked)
+            if(enemy != null) 
+            {
+                enemy.SwitchState(enemy.executeAttackState);
+                while (!enemy.thisUnit.hasAttacked)
+                {
+                    yield return null;
+                }
+            }
+            else
             {
                 yield return null;
             }
+            
         }
 
         StartCoroutine(ExecuteMovementSequentially());
