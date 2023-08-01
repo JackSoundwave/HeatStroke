@@ -39,6 +39,12 @@ public class EnemyAIStateManager : MonoBehaviour
     private int randomMax;
     //public bool rangedUnit;
 
+    [SerializeField]
+    private bool prioritizeStructs;
+
+    [SerializeField]
+    private bool prioritizeUnits;
+
     private void Awake()
     {
         movement = GetComponent<PunchingBagMovement>();
@@ -83,5 +89,14 @@ public class EnemyAIStateManager : MonoBehaviour
     {
         return randomMax;
     }
-    /*Attempting to move all the movement code from PunchingBagMovement into the stateManager for the enemyAI instead.*/
+    
+    public bool GetPrioritizeStructs()
+    {
+        return prioritizeStructs;
+    }
+
+    public bool GetPrioritizeUnits()
+    {
+        return prioritizeUnits;
+    }
 }

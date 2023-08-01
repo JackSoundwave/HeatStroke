@@ -5,32 +5,51 @@ using UnityEngine;
 public class EnemyIsMovingState : EnemyAIBaseScript
 {
     private HideAndShowScript targetTile;
+    private bool prioritizeStructs;
+    private bool prioritizeUnits;
     public override void EnterState(EnemyAIStateManager enemy)
     {
         enemy.movement.inRangeTiles = enemy.movement.rangeFinder.GetTilesInRange(enemy.thisUnit.activeTile, enemy.thisUnit.movementRange);
+        prioritizeStructs = enemy.GetPrioritizeStructs();
+        prioritizeUnits = enemy.GetPrioritizeUnits();
         //Debug.Log("Entering move state");
         targetTile = enemy.calculate.getBestTile();
-       // Debug.Log(targetTile);
-        if(targetTile != null)
+        // Debug.Log(targetTile);
+        if (targetTile != null)
         {
             enemy.movement.FindPathToTargetTile(targetTile);
             enemy.thisUnit.isMoving = true;
-            
+
         }
         else
         {
             int index = Random.Range(0, 2);
-            if (index == 0)
+            if (prioritizeStructs == true)
+            {
+                enemy.movement.getAllStructures();
+                enemy.movement.FindPathToRandomStructure();
+                enemy.thisUnit.isMoving = true;
+            }
+            else if (prioritizeUnits == true) 
             {
                 enemy.movement.getAllPlayers();
                 enemy.movement.FindPathToRandomPlayer();
                 enemy.thisUnit.isMoving = true;
             }
-            else if (index == 1)
+            else
             {
-                enemy.movement.getAllStructures();
-                enemy.movement.FindPathToRandomStructure();
-                enemy.thisUnit.isMoving = true;
+                if (index == 0)
+                {
+                    enemy.movement.getAllPlayers();
+                    enemy.movement.FindPathToRandomPlayer();
+                    enemy.thisUnit.isMoving = true;
+                }
+                else if (index == 1)
+                {
+                    enemy.movement.getAllStructures();
+                    enemy.movement.FindPathToRandomStructure();
+                    enemy.thisUnit.isMoving = true;
+                }
             }
         }
     }
@@ -46,7 +65,7 @@ public class EnemyIsMovingState : EnemyAIBaseScript
         {
             if (enemy.thisUnit.isMoving && enemy.movement.path.Count > 0)
             {
-                
+
                 enemy.movement.MoveAlongPath();
             }
             else if (enemy.thisUnit.isMoving == true && enemy.movement.path.Count <= 0)
