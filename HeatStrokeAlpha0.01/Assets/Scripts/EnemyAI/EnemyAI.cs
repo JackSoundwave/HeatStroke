@@ -9,9 +9,10 @@ public class EnemyAI : MonoBehaviour
     private EnemyUnitScript enemyUnit;
     private AStarPathfinder pathfinder;
     private List<HideAndShowScript> path;
-    public Transform target1;
-    public Transform target2;
+    private Transform target1;
+    private Transform target2;
     public float speed;
+    public int attackDmg;
 
     private RangefinderMovement rangeFinder;
     private List<HideAndShowScript> inRangeTiles = new List<HideAndShowScript>();
@@ -44,9 +45,11 @@ public class EnemyAI : MonoBehaviour
                 if (Vector2.Distance(transform.position, target1.position) < Vector2.Distance(transform.position, target2.position))
                 {
                     FindPathToDefense();
+                    AttackDefense();
                 }else
                 {
                     FindPathToPlayer();
+                    AttackPlayer();
                 }
                 //Debug.Log("Path value: " + path);
             }
@@ -182,6 +185,16 @@ public class EnemyAI : MonoBehaviour
         {
            item.ShowTile();
         }*/
+    }
+
+    void AttackPlayer()
+    {
+        target1.GetComponent<PlayerUnitScript>().health = target1.GetComponent<PlayerUnitScript>().health - attackDmg;
+    }
+
+    void AttackDefense()
+    {
+        target2.GetComponent<DefenceStructure>().currentHealth = target2.GetComponent<DefenceStructure>().currentHealth - attackDmg;
     }
 
     private void refreshActions()
