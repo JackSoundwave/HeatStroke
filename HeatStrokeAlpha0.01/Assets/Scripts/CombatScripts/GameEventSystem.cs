@@ -17,7 +17,7 @@ public class GameEventSystem : MonoBehaviour
     //Keeps track of em basically.
 
     //unitsToDeploy acts as the holder for the player's currently selected team. Hence, they're a GameObject that's stored.
-    [HideInInspector]
+    //[HideInInspector]
     public GameObject[] unitsToDeploy = new GameObject[3];
 
     [HideInInspector]
@@ -27,7 +27,10 @@ public class GameEventSystem : MonoBehaviour
     //public list of enemyUnits to get all the enemyUnits in the scene. We need this so that we can iterate through the list and decide which units act first.
     //The first unit in this list acts first, then the next unit acts.
     //Once all units have acted, cycle back to player turn.
+    [HideInInspector]
     public List<GameObject> enemyUnits;
+
+    public List<GameObject> enemyUnitsToRemove;
 
 
 
@@ -53,6 +56,7 @@ public class GameEventSystem : MonoBehaviour
     public event Action onEnemyTurnStart;
     public event Action onEnemyTurnEnd;
     public event Action onEnemyDeath;
+    public event Action onSpawnTilesCreated;
     //==Enemy Related Actions==//
 
     //==Map Related actions==//
@@ -101,19 +105,24 @@ public class GameEventSystem : MonoBehaviour
 
     public void enemyTurnStart()
     {
-        Debug.Log("enemyTurnStart triggered");
+        //Debug.Log("enemyTurnStart triggered");
         onEnemyTurnStart?.Invoke();
     }
 
     public void enemyTurnEnd()
     {
-        Debug.Log("enemyTurnEnd triggered");
+        //Debug.Log("enemyTurnEnd triggered");
         onEnemyTurnEnd?.Invoke();
     }
     public void enemyDeath()
     {
         Debug.Log("Enemy died");
         onEnemyDeath?.Invoke(); //tysm Jon
+    }
+    public void createSpawnTiles()
+    {
+        Debug.Log("Spawn tiles created");
+        onSpawnTilesCreated?.Invoke();
     }
     //==Enemy Related==//
 

@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class DefenseStructureSpawner : MonoBehaviour
 {
-    public GameObject DefenseStructureUnitPrefab;
     private MapManager mapManager;
     private List<KeyValuePair<Vector2Int, HideAndShowScript>> overlayTiles;
     private List<Vector2Int> unblockedTiles;
@@ -52,5 +51,6 @@ public class DefenseStructureSpawner : MonoBehaviour
     {
         ds_GO.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, tile.transform.position.z + 1);
         ds_GO.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 2;
+        tile.entity = ds_GO;
     }
 }

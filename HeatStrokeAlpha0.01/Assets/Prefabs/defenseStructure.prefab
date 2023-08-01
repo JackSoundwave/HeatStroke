@@ -252,8 +252,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeTile: {fileID: 0}
-  maxHealth: 100
-  currentHealth: 0
+  maxHealth: 2
+  currentHealth: 2
   heatgaugeSystem: {fileID: 0}
   heatBar: {fileID: 0}
   healthBar: {fileID: 8141838977666536782}

@@ -123,6 +123,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &255689306
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 255689307}
+  - component: {fileID: 255689308}
+  m_Layer: 0
+  m_Name: EnemyTurnController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &255689307
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255689306}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.2444546, y: -0.9803589, z: -0.014042608}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &255689308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255689306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06b6432ec2a5b4a4c809588914311ec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &278575594
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,11 +649,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2140038341133000133, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
       propertyPath: tileNumbersToMark.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2140038341133000133, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
       propertyPath: tileNumbersToMark.Array.data[0]
       value: 54
+      objectReference: {fileID: 0}
+    - target: {fileID: 2140038341133000133, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
+      propertyPath: tileNumbersToMark.Array.data[1]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2140038341133000133, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
+      propertyPath: tileNumbersToMark.Array.data[2]
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6223715375987296822, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
       propertyPath: m_Name
@@ -660,8 +712,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16bb008b8aea51d48bf68e99573c3a3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyUnitPrefab: {fileID: 7852278502412264825, guid: fe24566cf33caae46bfa9f33a431ee4f, type: 3}
-  shooterPrefab: {fileID: 1550875582688529655, guid: b855a5bf63f574a4fa82ee12f0b0a87e, type: 3}
+  enemyUnitPrefab: {fileID: 7852278502412264825, guid: d09a40887b6698c499269d029b48d571, type: 3}
+  showSpawnTiles: 0
+  AddDefaultSpawnTiles: 1
+  tileNumbersToMark: 
+  defaultZone: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000
+  maxEnemies: 5
+  spawnDelay: 0.28
 --- !u!4 &1156735740
 Transform:
   m_ObjectHideFlags: 0
@@ -2496,6 +2553,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Managers (Combat and UI)
       objectReference: {fileID: 0}
+    - target: {fileID: 699345496346884335, guid: 673264557c480394cb94b24985e87119, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 721417533819529093, guid: 673264557c480394cb94b24985e87119, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 915339335506701565, guid: 673264557c480394cb94b24985e87119, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -2568,9 +2633,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3099073181140253211, guid: 673264557c480394cb94b24985e87119, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3722856335916988663, guid: 673264557c480394cb94b24985e87119, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6742886687236271294, guid: 673264557c480394cb94b24985e87119, type: 3}
       propertyPath: turnTimer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8090859256219840267, guid: 673264557c480394cb94b24985e87119, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8350976217542172133, guid: 673264557c480394cb94b24985e87119, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -2742,7 +2819,7 @@ PrefabInstance:
     - target: {fileID: 2983254206159050779, guid: ec36f6a112cbdf543ae4d9f492114d3b, type: 3}
       propertyPath: unitsToDeploy.Array.data[0]
       value: 
-      objectReference: {fileID: 1550875582688529655, guid: 8e76a90a0e9c9d5468daf47198d8b3f4, type: 3}
+      objectReference: {fileID: 1550875582688529655, guid: d8961262a30b9e445bb3576ce11b3ac6, type: 3}
     - target: {fileID: 2983254206159050779, guid: ec36f6a112cbdf543ae4d9f492114d3b, type: 3}
       propertyPath: unitsToDeploy.Array.data[1]
       value: 
