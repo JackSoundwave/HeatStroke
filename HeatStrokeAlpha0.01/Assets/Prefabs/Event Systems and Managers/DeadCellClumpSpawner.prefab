@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &257684816337638950
 MonoBehaviour:
@@ -41,9 +41,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6400511860543651798}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d40ccba4c333ca948b637ee42f3fc746, type: 3}
+  m_Script: {fileID: 11500000, guid: b0e6e0b00bf3cae489dbee63cd394118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  markDefaultDeploy: 0
-  tileNumbersToMark: 
-  deadCellPrefab: {fileID: 6461542319606412604, guid: 25bc77ceb031b074fa616042dd7e936c, type: 3}

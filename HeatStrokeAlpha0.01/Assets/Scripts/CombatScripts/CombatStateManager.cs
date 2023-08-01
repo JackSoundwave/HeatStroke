@@ -47,8 +47,10 @@ public class CombatStateManager : MonoBehaviour
                 Debug.Log("Victory!");
                 break;
             case CombatState.Lose:
+                HandleLoseState();
                 break;
             case CombatState.OutOfCombat:
+                HandleOutOfCombat();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -64,19 +66,22 @@ public class CombatStateManager : MonoBehaviour
     public void HandlePlayerTurn()
     {
         GameEventSystem.current.playerTurnStarted();
-        Debug.Log("Player turn started");        
+        //Debug.Log("Player turn started");        
     }
 
     //remove async tag later in development, it's here for testing purposes to test the "end turn" button.
     public async void HandleEnemyTurn()
     {
         Debug.Log("Enemy Turn Started");
+        
+        GameEventSystem.current.spawnEnemies();
         GameEventSystem.current.enemyTurnStart();
         
-        await Task.Delay(1000);
+        await Task.Delay(1500);
         
 
         Debug.Log("Enemy Turn Completed");
+        GameEventSystem.current.createSpawnTiles();
         GameEventSystem.current.enemyTurnEnd();
         ObjectiveManager.OMInstance.evaluateWinCondition();
     }
@@ -91,6 +96,16 @@ public class CombatStateManager : MonoBehaviour
         {
             
         }
+    }
+
+    public void HandleOutOfCombat()
+    {
+
+    }
+
+    public void HandleLoseState()
+    {
+        //generate popup using combat UI manager as per usual
     }
 }
 

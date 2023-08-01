@@ -480,6 +480,7 @@ GameObject:
   - component: {fileID: 3124435805313069330}
   - component: {fileID: 4738890112154793485}
   - component: {fileID: -7501060350636653097}
+  - component: {fileID: -3144464238177037742}
   m_Layer: 0
   m_Name: enemyUnit
   m_TagString: Untagged
@@ -573,9 +574,13 @@ MonoBehaviour:
   attackDmg: 0
   attackRange: 0
   maxHealth: 3
-  canMove: 1
+  speed: 3
+  hasMoved: 0
   hasAttacked: 0
   isAttacking: 0
+  attackPrimed: 0
+  isMoving: 0
+  turnOver: 0
   isSelected: 0
   healthBar: {fileID: 2705971493567216933}
 --- !u!114 &4738890112154793485
@@ -590,8 +595,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aecb818b000a81448d9555f257d6a5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  path: []
   speed: 3
-  turnOver: 0
 --- !u!61 &-7501060350636653097
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -637,3 +642,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
+--- !u!114 &-3144464238177037742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7852278502412264825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29102a0bc8f936409f48ea72e37cf1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NameText: {fileID: 0}
+  Movement_Range_Text: {fileID: 0}
+  Attack_Damage_Text: {fileID: 0}
+  Name: Enemy
+  Movement_Range: 3
+  Attack_Damage: 1

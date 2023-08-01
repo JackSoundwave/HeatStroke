@@ -286,6 +286,7 @@ public class MouseController : MonoBehaviour
         var step = speed * Time.deltaTime;
 
         pUnit.activeTile.isBlocked = false;
+        pUnit.activeTile.entity = null;
         var zIndex = path[0].transform.position.z;
         pUnit.transform.position = Vector2.MoveTowards(pUnit.transform.position, path[0].transform.position, step);
         pUnit.transform.position = new Vector3(pUnit.transform.position.x, pUnit.transform.position.y, zIndex);
@@ -327,6 +328,7 @@ public class MouseController : MonoBehaviour
         pUnit.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 2;
         pUnit.activeTile = tile;
         pUnit.activeTile.isBlocked = true;
+        pUnit.activeTile.entity = pUnit.gameObject;
     }
     //==Path & Movement Related==//
 
@@ -397,6 +399,7 @@ public class MouseController : MonoBehaviour
                 PlayerUnitScript newPlayerUnit = newPlayerUnitGO.GetComponent<PlayerUnitScript>();
                 pUnit = newPlayerUnit;
                 PositionCharacterOnTile(tileToSpawnAt);
+                tileToSpawnAt.entity = newPlayerUnitGO;
                 deployableUnits[i] = null;
                 pUnit = newPlayerUnit;
                 break;

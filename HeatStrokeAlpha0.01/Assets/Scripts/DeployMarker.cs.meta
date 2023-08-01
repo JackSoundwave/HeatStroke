@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:HeatStrokeAlpha0.01/Assets/Scripts/UnitDetails/OnOffDetails.cs.meta
+guid: e14757de88cb038499cc542a7f00b908
+========
 guid: aab2239eace8fa64d90d1b88c6660e2f
+>>>>>>>> main:HeatStrokeAlpha0.01/Assets/Scripts/DeployMarker.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

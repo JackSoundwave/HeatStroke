@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:HeatStrokeAlpha0.01/Assets/StatsCanvas.prefab.meta
+guid: a05c0eeddaf4baf4ca0da96e513086ab
+========
 guid: 25bc77ceb031b074fa616042dd7e936c
+>>>>>>>> main:HeatStrokeAlpha0.01/Assets/Prefabs/DeadCellClump.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 
