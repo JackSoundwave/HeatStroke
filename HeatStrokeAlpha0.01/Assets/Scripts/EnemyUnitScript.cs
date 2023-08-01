@@ -56,10 +56,12 @@ public class EnemyUnitScript : MonoBehaviour
         if(MouseController.ActiveInstance?.targetedEnemyUnit == this)
         {
             showHealthBar();
+            HighlightAttackVFX();
         }
         else
         {
             hideHealthBar();
+            UnHighlightAttackVFX();
         }
     }
 
@@ -134,8 +136,24 @@ public class EnemyUnitScript : MonoBehaviour
         currentVFX.transform.position = tileToSpawn.transform.position;
     }
 
-    public void destroyCurrentVFX()
+    public void DestroyCurrentVFX()
     {
         Destroy(currentVFX.gameObject);
+    }
+
+    private void HighlightAttackVFX()
+    {
+        if(currentVFX != null)
+        {
+            currentVFX.GetComponent<SpriteRenderer>().color = Color.red;
+        }
+    }
+
+    private void UnHighlightAttackVFX()
+    {
+        if(currentVFX != null)
+        {
+            currentVFX.GetComponent<SpriteRenderer>().color = new Color (1, 1, 1, 1);
+        }
     }
 }
