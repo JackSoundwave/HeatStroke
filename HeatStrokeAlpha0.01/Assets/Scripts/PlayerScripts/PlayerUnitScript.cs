@@ -16,7 +16,7 @@ public class PlayerUnitScript : MonoBehaviour
     //booleans to dictate whether or not the player has moved or has attacked already. canMove is set to true and hasAttacked is set to false.
     //If true, then the event manager tells the MouseController script that the unit can move after being selected.\
     //isAttacking is to determine the current pUnit state. If the unit is attacking, the selected tile afterwards gets an attack on it
-    public bool canMove, hasAttacked, attackPrimed, isSelected, isAttacking, isMoving;
+    public bool canMove, hasAttacked, attackPrimed, isSelected, isAttacking, isMoving, isDeploying;
 
 
     public Material normal;
@@ -31,7 +31,6 @@ public class PlayerUnitScript : MonoBehaviour
         //You would be right, it doesn't make sense
         //However, we want the player to only have ONE unit selected at any given time.
         //So, we invoke the unitselect action to trigger this de-select, just before selecting another unit to prevent conflicts from arising :)
-        GameEventSystem.current.onUnitSelected += deselectSelf;
         addSelfToList();
     }
 
@@ -40,13 +39,12 @@ public class PlayerUnitScript : MonoBehaviour
         //Unsub from all actions to clear up space and save on data.
         //idrk how it works but it's good practice apparently.
         GameEventSystem.current.onPlayerStartTurn -= refreshActions;
-        GameEventSystem.current.onUnitSelected -= deselectSelf;
     }
 
     private void Update()
     {
         //just checking every frame to see if the health of this specific unit is 0, if so, kill the gameObject.
-        if (health == 0)
+        if (health <= 0)
         {
             killSelf();
         }
@@ -55,12 +53,9 @@ public class PlayerUnitScript : MonoBehaviour
     private void killSelf()
     {
         //we'll add like, animations and stuff inside this script later
-        Destroy(this);
-    }
-
-    private void deselectSelf()
-    {
-        isSelected = false;
+        activeTile.isBlocked = false;
+        activeTile.entity = null;
+        Destroy(gameObject);
     }
 
     private void refreshActions()
@@ -79,11 +74,47 @@ public class PlayerUnitScript : MonoBehaviour
         {
             if (GameEventSystem.current.playerUnits[i] == null)
             {
-                GameEventSystem.current.playerUnits[i] = this;
+                GameEventSystem.current.playerUnits[i] = gameObject;
                 return;
             }
         }
         //This block executes if an element could not be found, needs proper error handling.
         Debug.Log("Could not add element to unitList in the GameEventSystem");
+    }
+
+    public void removeSelfFromList()
+    {
+        for(int i =0; i < GameEventSystem.current.playerUnits.Length; i++)
+        {
+            if (GameEventSystem.current.playerUnits[i] == gameObject)
+            {
+                GameEventSystem.current.playerUnits[i] = null;
+                return;
+            }
+        }
+    }
+
+    private void onConfirmDeployPressed()
+    {
+        isDeploying = false;        
+    }
+
+    public HideAndShowScript getActiveTile()
+    {
+        return activeTile;
+    }
+
+    private void OnMouseDown()
+    {
+        if (CombatStateManager.CSInstance.State == CombatState.PlayerTurn)
+        {
+            GameEventSystem.current.unitSelected();
+            MouseController.ActiveInstance.pUnit = this;
+            isSelected = true;
+        }
+        else 
+        {
+            
+        }
     }
 }

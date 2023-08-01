@@ -17,13 +17,12 @@ public class CombatStateManager : MonoBehaviour
     private void Awake()
     {
         CSInstance = this;
-        CSInstance.State = CombatState.DeployPhase;
+        //CSInstance.State = CombatState.DeployPhase;
     }
 
     private void Start()
     {
-        //first turn is playerTurn, truthfully it should be the deploy phase, but for now we'll go with PlayerTurn instead.
-        UpdateCombatState(CombatState.PlayerTurn);
+        UpdateCombatState(CombatState.DeployPhase);
     }
 
     public void UpdateCombatState(CombatState newState)
@@ -38,12 +37,18 @@ public class CombatStateManager : MonoBehaviour
             case CombatState.PlayerTurn:
                 HandlePlayerTurn();
                 break;
+            case CombatState.Decide:
+                HandleDecideState();
+                break;
             case CombatState.EnemyTurn:
                 HandleEnemyTurn();
                 break;
             case CombatState.Victory:
+                Debug.Log("Victory!");
                 break;
             case CombatState.Lose:
+                break;
+            case CombatState.OutOfCombat:
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -59,25 +64,36 @@ public class CombatStateManager : MonoBehaviour
     public void HandlePlayerTurn()
     {
         GameEventSystem.current.playerTurnStarted();
-        Debug.Log("Player turn started");        
+        //Debug.Log("Player turn started");        
     }
 
     //remove async tag later in development, it's here for testing purposes to test the "end turn" button.
     public async void HandleEnemyTurn()
     {
         Debug.Log("Enemy Turn Started");
-        // Perform any initialization or setup here
+        
+        GameEventSystem.current.spawnEnemies();
         GameEventSystem.current.enemyTurnStart();
-        // Wait for a short delay before starting the enemy AI's actions
-        await Task.Delay(500);
+        
+        await Task.Delay(1500);
         
 
         Debug.Log("Enemy Turn Completed");
-        GameEventSystem.current.playerTurnStarted();
-        CSInstance.UpdateCombatState(CombatState.PlayerTurn);
-        // Trigger events or update the game state accordingly
-        //GameEventSystem.current.playerTurnStarted();
-        //CombatStateManager.CSInstance.UpdateCombatState(CombatState.PlayerTurn);
+        GameEventSystem.current.createSpawnTiles();
+        GameEventSystem.current.enemyTurnEnd();
+        ObjectiveManager.OMInstance.evaluateWinCondition();
+    }
+
+    public void HandleDecideState()
+    {
+        if(HeatGaugeSystem.instance.currentTemperature == HeatGaugeSystem.instance.maxTemperature)
+        {
+            UpdateCombatState(CombatState.Lose);
+        }
+        else
+        {
+            
+        }
     }
 }
 
@@ -95,5 +111,6 @@ public enum CombatState
     EnemyTurn,
     Decide,
     Victory,
-    Lose
+    Lose,
+    OutOfCombat
 }

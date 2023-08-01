@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4271828127736678946}
   - component: {fileID: 4171568087484008381}
   - component: {fileID: 6344556357104548796}
-  m_Layer: 4
+  m_Layer: 3
   m_Name: OverlayTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,6 +101,7 @@ MonoBehaviour:
   G: 0
   H: 0
   isBlocked: 0
+  isDeployTile: 0
   Previous: {fileID: 0}
   gridLocation: {x: 0, y: 0, z: 0}
 --- !u!60 &6344556357104548796

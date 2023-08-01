@@ -12,7 +12,11 @@ public class HideAndShowScript : MonoBehaviour
 
 
     public bool isBlocked;
+    public bool isDeployTile;
     public HideAndShowScript Previous;
+
+    //this Entity field dictates WHAT is currently on top of the tile. It's a gameObject as every entity would be a gameObject.
+    public GameObject entity;
 
     //Grid location, in 3d space, so that the Z axis can act as a sorting layer
     public Vector3Int gridLocation;
@@ -42,5 +46,20 @@ public class HideAndShowScript : MonoBehaviour
     public void DyeTileBlue()
     {
         gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+    }
+
+    public void unBlockSelf()
+    {
+        isBlocked = false;
+    }
+
+    public void DyeTileYellow()
+    {
+        gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+    }
+
+    public void DyeTileGreen()
+    {
+        gameObject.GetComponent<SpriteRenderer>().color = Color.green;
     }
 }

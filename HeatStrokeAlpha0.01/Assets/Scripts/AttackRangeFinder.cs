@@ -51,4 +51,28 @@ public class AttackRangeFinder
 
         return inRangeTiles;
     }
+
+    public HideAndShowScript getAdjacentUpTile(HideAndShowScript startingTile)
+    {
+        var upTile = MapManager.instance2.getTileAtPosition(startingTile.gridLocation.x, startingTile.gridLocation.y + 1);
+        return upTile;
+    }
+
+    public HideAndShowScript getAdjacentDownTile(HideAndShowScript startingTile)
+    {
+        var downTile = MapManager.instance2.getTileAtPosition(startingTile.gridLocation.x, startingTile.gridLocation.y - 1);
+        return downTile;
+    }
+
+    public HideAndShowScript getAdjacentRightTile(HideAndShowScript startingTile)
+    {
+        var rightTile = MapManager.instance2.getTileAtPosition(startingTile.gridLocation.x + 1, startingTile.gridLocation.y);
+        return rightTile;
+    }
+
+    public HideAndShowScript getAdjacentLeftTile(HideAndShowScript startingTile)
+    {
+        var leftTile = MapManager.instance2.getTileAtPosition(startingTile.gridLocation.x - 1, startingTile.gridLocation.y);
+        return leftTile;
+    }
 }

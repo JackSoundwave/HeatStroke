@@ -8,7 +8,6 @@ public class PlayerUnitSelectedState : PlayerUnitBaseState
 
     public override void EnterState(PlayerStateManager player)
     {
-        Debug.Log("Player unit is selected!");
         //swaps the material of the sprite renderer to the "selected" material.
         player.thisUnit.GetComponent<SpriteRenderer>().material = player.thisUnit.selected;
     }
@@ -32,11 +31,20 @@ public class PlayerUnitSelectedState : PlayerUnitBaseState
                 player.cursor.GetInRangeTiles();
                 player.cursor.generatePath();
 
-                if (Input.GetMouseButtonDown(0) && player.cursor.getPath().Count > 0)
+                if (Input.GetMouseButtonDown(0) && player.cursor.getPath().Count > 0 && player.thisUnit == MouseController.ActiveInstance.pUnit)
                 {
-                    player.thisUnit.isMoving = true;
-                    player.SwitchState(player.isMovingState);
-                    AudioManager.Instance.PlaySFX("Moving");
+                    if(MouseController.ActiveInstance.mouseOverEntity == false) 
+                    {
+                        //add if check to prevent unit from moving if they left click out of bounds or on a tile that does not 
+                        player.thisUnit.isMoving = true;
+                        player.SwitchState(player.isMovingState);
+                    }
+                  
+                } 
+                else if (Input.GetMouseButtonDown(1))
+                {
+                    player.thisUnit.isSelected = false;
+                    player.thisUnit.attackPrimed = false;
                 }
             }
         } 

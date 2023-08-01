@@ -25,6 +25,8 @@ public class RangefinderMovement
                 surroundingTile.AddRange(MapManager.instance2.getNeighbourTiles(item, new List<HideAndShowScript>()));
             }
 
+            surroundingTile = surroundingTile.Where(tile => !tile.isBlocked).ToList();
+
             inRangeTiles.AddRange(surroundingTile);
             tileForPreviousStep = surroundingTile.Distinct().ToList();
             stepCount++;
@@ -32,5 +34,4 @@ public class RangefinderMovement
 
         return inRangeTiles.Distinct().ToList();
     }
-
 }
