@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 297858ff6b50e5d4ba77d1681dbe0f12
+guid: 370e4e9c1646fd44c98e005bd78a9793
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_0
+      name: B-Cell_Dead_Sprite_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d75cee863436bfa43be95dd3708e7774
-      internalID: 2309994
+      spriteID: ac8378988ecfc144b9706618eb5935c5
+      internalID: 348657371
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_1
+      name: B-Cell_Dead_Sprite_1
       rect:
         serializedVersion: 2
         x: 64
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 63e1a2d9662f5da499f2445a2ea72595
-      internalID: 324287119
+      spriteID: 90ef56758fe8de94ea205e736f59eac2
+      internalID: -688463443
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_2
+      name: B-Cell_Dead_Sprite_2
       rect:
         serializedVersion: 2
         x: 128
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 544fc7efb0753174db2922ec173e8309
-      internalID: 1077072322
+      spriteID: 6c1554856788da64b9d908cc6b4d4363
+      internalID: -1282147695
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_3
+      name: B-Cell_Dead_Sprite_3
       rect:
         serializedVersion: 2
         x: 192
@@ -187,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62ac87f95ea5e6646a918dc630f0428c
-      internalID: -55395562
+      spriteID: 7800061c1870225498f83b7b8aa71d43
+      internalID: 595352055
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_4
+      name: B-Cell_Dead_Sprite_4
       rect:
         serializedVersion: 2
         x: 256
@@ -208,155 +208,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90005affb0481ab4fa85f21988b8c9c1
-      internalID: -831564611
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tcell_Selected_Sprite_5
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.078125}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1d8a22db4d6625040b3ed097366de7c8
-      internalID: -918868062
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tcell_Selected_Sprite_6
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.078125}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 501e6ff8b630717488ce33bc41a10b3c
-      internalID: -659800778
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tcell_Selected_Sprite_7
-      rect:
-        serializedVersion: 2
-        x: 448
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.078125}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 096b4b7b4de5ba744be9cad390b23c88
-      internalID: 524739081
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tcell_Selected_Sprite_8
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.078125}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 124255e21c1316443874b4a2729968d0
-      internalID: -134161964
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tcell_Selected_Sprite_9
-      rect:
-        serializedVersion: 2
-        x: 576
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.078125}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ecc08cb498947c44d8328b7ea07e05a1
-      internalID: 564691180
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tcell_Selected_Sprite_10
-      rect:
-        serializedVersion: 2
-        x: 640
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.078125}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c04c06268bc53e84e9c17953ad2320c8
-      internalID: 2100949272
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tcell_Selected_Sprite_11
-      rect:
-        serializedVersion: 2
-        x: 704
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.078125}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7fdf9a00125a5e54e94d66dd887fd8e2
-      internalID: 1979084292
+      spriteID: 5f72dce5eb2f8d04a9473cde2c2aa7f6
+      internalID: 1968151047
       vertices: []
       indices: 
       edges: []
@@ -372,18 +225,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Tcell_Selected_Sprite_0: 2309994
-      Tcell_Selected_Sprite_1: 324287119
-      Tcell_Selected_Sprite_10: 2100949272
-      Tcell_Selected_Sprite_11: 1979084292
-      Tcell_Selected_Sprite_2: 1077072322
-      Tcell_Selected_Sprite_3: -55395562
-      Tcell_Selected_Sprite_4: -831564611
-      Tcell_Selected_Sprite_5: -918868062
-      Tcell_Selected_Sprite_6: -659800778
-      Tcell_Selected_Sprite_7: 524739081
-      Tcell_Selected_Sprite_8: -134161964
-      Tcell_Selected_Sprite_9: 564691180
+      B-Cell_Dead_Sprite_0: 348657371
+      B-Cell_Dead_Sprite_1: -688463443
+      B-Cell_Dead_Sprite_2: -1282147695
+      B-Cell_Dead_Sprite_3: 595352055
+      B-Cell_Dead_Sprite_4: 1968151047
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

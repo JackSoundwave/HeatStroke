@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 297858ff6b50e5d4ba77d1681dbe0f12
+guid: 1459eeaed40f915428e8a13495ffb56f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_0
+      name: B-Cell_SelectedActionAndHurt_Sprite_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d75cee863436bfa43be95dd3708e7774
-      internalID: 2309994
+      spriteID: 54a89969a877f6c4f94fce546b06088c
+      internalID: -1815891610
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_1
+      name: B-Cell_SelectedActionAndHurt_Sprite_1
       rect:
         serializedVersion: 2
         x: 64
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 63e1a2d9662f5da499f2445a2ea72595
-      internalID: 324287119
+      spriteID: 1b364a553d280e348b3caa3cbccb70d1
+      internalID: -1609813667
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_2
+      name: B-Cell_SelectedActionAndHurt_Sprite_2
       rect:
         serializedVersion: 2
         x: 128
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 544fc7efb0753174db2922ec173e8309
-      internalID: 1077072322
+      spriteID: 62295e4352632784ba739db4210d8539
+      internalID: 290537990
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_3
+      name: B-Cell_SelectedActionAndHurt_Sprite_3
       rect:
         serializedVersion: 2
         x: 192
@@ -187,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62ac87f95ea5e6646a918dc630f0428c
-      internalID: -55395562
+      spriteID: c6823a78e577d534fa2dd802c8b1ba6a
+      internalID: -1159258851
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_4
+      name: B-Cell_SelectedActionAndHurt_Sprite_4
       rect:
         serializedVersion: 2
         x: 256
@@ -208,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90005affb0481ab4fa85f21988b8c9c1
-      internalID: -831564611
+      spriteID: e7295af6c30130d4a82660d68786a886
+      internalID: -357377216
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_5
+      name: B-Cell_SelectedActionAndHurt_Sprite_5
       rect:
         serializedVersion: 2
         x: 320
@@ -229,14 +229,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d8a22db4d6625040b3ed097366de7c8
-      internalID: -918868062
+      spriteID: 53a740036c716924b91e259b66dd5c03
+      internalID: -504309962
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_6
+      name: B-Cell_SelectedActionAndHurt_Sprite_6
       rect:
         serializedVersion: 2
         x: 384
@@ -250,14 +250,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 501e6ff8b630717488ce33bc41a10b3c
-      internalID: -659800778
+      spriteID: c9e0819c02348874187fa2d9e28b1f99
+      internalID: 1648257431
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_7
+      name: B-Cell_SelectedActionAndHurt_Sprite_7
       rect:
         serializedVersion: 2
         x: 448
@@ -271,14 +271,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 096b4b7b4de5ba744be9cad390b23c88
-      internalID: 524739081
+      spriteID: f9ab69ebde88d1a43aafcf25f4cf694a
+      internalID: 740641486
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_8
+      name: B-Cell_SelectedActionAndHurt_Sprite_8
       rect:
         serializedVersion: 2
         x: 512
@@ -292,14 +292,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 124255e21c1316443874b4a2729968d0
-      internalID: -134161964
+      spriteID: ce2c78e7cb1dcfe438e4f8756d798665
+      internalID: 128198321
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_9
+      name: B-Cell_SelectedActionAndHurt_Sprite_9
       rect:
         serializedVersion: 2
         x: 576
@@ -313,14 +313,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ecc08cb498947c44d8328b7ea07e05a1
-      internalID: 564691180
+      spriteID: ca2eac3c264926f45933e069edc18f52
+      internalID: -1575601431
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_10
+      name: B-Cell_SelectedActionAndHurt_Sprite_10
       rect:
         serializedVersion: 2
         x: 640
@@ -334,14 +334,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c04c06268bc53e84e9c17953ad2320c8
-      internalID: 2100949272
+      spriteID: f0bf5879c58594847a546f828e5803d6
+      internalID: 644045772
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_11
+      name: B-Cell_SelectedActionAndHurt_Sprite_11
       rect:
         serializedVersion: 2
         x: 704
@@ -355,8 +355,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7fdf9a00125a5e54e94d66dd887fd8e2
-      internalID: 1979084292
+      spriteID: ef31d37078c762041a4505fa4a164a8b
+      internalID: -1575150600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: B-Cell_SelectedActionAndHurt_Sprite_12
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.078125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28da7add4b6f487499eb414ede338e75
+      internalID: -1130704402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: B-Cell_SelectedActionAndHurt_Sprite_13
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.078125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b62220a0998ae094699a458347d522e6
+      internalID: -1174686660
       vertices: []
       indices: 
       edges: []
@@ -372,18 +414,20 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Tcell_Selected_Sprite_0: 2309994
-      Tcell_Selected_Sprite_1: 324287119
-      Tcell_Selected_Sprite_10: 2100949272
-      Tcell_Selected_Sprite_11: 1979084292
-      Tcell_Selected_Sprite_2: 1077072322
-      Tcell_Selected_Sprite_3: -55395562
-      Tcell_Selected_Sprite_4: -831564611
-      Tcell_Selected_Sprite_5: -918868062
-      Tcell_Selected_Sprite_6: -659800778
-      Tcell_Selected_Sprite_7: 524739081
-      Tcell_Selected_Sprite_8: -134161964
-      Tcell_Selected_Sprite_9: 564691180
+      B-Cell_SelectedActionAndHurt_Sprite_0: -1815891610
+      B-Cell_SelectedActionAndHurt_Sprite_1: -1609813667
+      B-Cell_SelectedActionAndHurt_Sprite_10: 644045772
+      B-Cell_SelectedActionAndHurt_Sprite_11: -1575150600
+      B-Cell_SelectedActionAndHurt_Sprite_12: -1130704402
+      B-Cell_SelectedActionAndHurt_Sprite_13: -1174686660
+      B-Cell_SelectedActionAndHurt_Sprite_2: 290537990
+      B-Cell_SelectedActionAndHurt_Sprite_3: -1159258851
+      B-Cell_SelectedActionAndHurt_Sprite_4: -357377216
+      B-Cell_SelectedActionAndHurt_Sprite_5: -504309962
+      B-Cell_SelectedActionAndHurt_Sprite_6: 1648257431
+      B-Cell_SelectedActionAndHurt_Sprite_7: 740641486
+      B-Cell_SelectedActionAndHurt_Sprite_8: 128198321
+      B-Cell_SelectedActionAndHurt_Sprite_9: -1575601431
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

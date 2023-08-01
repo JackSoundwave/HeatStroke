@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 297858ff6b50e5d4ba77d1681dbe0f12
+guid: 5962bb0652bd8bc4c9089e7bf474dcad
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_0
+      name: B-Cell_Idle_Sprite_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d75cee863436bfa43be95dd3708e7774
-      internalID: 2309994
+      spriteID: 091ae5fd5859f69418fd1a916c76aaf4
+      internalID: 600814934
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_1
+      name: B-Cell_Idle_Sprite_1
       rect:
         serializedVersion: 2
         x: 64
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 63e1a2d9662f5da499f2445a2ea72595
-      internalID: 324287119
+      spriteID: 93e6186b690cb0149b75c1f8587a3a41
+      internalID: -1598666733
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_2
+      name: B-Cell_Idle_Sprite_2
       rect:
         serializedVersion: 2
         x: 128
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 544fc7efb0753174db2922ec173e8309
-      internalID: 1077072322
+      spriteID: 9dd1ce4039d77394b85e30458fb29004
+      internalID: -621804055
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_3
+      name: B-Cell_Idle_Sprite_3
       rect:
         serializedVersion: 2
         x: 192
@@ -187,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62ac87f95ea5e6646a918dc630f0428c
-      internalID: -55395562
+      spriteID: 1488ec88288754a4695330891a418e88
+      internalID: 2108742448
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_4
+      name: B-Cell_Idle_Sprite_4
       rect:
         serializedVersion: 2
         x: 256
@@ -208,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90005affb0481ab4fa85f21988b8c9c1
-      internalID: -831564611
+      spriteID: 8e173b7b0aade434bbc271b25cf62a60
+      internalID: -1816639470
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_5
+      name: B-Cell_Idle_Sprite_5
       rect:
         serializedVersion: 2
         x: 320
@@ -229,14 +229,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d8a22db4d6625040b3ed097366de7c8
-      internalID: -918868062
+      spriteID: c56a3f284a027504f8509575b7213503
+      internalID: -2105545408
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_6
+      name: B-Cell_Idle_Sprite_6
       rect:
         serializedVersion: 2
         x: 384
@@ -250,14 +250,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 501e6ff8b630717488ce33bc41a10b3c
-      internalID: -659800778
+      spriteID: 5fe6bf1424633954fa53b5d65ae1946e
+      internalID: -1728108163
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_7
+      name: B-Cell_Idle_Sprite_7
       rect:
         serializedVersion: 2
         x: 448
@@ -271,14 +271,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 096b4b7b4de5ba744be9cad390b23c88
-      internalID: 524739081
+      spriteID: 249847431c8b66a48b80a6cab43cda3b
+      internalID: 1600494192
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_8
+      name: B-Cell_Idle_Sprite_8
       rect:
         serializedVersion: 2
         x: 512
@@ -292,14 +292,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 124255e21c1316443874b4a2729968d0
-      internalID: -134161964
+      spriteID: be1a68d4c8267a74f8dce4b440957bdd
+      internalID: 1707681260
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_9
+      name: B-Cell_Idle_Sprite_9
       rect:
         serializedVersion: 2
         x: 576
@@ -313,14 +313,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ecc08cb498947c44d8328b7ea07e05a1
-      internalID: 564691180
+      spriteID: 01140268798a1cc47a92b1987b4f0305
+      internalID: 1168309563
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_10
+      name: B-Cell_Idle_Sprite_10
       rect:
         serializedVersion: 2
         x: 640
@@ -334,14 +334,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c04c06268bc53e84e9c17953ad2320c8
-      internalID: 2100949272
+      spriteID: 04efcf04afaf18c408b8ba1da909bfd4
+      internalID: 897258448
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tcell_Selected_Sprite_11
+      name: B-Cell_Idle_Sprite_11
       rect:
         serializedVersion: 2
         x: 704
@@ -355,8 +355,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7fdf9a00125a5e54e94d66dd887fd8e2
-      internalID: 1979084292
+      spriteID: 9348acc7c7164874590f4b62b00bfb77
+      internalID: -154534117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: B-Cell_Idle_Sprite_12
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.078125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e039f086e0491be44bfc89a57e95fa83
+      internalID: -2051217893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: B-Cell_Idle_Sprite_13
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.078125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71a484393a5778f469473a805a2d68bd
+      internalID: 855130947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: B-Cell_Idle_Sprite_14
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.078125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6582c85869cc8bf468a26a2ed2e07d2b
+      internalID: -417747717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: B-Cell_Idle_Sprite_15
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.078125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a02cf893d283a1d409d36e44bc30990d
+      internalID: 489870876
       vertices: []
       indices: 
       edges: []
@@ -372,18 +456,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Tcell_Selected_Sprite_0: 2309994
-      Tcell_Selected_Sprite_1: 324287119
-      Tcell_Selected_Sprite_10: 2100949272
-      Tcell_Selected_Sprite_11: 1979084292
-      Tcell_Selected_Sprite_2: 1077072322
-      Tcell_Selected_Sprite_3: -55395562
-      Tcell_Selected_Sprite_4: -831564611
-      Tcell_Selected_Sprite_5: -918868062
-      Tcell_Selected_Sprite_6: -659800778
-      Tcell_Selected_Sprite_7: 524739081
-      Tcell_Selected_Sprite_8: -134161964
-      Tcell_Selected_Sprite_9: 564691180
+      B-Cell_Idle_Sprite_0: 600814934
+      B-Cell_Idle_Sprite_1: -1598666733
+      B-Cell_Idle_Sprite_10: 897258448
+      B-Cell_Idle_Sprite_11: -154534117
+      B-Cell_Idle_Sprite_12: -2051217893
+      B-Cell_Idle_Sprite_13: 855130947
+      B-Cell_Idle_Sprite_14: -417747717
+      B-Cell_Idle_Sprite_15: 489870876
+      B-Cell_Idle_Sprite_2: -621804055
+      B-Cell_Idle_Sprite_3: 2108742448
+      B-Cell_Idle_Sprite_4: -1816639470
+      B-Cell_Idle_Sprite_5: -2105545408
+      B-Cell_Idle_Sprite_6: -1728108163
+      B-Cell_Idle_Sprite_7: 1600494192
+      B-Cell_Idle_Sprite_8: 1707681260
+      B-Cell_Idle_Sprite_9: 1168309563
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
