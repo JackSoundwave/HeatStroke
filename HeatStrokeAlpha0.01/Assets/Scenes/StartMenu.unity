@@ -1127,11 +1127,8 @@ RectTransform:
   - {fileID: 340344551}
   - {fileID: 278632736}
   - {fileID: 732726927}
-<<<<<<< Updated upstream
-=======
   - {fileID: 1311907909}
   - {fileID: 1265509041}
->>>>>>> Stashed changes
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
