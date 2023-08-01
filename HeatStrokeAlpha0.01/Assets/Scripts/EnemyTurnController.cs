@@ -31,7 +31,6 @@ public class EnemyTurnController : MonoBehaviour
     private void OnEnemyTurnStart()
     {
         StartCoroutine(ExecuteAttacksThenMovement());
-        StartCoroutine(ExecuteMovementSequentially());
     }
     private IEnumerator ExecuteAttacksThenMovement()
     {
