@@ -579,6 +579,7 @@ MonoBehaviour:
   downAttackVFX: {fileID: 154912132622061174, guid: 7e2169bf15dcb3a4e852030880cd46a9, type: 3}
   rightAttackVFX: {fileID: 154912132622061174, guid: 3e1710d545b76d54f8a52cc74b0a3f9f, type: 3}
   leftAttackVFX: {fileID: 154912132622061174, guid: d3bf2857ccfb0cc45bae32c51d2624bc, type: 3}
+  currentVFX: {fileID: 0}
   hasMoved: 0
   hasAttacked: 0
   isAttacking: 0
@@ -601,10 +602,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisUnit: {fileID: 0}
   movement: {fileID: 0}
-  playerBias: 1
+  playerBias: 2
   structureBias: 5
   randomMin: 0
   randomMax: 2
+  prioritizeStructs: 0
+  prioritizeUnits: 0
 --- !u!114 &334789067655336312
 MonoBehaviour:
   m_ObjectHideFlags: 0
