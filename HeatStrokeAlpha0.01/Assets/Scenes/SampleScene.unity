@@ -2680,6 +2680,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6397833155906221910, guid: 673264557c480394cb94b24985e87119, type: 3}
+      propertyPath: m_fontSize
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 6397833155906221910, guid: 673264557c480394cb94b24985e87119, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 6397833155906221910, guid: 673264557c480394cb94b24985e87119, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6742886687236271294, guid: 673264557c480394cb94b24985e87119, type: 3}
       propertyPath: turnTimer
       value: 5
@@ -2748,6 +2760,10 @@ PrefabInstance:
     - target: {fileID: 2904447395621420934, guid: c3ee636e884766f49b490fa1d2ef4946, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3906088183711245416, guid: c3ee636e884766f49b490fa1d2ef4946, type: 3}
+      propertyPath: markDefaultDeploy
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4886513730707938267, guid: c3ee636e884766f49b490fa1d2ef4946, type: 3}
       propertyPath: m_Name
