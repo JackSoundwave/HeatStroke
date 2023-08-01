@@ -29,8 +29,8 @@ public class OnOffDetails : MonoBehaviour
         Attack_Damage_Text.text = "Attack Damage:" + Attack_Damage;
         AudioManager.Instance.PlaySFX("Select");
     }
-    void OnMouseExit()
+    /*void OnMouseExit()
     {
         AudioManager.Instance.PlaySFX("Deselect");
-    }
+    }*/
 }
