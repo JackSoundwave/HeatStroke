@@ -961,7 +961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be928b451c810e944a31f02a790038ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelSelect: SampleScene
+  levelSelect: LevelSelection
   bestiary: Bestiary
 --- !u!1 &1719647670
 GameObject:

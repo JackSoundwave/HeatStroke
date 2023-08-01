@@ -14,7 +14,7 @@ public class LevelSelection : MonoBehaviour
     public void Level2()
     {
         Debug.Log("Level2");
-        SceneManager.LoadScene("Level2");
+        SceneManager.LoadScene("Level2 Layout2 Editing");
     }
     public void Level3()
     {
