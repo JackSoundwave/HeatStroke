@@ -7,11 +7,11 @@ public class StartMenu : MonoBehaviour
 {
 
     public GameObject StartMenuUI;
-    public string level1;
+    public string levelSelect;
 
     public void Play()
     {
-        SceneManager.LoadScene(level1);
+        SceneManager.LoadScene(levelSelect);
     }
 
     public void Options()
