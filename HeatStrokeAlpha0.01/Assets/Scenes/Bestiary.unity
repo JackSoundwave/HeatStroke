@@ -158,8 +158,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 320.2727, y: 104.54559}
-  m_SizeDelta: {x: 436.8737, y: 639.9238}
+  m_AnchoredPosition: {x: 320.2727, y: -20.7628}
+  m_SizeDelta: {x: 436.8737, y: 890.5405}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &699068
 MonoBehaviour:
@@ -182,9 +182,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 715b8d4ccc43fe64ebbc0fefb564b804, type: 3}
-    m_FontSize: 55
-    m_FontStyle: 0
+    m_Font: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
+    m_FontSize: 30
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 100
@@ -194,7 +194,25 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Story/ education
+  m_Text: 'Description :
+
+
+    Bacteria are single-celled microorganisms, that comes
+    in different shapes
+
+
+    Human body has more bacterial cells than human cells,
+    which are harmless and helpful
+
+    
+
+    Infections caused such as Food Poisoning,
+    Pneumonia and Sexually Transmitted infections (STIs) by harmful bacteria can
+    be treated with antibiotics.
+
+
+    Preventions: vaccination, good hygiene, wound
+    cleaning, safe food habits, and bug bite protection.'
 --- !u!222 &699069
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1675,8 +1693,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 715b8d4ccc43fe64ebbc0fefb564b804, type: 3}
-    m_FontSize: 40
+    m_Font: {fileID: 12800000, guid: 6c9289c303d37f9419af27e8ee705b65, type: 3}
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1687,30 +1705,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Virus
-
-    Health: 2
-
-    Movement : 7
-
-    
-
-    Ability : Slash
-
-    Damage
-    : 1
-
-    Range : 1
-
-    
-
-    Passive : Multiply
-
-    When killed, Virus
-    unit will spawn another virus unit in an empty tile beside it, will only move
-    in the next turn
-
-'
+  m_Text: "In game stats:\r\n\nHealth : 3\r\nMovement : 6\r\n\nAttack Ability : Toxic
+    Slam\r\nDamage : 2 \r\nRange : 1\r"
 --- !u!222 &543489672
 CanvasRenderer:
   m_ObjectHideFlags: 0
