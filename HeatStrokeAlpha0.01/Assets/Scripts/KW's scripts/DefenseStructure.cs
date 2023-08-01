@@ -5,7 +5,7 @@ using UnityEngine;
 public class DefenceStructure : MonoBehaviour
 {
     public HideAndShowScript activeTile;
-    public int maxHealth = 2;
+    public int maxHealth;
     public int currentHealth;
 
     public HeatGaugeSystem heatgaugeSystem;
@@ -52,6 +52,7 @@ public class DefenceStructure : MonoBehaviour
     {
         heatgaugeSystem.IncreaseTemperature(100); // Increase the temperature by 100
         activeTile.isBlocked = false;
+        activeTile.entity = null;
         Destroy(gameObject);
     }
 
