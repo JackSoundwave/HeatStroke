@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class HeatGaugeSystem : MonoBehaviour
 {
@@ -44,7 +43,8 @@ public class HeatGaugeSystem : MonoBehaviour
 
         if (currentTemperature >= maxTemperature)
         {
-            GameOver();
+            CombatStateManager.CSInstance?.UpdateCombatState(CombatState.Lose);
+            StopAllCoroutines();
         }
     }
 
@@ -57,7 +57,10 @@ public class HeatGaugeSystem : MonoBehaviour
     {
         currentTemperature += temperature;
         currentTemperature = Mathf.Clamp(currentTemperature, 0, maxTemperature);
-        heatBar.SetHeatValue(currentTemperature);
+        if(heatBar != null)
+        {
+            heatBar.SetHeatValue(currentTemperature);
+        }
     }
 
     private void onSceneChanged(Scene scene, LoadSceneMode mode)
