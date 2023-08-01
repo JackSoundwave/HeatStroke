@@ -86,6 +86,7 @@ public class EnemyTurnController : MonoBehaviour
                 
             }
         }
+        CombatStateManager.CSInstance.enemyTurnOver = true;
     }
 
     private void cleanUpEnemyList()

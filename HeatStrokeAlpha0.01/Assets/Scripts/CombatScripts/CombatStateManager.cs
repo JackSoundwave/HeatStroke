@@ -10,6 +10,7 @@ public class CombatStateManager : MonoBehaviour
     public static CombatStateManager CSInstance;
 
     public CombatState State;
+    public bool enemyTurnOver;
 
     //This is when the combatstate in the scene changes, which is what the OnCombatStateChanged variable holds
     public static event Action<CombatState> OnCombatStateChanged;
@@ -68,15 +69,22 @@ public class CombatStateManager : MonoBehaviour
     }
 
     //remove async tag later in development, it's here for testing purposes to test the "end turn" button.
-    public async void HandleEnemyTurn()
+    public void HandleEnemyTurn()
     {
+        enemyTurnOver = false;
         Debug.Log("Enemy Turn Started");
         
         GameEventSystem.current.spawnEnemies();
         GameEventSystem.current.enemyTurnStart();
-        
-        await Task.Delay(1500);
-        
+        StartCoroutine(continueTurn());
+    }
+
+    public IEnumerator continueTurn()
+    {
+        while(enemyTurnOver != true)
+        {
+            yield return null;
+        }
 
         Debug.Log("Enemy Turn Completed");
         GameEventSystem.current.createSpawnTiles();
