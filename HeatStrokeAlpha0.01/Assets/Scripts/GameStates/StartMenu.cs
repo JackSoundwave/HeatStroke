@@ -5,9 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class StartMenu : MonoBehaviour
 {
-
-    public GameObject StartMenuUI;
     public string levelSelect;
+    public string bestiary;
 
     public void Play()
     {
@@ -22,5 +21,10 @@ public class StartMenu : MonoBehaviour
     {
         Debug.Log("Quitting game...");
         Application.Quit();
+    }
+
+    public void Bestiary()
+    {
+        SceneManager.LoadScene(bestiary);
     }
 }

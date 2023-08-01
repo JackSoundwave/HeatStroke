@@ -55,7 +55,7 @@ public class PlayerAttack
     public void DamageEnemy(EnemyUnitScript victim)
     {
         victim.health = victim.health - pUnit.attackDmg;
-        AudioManager.Instance.PlaySFX("Attack");
+        AudioManager.Instance?.PlaySFX("Attack");
     }
 
     public void ShowInRangetiles()
