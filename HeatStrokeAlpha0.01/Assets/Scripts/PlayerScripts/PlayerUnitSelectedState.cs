@@ -36,6 +36,7 @@ public class PlayerUnitSelectedState : PlayerUnitBaseState
                 {
                     player.thisUnit.isMoving = true;
                     player.SwitchState(player.isMovingState);
+                    AudioManager.Instance.PlaySFX("Moving");
                 }
             }
         } 

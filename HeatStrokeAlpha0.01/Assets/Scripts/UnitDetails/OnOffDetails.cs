@@ -27,5 +27,10 @@ public class OnOffDetails : MonoBehaviour
         NameText.text = "Name:" + Name;
         Movement_Range_Text.text = "Movement Range:" + Movement_Range;
         Attack_Damage_Text.text = "Attack Damage:" + Attack_Damage;
+        AudioManager.Instance.PlaySFX("Select");
+    }
+    void OnMouseExit()
+    {
+        AudioManager.Instance.PlaySFX("Deselect");
     }
 }
