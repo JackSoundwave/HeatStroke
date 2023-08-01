@@ -13,6 +13,7 @@ public class EnemyUnitScript : MonoBehaviour
 
     public GameObject upAttackVFX, downAttackVFX, rightAttackVFX, leftAttackVFX;
 
+    [SerializeField]
     private GameObject currentVFX;
 
     //booleans to dictate whether or not the player has moved or has attacked already. canMove is set to true and hasAttacked is set to false.
@@ -34,12 +35,12 @@ public class EnemyUnitScript : MonoBehaviour
     {
         //upon starting, adds THIS unit to the EnemyUnit list in the GameEventSystem.
         healthBar.SetMaxHealth(maxHealth);
-        GameEventSystem.current.onEnemyTurnStart += refreshActions;
+        GameEventSystem.current.onEnemyTurnEnd += refreshActions;
     }
 
     private void OnDestroy()
     {
-        
+        GameEventSystem.current.onEnemyTurnEnd -= refreshActions;
     }
 
     private void Update()
@@ -135,9 +136,6 @@ public class EnemyUnitScript : MonoBehaviour
 
     public void destroyCurrentVFX()
     {
-        if(currentVFX != null)
-        {
-            Destroy(currentVFX);
-        }
+        Destroy(currentVFX.gameObject);
     }
 }

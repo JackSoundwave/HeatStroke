@@ -33,7 +33,7 @@ public class EnemyCalculateTargetState : EnemyAIBaseScript
         }
         else
         {
-            Debug.LogWarning("Error, bad pathing.");
+            Debug.LogWarning("Error, bad pathing. Game Object: " + enemy.gameObject);
         }
     }
 
