@@ -47,8 +47,10 @@ public class CombatStateManager : MonoBehaviour
                 Debug.Log("Victory!");
                 break;
             case CombatState.Lose:
+                HandleLoseState();
                 break;
             case CombatState.OutOfCombat:
+                HandleOutOfCombat();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -94,6 +96,16 @@ public class CombatStateManager : MonoBehaviour
         {
             
         }
+    }
+
+    public void HandleOutOfCombat()
+    {
+
+    }
+
+    public void HandleLoseState()
+    {
+        //generate popup using combat UI manager as per usual
     }
 }
 
