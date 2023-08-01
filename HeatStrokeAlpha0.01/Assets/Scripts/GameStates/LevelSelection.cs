@@ -5,22 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class LevelSelection : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void Level1()
     {
         Debug.Log("Level1");
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("SampleScene");
     }
     public void Level2()
     {
