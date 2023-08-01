@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -5612392548299929341}
   - component: {fileID: 4538272671681055761}
   - component: {fileID: 89144434430699733}
+  - component: {fileID: 2590308262979006054}
   m_Layer: 0
   m_Name: BCell
   m_TagString: Untagged
@@ -173,3 +174,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisUnit: {fileID: -5612392548299929341}
   cursor: {fileID: 0}
+--- !u!114 &2590308262979006054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550875582688529655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29102a0bc8f936409f48ea72e37cf1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NameText: {fileID: 0}
+  Movement_Range_Text: {fileID: 0}
+  Attack_Damage_Text: {fileID: 0}
+  Name: B Cell
+  Movement_Range: 3
+  Attack_Damage: 1
