@@ -28,8 +28,6 @@ public class PunchingBagMovement : MonoBehaviour
         rangeFinder = new RangefinderMovement();
     }
 
-
-
     //Commented out this update function as the EnemyAI now incorporates the StateMachine design pattern for update handling.
     //This is to make sure that all the crazy amount of if() statements are kept relative to whatever state the enemy is currently in.
     //I'm not sure why I'm typing this as I already know that myself, but if anyone else bothers to read it, here you are! :)
@@ -183,6 +181,7 @@ public class PunchingBagMovement : MonoBehaviour
             }
         }
     }
+
     public void FindPathToTargetTile(HideAndShowScript tile)
     {
 

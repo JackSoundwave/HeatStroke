@@ -107,6 +107,7 @@ public class EnemySpawnerScript : MonoBehaviour
     {
         StartCoroutine(SpawnEnemiesWithDelay());
     }
+
     private IEnumerator SpawnEnemiesWithDelay()
     {
         //Debug.Log("Executing SpawnEnemyOnRandomTile");
@@ -224,26 +225,6 @@ public class EnemySpawnerScript : MonoBehaviour
         }
 
         return filteredZone;
-    }
-
-    private IEnumerator SpawnEnemyWithDelay(HideAndShowScript tileToSpawn)
-    {
-        Debug.Log("Enemyspawned");
-        if (GameEventSystem.current.enemyUnits.Count < maxEnemies)
-        {
-            yield return new WaitForSeconds(spawnDelay);
-            eu_GO = Instantiate(enemyUnitPrefab);
-            eu_GO.GetComponent<EnemyUnitScript>().activeTile = tileToSpawn;
-            PositionEnemyOnTile(tileToSpawn);
-            tileToSpawn.isBlocked = true;
-            eu_GO = null;
-            yield return new WaitForSeconds(spawnDelay);
-        }
-        else
-        {
-            Debug.Log("No Enemies spawned");
-            yield return new WaitForSeconds(spawnDelay);
-        }
     }
 
     private void SpawnEnemy(HideAndShowScript tileToSpawn)

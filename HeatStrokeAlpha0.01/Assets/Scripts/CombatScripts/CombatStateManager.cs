@@ -11,6 +11,7 @@ public class CombatStateManager : MonoBehaviour
 
     public CombatState State;
     public bool enemyTurnOver;
+    public bool createSpawnTiles;
 
     //This is when the combatstate in the scene changes, which is what the OnCombatStateChanged variable holds
     public static event Action<CombatState> OnCombatStateChanged;
@@ -73,7 +74,6 @@ public class CombatStateManager : MonoBehaviour
     {
         enemyTurnOver = false;
         Debug.Log("Enemy Turn Started");
-        
         GameEventSystem.current.spawnEnemies();
         GameEventSystem.current.enemyTurnStart();
         StartCoroutine(continueTurn());
@@ -90,6 +90,17 @@ public class CombatStateManager : MonoBehaviour
         GameEventSystem.current.createSpawnTiles();
         GameEventSystem.current.enemyTurnEnd();
         ObjectiveManager.OMInstance.evaluateWinCondition();
+    }
+
+    public IEnumerator continueTurn2()
+    {
+        while(createSpawnTiles != true)
+        {
+            yield return null;
+        }
+
+        Debug.Log("Creating spawn tiles");
+        GameEventSystem.current.createSpawnTiles();
     }
 
     public void HandleDecideState()

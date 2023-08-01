@@ -32,6 +32,7 @@ public class EnemyTurnController : MonoBehaviour
     {
         StartCoroutine(ExecuteAttacksThenMovement());
     }
+
     private IEnumerator ExecuteAttacksThenMovement()
     {
         cleanUpEnemyList();
