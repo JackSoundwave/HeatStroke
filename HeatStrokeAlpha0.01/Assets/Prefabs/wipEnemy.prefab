@@ -602,11 +602,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisUnit: {fileID: 0}
   movement: {fileID: 0}
-  playerBias: 2
+  playerBias: 1
   structureBias: 5
-  randomMin: 0
-  randomMax: 2
-  prioritizeStructs: 0
+  randomMin: 2
+  randomMax: 3
+  prioritizeStructs: 1
   prioritizeUnits: 0
 --- !u!114 &334789067655336312
 MonoBehaviour:

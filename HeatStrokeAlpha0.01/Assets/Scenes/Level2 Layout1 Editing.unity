@@ -361,8 +361,8 @@ MonoBehaviour:
   obj: 1
   hivesToDestroy: 0
   enemiesKilled: 0
-  turnTimer: 5
-  PoCKillCounter: 6
+  turnTimer: 7
+  PoCKillCounter: 0
 --- !u!4 &640704393
 Transform:
   m_ObjectHideFlags: 0
@@ -649,10 +649,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2140038341133000133, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
       propertyPath: tileNumbersToMark.Array.size
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2140038341133000133, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
       propertyPath: tileNumbersToMark.Array.data[0]
+      value: 44
+      objectReference: {fileID: 0}
+    - target: {fileID: 2140038341133000133, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
+      propertyPath: tileNumbersToMark.Array.data[1]
+      value: 49
+      objectReference: {fileID: 0}
+    - target: {fileID: 2140038341133000133, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
+      propertyPath: tileNumbersToMark.Array.data[2]
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 2140038341133000133, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
+      propertyPath: tileNumbersToMark.Array.data[3]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2140038341133000133, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
+      propertyPath: tileNumbersToMark.Array.data[4]
       value: 43
       objectReference: {fileID: 0}
     - target: {fileID: 6223715375987296822, guid: 4f9e66dbf03e7ec478c9273575b5e08a, type: 3}
@@ -707,7 +723,7 @@ MonoBehaviour:
   enemyUnitPrefab: {fileID: 7852278502412264825, guid: d09a40887b6698c499269d029b48d571, type: 3}
   showSpawnTiles: 1
   AddDefaultSpawnTiles: 0
-  tileNumbersToMark: 3b0000003c0000003d000000270000001f0000002800000020000000180000000a0000000b0000000c0000000d0000001300000014000000
+  tileNumbersToMark: 3c0000003d00000027000000200000001f0000002800000018000000040000000200000003000000
   defaultZone: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000
   maxEnemies: 4
   spawnDelay: 1.02
