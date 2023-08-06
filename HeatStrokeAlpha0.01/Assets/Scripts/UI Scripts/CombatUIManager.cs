@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CombatUIManager : MonoBehaviour
 {
@@ -16,8 +16,7 @@ public class CombatUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _unitsLeftNumber;
     [SerializeField] private TextMeshProUGUI _enemyUnitsRemainingNumber;
     [SerializeField] private TextMeshProUGUI _TurnsRemaining;
-
-    //private bool allUnitsDeployed;
+    public GameObject winScreen;
 
     void Awake()
     {
@@ -29,18 +28,21 @@ public class CombatUIManager : MonoBehaviour
     {
         UpdateCombatStateText(CombatStateManager.CSInstance.State);
         GameEventSystem.current.onUnitDeployed += checkDeployUnits;
+        GameEventSystem.current.onEnemyTurnEnd += updateTurnsLeft;
+        GameEventSystem.current.onGridGenerated += updateTurnsLeft;
     }
     void OnDestroy()
     {
         CombatStateManager.OnCombatStateChanged -= CombatStateManagerOnOnCombatStateChanged;
         CombatStateManager.OnCombatStateChanged -= UpdateCombatStateText;
         GameEventSystem.current.onUnitDeployed -= checkDeployUnits;
+        GameEventSystem.current.onEnemyTurnEnd -= updateTurnsLeft;
     }
 
     private void UpdateCombatStateText(CombatState newState)
     {
         combatStateText.text = GetCombatStateText(newState);
-        GameEventSystem.current.onEnemyDeath += updateEnemyRemaining;
+        //GameEventSystem.current.onEnemyDeath += updateEnemyRemaining;
     }
 
     private string GetCombatStateText(CombatState state)
@@ -56,6 +58,8 @@ public class CombatUIManager : MonoBehaviour
                 return "Enemy's Turn";
             case CombatState.Victory:
                 return "Victory!";
+            case CombatState.OutOfCombat:
+                return "ooc";
             case CombatState.Lose:
                 return "Defeated";
             default:
@@ -102,6 +106,14 @@ public class CombatUIManager : MonoBehaviour
         else if (state == CombatState.OutOfCombat)
         {
 
+        }
+        else if(state == CombatState.Victory)
+        {
+            winScreen.SetActive(true);
+        }
+        else if(state == CombatState.Lose)
+        {
+            
         }
         else if(state != CombatState.PlayerTurn)
         {
@@ -177,5 +189,21 @@ public class CombatUIManager : MonoBehaviour
             }
             _deployConfirmButton.interactable = true;
         }
+    }
+
+    private void updateTurnsLeft()
+    {
+        _enemyUnitsRemainingNumber.text = ObjectiveManager.OMInstance.turnTimer.ToString();
+        _enemyUnitsRemainingNumber.ForceMeshUpdate();
+    }
+
+    private void ShowWinScreen()
+    {
+
+    }
+
+    public void BackToLevelSelect()
+    {
+        SceneManager.LoadScene("LevelSelection");
     }
 }
