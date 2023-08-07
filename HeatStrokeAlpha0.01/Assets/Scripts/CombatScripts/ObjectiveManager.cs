@@ -62,7 +62,7 @@ public class ObjectiveManager : MonoBehaviour
         switch (OMInstance.obj)
         {
             case Objective.Defense:
-                if(OMInstance.turnTimer <= 0)
+                if(OMInstance.turnTimer < 0)
                 {
                     CombatStateManager.CSInstance.UpdateCombatState(CombatState.Victory);
                 } 
@@ -73,7 +73,7 @@ public class ObjectiveManager : MonoBehaviour
                 break;
 
             case Objective.Extermination:
-                if (OMInstance.turnTimer <= 0 || OMInstance.hivesToDestroy <= 0)
+                if (OMInstance.turnTimer < 0 || OMInstance.hivesToDestroy <= 0)
                 {
                     CombatStateManager.CSInstance.UpdateCombatState(CombatState.Victory);
                 }
@@ -84,7 +84,7 @@ public class ObjectiveManager : MonoBehaviour
                 break;
 
             case Objective.Escort:
-                if (OMInstance.turnTimer <= 0)
+                if (OMInstance.turnTimer < 0)
                 {
                     CombatStateManager.CSInstance.UpdateCombatState(CombatState.Victory);
                 }
@@ -95,7 +95,7 @@ public class ObjectiveManager : MonoBehaviour
                 break;
 
             case Objective.PoC_Extermination:
-                if (OMInstance.PoCKillCounter <= 0)
+                if (OMInstance.PoCKillCounter < 0)
                 {
                     CombatStateManager.CSInstance.UpdateCombatState(CombatState.Victory);
                 }

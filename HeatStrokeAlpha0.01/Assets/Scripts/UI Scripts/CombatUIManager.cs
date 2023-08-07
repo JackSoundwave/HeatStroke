@@ -194,7 +194,6 @@ public class CombatUIManager : MonoBehaviour
     private void updateTurnsLeft()
     {
         _unitsLeftNumber.SetText(ObjectiveManager.OMInstance.turnTimer.ToString());
-        _unitsLeftNumber.ForceMeshUpdate();
         Debug.Log(_unitsLeftNumber.text);
     }
 

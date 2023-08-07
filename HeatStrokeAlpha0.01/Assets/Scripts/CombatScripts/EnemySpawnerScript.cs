@@ -58,6 +58,13 @@ public class EnemySpawnerScript : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        GameEventSystem.current.onGridGenerated -= SpawnEnemyOnRandomTile;
+        GameEventSystem.current.onEnemyTurnEnd -= OnEnemyTurnEnd;
+        GameEventSystem.current.onGridGenerated -= ShowMarkedTiles;
+    }
+
     /*This updated version of "spawn enemy on random tile" requires additional factors, 
      * like considering how many enemies are currently on the grid for examps, 
      * and whether or not 3 enemies are already about to spawn.

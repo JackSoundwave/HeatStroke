@@ -204,6 +204,9 @@ public class GameEventSystem : MonoBehaviour
         {
             playerUnits[i] = null;
         }
+
+        //resetting enemyList
+        enemyUnits.Clear();
     }
 
     private void onSceneLoaded(Scene scene, LoadSceneMode mode)
