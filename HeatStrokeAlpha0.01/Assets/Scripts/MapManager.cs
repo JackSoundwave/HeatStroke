@@ -90,10 +90,10 @@ public class MapManager : MonoBehaviour
             }
         }
 
-        if (GameEventSystem.current != null)
+        /*if (GameEventSystem.current != null)
         {
             GameEventSystem.current.generatedGrid();
-        }
+        }*/
     }
 
     //Copied and pasted the getNeighbourTiles function from AStarPathfinder to use in other scripts, seeing as it is logic related to the Map and not necessarily the pathfinding script.

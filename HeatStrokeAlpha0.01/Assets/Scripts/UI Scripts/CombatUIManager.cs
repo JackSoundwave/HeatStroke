@@ -193,8 +193,9 @@ public class CombatUIManager : MonoBehaviour
 
     private void updateTurnsLeft()
     {
-        _enemyUnitsRemainingNumber.text = ObjectiveManager.OMInstance.turnTimer.ToString();
-        _enemyUnitsRemainingNumber.ForceMeshUpdate();
+        _unitsLeftNumber.SetText(ObjectiveManager.OMInstance.turnTimer.ToString());
+        _unitsLeftNumber.ForceMeshUpdate();
+        Debug.Log(_unitsLeftNumber.text);
     }
 
     private void ShowWinScreen()

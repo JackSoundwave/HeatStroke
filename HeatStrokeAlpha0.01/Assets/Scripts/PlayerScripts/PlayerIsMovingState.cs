@@ -8,6 +8,8 @@ public class PlayerIsMovingState : PlayerUnitBaseState
     {
         Debug.Log("Unit is moving");
         player.thisUnit.GetComponent<SpriteRenderer>().material = player.thisUnit.normal;
+        player.thisUnit.isMoving = true;
+        player.cursor.HideInRangeTiles();
     }
 
     public override void UpdateState(PlayerStateManager player)
@@ -18,9 +20,9 @@ public class PlayerIsMovingState : PlayerUnitBaseState
         } 
         else
         {
+            player.thisUnit.canMove = false;
             player.thisUnit.isMoving = false;
             player.thisUnit.canMove = false;
-            player.thisUnit.isSelected = false;
             player.SwitchState(player.idleState);
         }
     }

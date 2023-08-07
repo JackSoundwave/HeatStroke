@@ -35,7 +35,16 @@ public class GameEventSystem : MonoBehaviour
 
     private void Awake()
     {
-        current = this;
+        if (current == null)
+        {
+            current = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
         SceneManager.sceneLoaded += onSceneLoaded; 
     }
 

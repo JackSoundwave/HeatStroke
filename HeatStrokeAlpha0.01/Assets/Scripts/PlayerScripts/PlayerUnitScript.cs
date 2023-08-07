@@ -98,18 +98,4 @@ public class PlayerUnitScript : MonoBehaviour
     {
         return activeTile;
     }
-
-    private void OnMouseDown()
-    {
-        if (CombatStateManager.CSInstance.State == CombatState.PlayerTurn)
-        {
-            GameEventSystem.current.unitSelected();
-            MouseController.ActiveInstance.pUnit = this;
-            isSelected = true;
-        }
-        else 
-        {
-            
-        }
-    }
 }

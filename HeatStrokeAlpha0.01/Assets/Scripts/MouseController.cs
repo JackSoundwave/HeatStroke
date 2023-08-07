@@ -109,7 +109,7 @@ public class MouseController : MonoBehaviour
                         transform.position = focusedTileHit.Value.collider.gameObject.GetComponent<PlayerUnitScript>().activeTile.transform.position;
 
                         //can only be selected if the current state is player turn.
-                        if (Input.GetMouseButtonDown(0) && CombatStateManager.CSInstance.State == CombatState.PlayerTurn)
+                        if (Input.GetMouseButtonDown(0) && CombatStateManager.CSInstance.State == CombatState.PlayerTurn && pUnit.isMoving == false)
                         {
                             GameEventSystem.current.unitSelected();
                             pUnit = hoveredPlayerUnit;
