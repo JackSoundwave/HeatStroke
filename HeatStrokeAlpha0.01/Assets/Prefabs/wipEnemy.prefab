@@ -604,8 +604,8 @@ MonoBehaviour:
   movement: {fileID: 0}
   playerBias: 1
   structureBias: 5
-  randomMin: 2
-  randomMax: 3
+  randomMin: 1
+  randomMax: 2
   prioritizeStructs: 1
   prioritizeUnits: 0
 --- !u!114 &334789067655336312
